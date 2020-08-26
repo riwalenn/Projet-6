@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- ======= Hero Section ======= -->
+    <section id="hero">
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            {#<source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">#}
+            <source src="video/snowboarding.mp4" type="video/mp4">
+        </video>
+        <div class="container h-100 hero-container" data-aos="fade-up">
+            <div class="d-flex h-100 text-center align-items-center">
+                <div class="w-100 text-white">
+                    <h1>Partagez vos tricks avec les autres !</h1>
+                    <a href="#tricks" class="btn-get-started scrollto"><i class="bx bx-chevrons-down"></i></a>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Hero -->
+
+    <main id="main">
+        <!-- ======= Tricks Section ======= -->
+        <section id="tricks" class="tricks">
+            <div class="container">
+
+                <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+                    <h2>Tricks</h2>
+                </div>
+
+                <div class="row" data-aos="fade-in">
+                </div>
+
+                <div class="row tricks-container" data-aos="fade-up">
+
+                    <div class="col-lg-4 col-md-6 tricks-item filter-app">
+                        <div class="tricks-wrap shadow">
+                            <img src="img/tricks/snowtricks-1.jpg" class="img-fluid" alt="">
+                            <div class="tricks-links">
+                                <a href="img/tricks/snowtricks-1.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                                <a href="{{ path('tricks') }}" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 tricks-item filter-web">
+                        <div class="tricks-wrap shadow">
+                            <img src="img/tricks/snowtricks-2.jpg" class="img-fluid" alt="">
+                            <div class="tricks-links">
+                                <a href="img/tricks/snowtricks-2.jpg" data-gall="portfolioGallery" class="venobox" title="Web 3"><i class="bx bx-plus"></i></a>
+                                <a href="{{ path('tricks') }}" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 tricks-item filter-app">
+                        <div class="tricks-wrap shadow">
+                            <img src="img/tricks/snowtricks-3.jpg" class="img-fluid" alt="">
+                            <div class="tricks-links">
+                                <a href="img/tricks/snowtricks-3.jpg" data-gall="portfolioGallery" class="venobox" title="App 2"><i class="bx bx-plus"></i></a>
+                                <a href="{{ path('tricks') }}" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 tricks-item filter-card">
+                        <div class="tricks-wrap shadow">
+                            <img src="img/tricks/snowtricks-4.jpg" class="img-fluid" alt="">
+                            <div class="tricks-links">
+                                <a href="img/tricks/snowtricks-4.jpg" data-gall="portfolioGallery" class="venobox" title="Card 2"><i class="bx bx-plus"></i></a>
+                                <a href="{{ path('tricks') }}" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 tricks-item filter-web">
+                        <div class="tricks-wrap shadow">
+                            <img src="img/tricks/snowtricks-5.jpg" class="img-fluid" alt="">
+                            <div class="tricks-links">
+                                <a href="img/tricks/snowtricks-5.jpg" data-gall="portfolioGallery" class="venobox" title="Web 2"><i class="bx bx-plus"></i></a>
+                                <a href="{{ path('tricks') }}" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 tricks-item filter-web">
+                        <div class="tricks-wrap shadow">
+                            <img src="img/tricks/snowtricks-6.jpg" class="img-fluid" alt="">
+                            <div class="tricks-links">
+                                <a href="img/tricks/snowtricks-6.jpg" data-gall="portfolioGallery" class="venobox" title="Web 2"><i class="bx bx-plus"></i></a>
+                                <a href="{{ path('tricks') }}" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 tricks-item filter-card">
+                        <div class="tricks-wrap shadow">
+                            <img src="img/tricks/snowtricks-7.jpg" class="img-fluid" alt="">
+                            <div class="tricks-links">
+                                <a href="img/tricks/snowtricks-7.jpg" data-gall="portfolioGallery" class="venobox" title="Card 1"><i class="bx bx-plus"></i></a>
+                                <a href="{{ path('tricks') }}" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 tricks-item filter-card">
+                        <div class="tricks-wrap shadow">
+                            <img src="img/tricks/snowtricks-8.jpg" class="img-fluid" alt="">
+                            <div class="tricks-links">
+                                <a href="img/tricks/snowtricks-8.jpg" data-gall="portfolioGallery" class="venobox" title="Card 3"><i class="bx bx-plus"></i></a>
+                                <a href="{{ path('tricks') }}" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Tricks Section -->
+    </main><!-- End #main -->
+    <a href="#tricks" class="back-to-top"><i class="icofont-simple-up"></i></a>
+{% endblock %}

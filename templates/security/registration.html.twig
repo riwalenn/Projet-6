@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+            <div class="col-md-8 col-lg-6">
+                <div class="login d-flex align-items-center py-5">
+                    <!-- LOGIN -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-8 mx-auto">
+                                <h3 class="login-heading mb-4">Se connecter</h3>
+                                <form action="{{ path('security_login') }}" method="post">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                                        </div>
+                                        <input type="email" id="inputEmail" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required autofocus>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Mot de passe</span>
+                                        </div>
+                                        <input type="password" id="inputPassword" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                                    </div>
+                                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Se connecter</button>
+                                    <div class="text-center">
+                                        <a class="small" href="#">Oubli du mot de passe ?</a></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- REGISTRATION -->
+                    {#<div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-8 mx-auto">
+                                <h3 class="login-heading mb-4">S'inscrire</h3>
+                                <form action="{{ path('security_registration') }}" method="post">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                                        </div>
+                                        <input type="email" id="inputEmail" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required autofocus>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Mot de passe</span>
+                                        </div>
+                                        <input type="password" id="inputPassword" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Confirmation mot de passe</span>
+                                        </div>
+                                        <input type="password" id="inputPasswordConfirm" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                                    </div>
+                                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">S'inscrire'</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>#}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
