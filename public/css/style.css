@@ -523,41 +523,10 @@ section {
 }
 
 /*--------------------------------------------------------------
-# Portfolio
+# Tricks
 --------------------------------------------------------------*/
 .tricks .tricks-item {
   margin-bottom: 30px;
-}
-
-.tricks #portfolio-flters {
-  padding: 0;
-  margin: 0 auto 35px auto;
-  list-style: none;
-  text-align: center;
-  background: #ecf5f9;
-  border-radius: 50px;
-  padding: 2px 15px;
-}
-
-.tricks #portfolio-flters li {
-  cursor: pointer;
-  display: inline-block;
-  padding: 10px 15px 8px 15px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1;
-  text-transform: uppercase;
-  color: #2f4d5a;
-  margin-bottom: 5px;
-  transition: all 0.3s ease-in-out;
-}
-
-.tricks #portfolio-flters li:hover, .tricks #portfolio-flters li.filter-active {
-  color: #67b0d1;
-}
-
-.tricks #portfolio-flters li:last-child {
-  margin-right: 0;
 }
 
 .tricks .tricks-wrap {
@@ -598,7 +567,7 @@ section {
   text-align: center;
   background: rgba(103, 176, 209, 0.75);
   transition: 0.3s;
-  width: 50%;
+  width: 100%;
 }
 
 .tricks .tricks-wrap .tricks-links a:hover {
@@ -624,40 +593,17 @@ section {
 
 
 /*--------------------------------------------------------------
-# Portfolio Details
+# Tricks Details
 --------------------------------------------------------------*/
-.portfolio-details {
+.tricks-details {
   padding-top: 30px;
 }
 
-.portfolio-details .portfolio-details-container {
+.tricks-details .tricks-details-container {
   position: relative;
 }
 
-.portfolio-details .portfolio-details-carousel {
-  position: relative;
-  z-index: 1;
-}
-
-.portfolio-details .portfolio-details-carousel .owl-nav, .portfolio-details .portfolio-details-carousel .owl-dots {
-  margin-top: 5px;
-  text-align: left;
-}
-
-.portfolio-details .portfolio-details-carousel .owl-dot {
-  display: inline-block;
-  margin: 0 10px 0 0;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: #ddd !important;
-}
-
-.portfolio-details .portfolio-details-carousel .owl-dot.active {
-  background-color: #67b0d1 !important;
-}
-
-.portfolio-details .portfolio-info {
+.tricks-details .tricks-info {
   padding: 30px;
   position: absolute;
   right: 0;
@@ -667,7 +613,7 @@ section {
   z-index: 2;
 }
 
-.portfolio-details .portfolio-info h3 {
+.tricks-details .tricks-info h3 {
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 20px;
@@ -675,36 +621,36 @@ section {
   border-bottom: 1px solid #eee;
 }
 
-.portfolio-details .portfolio-info ul {
+.tricks-details .tricks-info ul {
   list-style: none;
   padding: 0;
   font-size: 15px;
 }
 
-.portfolio-details .portfolio-info ul li + li {
+.tricks-details .tricks-info ul li + li {
   margin-top: 10px;
 }
 
-.portfolio-details .portfolio-description {
+.tricks-details .tricks-description {
   padding-top: 50px;
 }
 
-.portfolio-details .portfolio-description h2 {
+.tricks-details .tricks-description h2 {
   width: 50%;
   font-size: 26px;
   font-weight: 700;
   margin-bottom: 20px;
 }
 
-.portfolio-details .portfolio-description p {
+.tricks-details .tricks-description p {
   padding: 0 0 0 0;
 }
 
 @media (max-width: 768px) {
-  .portfolio-details .portfolio-description h2 {
+  .tricks-details .tricks-description h2 {
     width: 100%;
   }
-  .portfolio-details .portfolio-info {
+  .tricks-details .tricks-info {
     position: static;
     margin-top: 30px;
   }
@@ -725,7 +671,7 @@ section {
 }
 
 .bg-image {
-  background-image: url('https://source.unsplash.com/WEQbe2jBg40/600x1200');
+  background-image: url('../img/login-bg.jpg');
   background-size: cover;
   background-position: center;
 }
