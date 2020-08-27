@@ -1,6 +1,7 @@
 # snowtricks
 
 EN - Projet n°6 created for OpenClassrooms and Backend path.
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/eabfb573ef4a4261903e8dd8b9b26061)](https://app.codacy.com/manual/riwalenn/snowtricks?utm_source=github.com&utm_medium=referral&utm_content=riwalenn/snowtricks&utm_campaign=Badge_Grade_Dashboard)
 
 ## Download and Installation
 
@@ -11,7 +12,6 @@ EN - Projet n°6 created for OpenClassrooms and Backend path.
 * [Squadfree] - template
 
 ## Preview
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/eabfb573ef4a4261903e8dd8b9b26061)](https://app.codacy.com/manual/riwalenn/snowtricks?utm_source=github.com&utm_medium=referral&utm_content=riwalenn/snowtricks&utm_campaign=Badge_Grade_Dashboard)
 **[![Squad-free](https://bootstrapmade.com/wp-content/themefiles/Squadfree/800.png)](https://bootstrapmade.com)**
 
 ## Status
