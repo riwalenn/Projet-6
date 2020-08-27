@@ -14,7 +14,7 @@ EN - Projet n°6 created for OpenClassrooms and Backend path.
 **[![Squad-free](https://bootstrapmade.com/wp-content/themefiles/Squadfree/800.png)](https://bootstrapmade.com)**
 
 ## Status
-[Bootstrap Made license](https://bootstrapmade.com/license/)
+[BootstrapMade license](https://bootstrapmade.com/license/)
 
 ## Copyright and License
 Copyright Squadfree. All Rights Reserved - Designed by [BootstrapMade](https://bootstrapmade.com)
