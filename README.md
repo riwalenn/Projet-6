@@ -11,10 +11,10 @@ EN - Projet n°6 created for OpenClassrooms and Backend path.
 * [Squadfree] - template
 
 ## Preview
-**[![Squad-free](https://bootstrapmade.com/wp-content/themefiles/Squadfree/800.png)**
+**[Squad-free](https://bootstrapmade.com/wp-content/themefiles/Squadfree/800.png)**
 
 ## Status
-[![Bootstrap Made license](https://bootstrapmade.com/license/)
+[Bootstrap Made license](https://bootstrapmade.com/license/)
 
 ## Copyright and License
 Copyright Squadfree. All Rights Reserved - Designed by [BootstrapMade](https://bootstrapmade.com)
