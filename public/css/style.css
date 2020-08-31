@@ -247,7 +247,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mobile-nav-toggle i {
-  color: #fff;
+  color: #385b6b;
 }
 
 .mobile-nav {
@@ -607,7 +607,7 @@ section {
   padding: 30px;
   position: absolute;
   right: 0;
-  bottom: -70px;
+  bottom: -25px;
   background: #fff;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
   z-index: 2;
@@ -635,6 +635,10 @@ section {
   padding-top: 50px;
 }
 
+#sliders-details {
+  padding-top: 5%;
+}
+
 .tricks-details .tricks-description h2 {
   width: 50%;
   font-size: 26px;
@@ -656,9 +660,30 @@ section {
   }
 }
 
-/*--------------------------------------------------------------
+/* ----------------------------------------
+# CAROUSEL
+-----------------------------------------*/
+.carousel-indicators, #sliders-details, .carousel {
+  margin-left: 0!important;
+  padding-left: 0!important;
+  margin-right: 0!important;
+  padding-right: 0!important;
+}
+
+#sliders-details {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+}
+
+div.carousel.slide {
+  margin-top: 3% !important;
+}
+
+
+/*----------------------------------------
 # SIGNUP/LOGIN
- */
+------------------------------------------*/
 
 :root {
   --input-padding-x: 1.5rem;
@@ -776,15 +801,7 @@ section {
 /*--------------------------------------------------------------
 # LOGIN/SIGNUP
 --------------------------------------------------------------*/
-input#inputEmail, input#inputPassword {
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-}
 
-.input-group>.input-group-prepend>.input-group-text{
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-}
 
 /*--------------------------------------------------------------
 # Footer

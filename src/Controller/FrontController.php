@@ -29,9 +29,9 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/tricks", name="tricks")
+     * @Route("/tricks_detail", name="detail")
      */
-    public function tricks()
+    public function tricks_detail()
     {
         return $this->render('front/tricks-details.html.twig', ['title' => "Tricks"]);
     }
