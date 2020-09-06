@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="265bac9f-db4e-4687-a8c3-c9f0bca99b25" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/UML/authentication/cas_utilisation.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/authentication/diagramme_de_sequence.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/comments/cas_utilisation.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/diagramme_de_classe.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/modele_de_donnees.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/profils/Cas_utilisation.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/profils/diagramme_de_sequence.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20200903174009.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/login-bg.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Comment.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Trick.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/TrickHistory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/TrickLibrary.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/CommentRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/TrickHistoryRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/TrickLibraryRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/TrickRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="265bac9f-db4e-4687-a8c3-c9f0bca99b25" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -187,7 +165,9 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1gDlytY2tn6irbXtqXms1hJSBFk" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
