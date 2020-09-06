@@ -2,8 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="265bac9f-db4e-4687-a8c3-c9f0bca99b25" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/UML/authentication/cas_utilisation.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UML/authentication/diagramme_de_sequence.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UML/comments/cas_utilisation.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UML/diagramme_de_classe.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UML/modele_de_donnees.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UML/profils/Cas_utilisation.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UML/profils/diagramme_de_sequence.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20200903174009.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/login-bg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Comment.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Trick.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/TrickHistory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/TrickLibrary.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/CommentRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/TrickHistoryRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/TrickLibraryRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/TrickRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UML/comments/cas_utilisation.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/UML/comments/cas_utilisation.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,10 +36,46 @@
     </execution>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="UML" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="2" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="entities_creation" />
+                    <option name="lastUsedInstant" value="1599154102" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="UML" />
+                    <option name="lastUsedInstant" value="1598896113" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="master" />
+                    <option name="lastUsedInstant" value="1598896107" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="entities_initialization" />
+                    <option name="lastUsedInstant" value="1598896069" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="81877617-2700-4beb-a296-3f8b3629b8ae" />
@@ -169,6 +224,10 @@
       <workItem from="1598732020705" duration="829000" />
       <workItem from="1598871754627" duration="1993000" />
       <workItem from="1599380832486" duration="676000" />
+      <workItem from="1598895868105" duration="385000" />
+      <workItem from="1598970810096" duration="618000" />
+      <workItem from="1599115447612" duration="2177000" />
+      <workItem from="1599153351491" duration="2150000" />
     </task>
     <task id="LOCAL-00001" summary="[BASE]symfony &amp; template installation and configuration">
       <created>1598440027272</created>
@@ -184,7 +243,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598459842370</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="[BASE]symfony &amp; template installation and configuration =&gt; add carousel on details tricks with responsive">
+      <created>1598874488135</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1598874488135</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,7 +258,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="[BASE]symfony &amp; template installation and configuration" />
-    <option name="LAST_COMMIT_MESSAGE" value="[BASE]symfony &amp; template installation and configuration" />
+    <MESSAGE value="[BASE]symfony &amp; template installation and configuration =&gt; add carousel on details tricks with responsive" />
+    <option name="LAST_COMMIT_MESSAGE" value="[BASE]symfony &amp; template installation and configuration =&gt; add carousel on details tricks with responsive" />
   </component>
   <component name="WindowStateProjectService">
     <state x="540" y="174" key="#CLI_Interpreters" timestamp="1597658119780">
@@ -207,10 +274,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="729" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598432522174" />
-    <state x="585" y="96" key="CommitChangelistDialog2" timestamp="1598459841081">
+    <state x="585" y="96" key="CommitChangelistDialog2" timestamp="1598874486180">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="96" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598459841081" />
+    <state x="585" y="96" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598874486180" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1598439873644">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -227,6 +294,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598427284501" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1598874610161">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598874610161" />
     <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598439899738">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
