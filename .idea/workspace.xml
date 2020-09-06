@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="265bac9f-db4e-4687-a8c3-c9f0bca99b25" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/UML/authentication/cas_utilisation.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/authentication/diagramme_de_sequence.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/comments/cas_utilisation.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/diagramme_de_classe.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/modele_de_donnees.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/profils/Cas_utilisation.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UML/profils/diagramme_de_sequence.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UML/comments/cas_utilisation.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/UML/comments/cas_utilisation.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,6 +168,7 @@
       <workItem from="1598687469062" duration="5365000" />
       <workItem from="1598732020705" duration="829000" />
       <workItem from="1598871754627" duration="1993000" />
+      <workItem from="1599380832486" duration="676000" />
     </task>
     <task id="LOCAL-00001" summary="[BASE]symfony &amp; template installation and configuration">
       <created>1598440027272</created>
