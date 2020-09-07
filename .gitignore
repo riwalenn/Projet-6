@@ -16,3 +16,5 @@
 ###< symfony/phpunit-bridge ###
 
 /_UML/
+.htaccess
+/src/DataFixtures/
