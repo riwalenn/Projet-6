@@ -5,7 +5,7 @@
     <section id="hero">
         <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
             {#<source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">#}
-            <source src="video/snowboarding.mp4" type="video/mp4">
+            <source src="{{ asset('video/snowboarding.mp4') }}" type="video/mp4">
         </video>
         <div class="container h-100 hero-container" data-aos="fade-up">
             <div class="d-flex h-100 text-center align-items-center">
@@ -21,70 +21,17 @@
         <section id="tricks" class="tricks">
             <div class="container">
                 <div class="row tricks-container" data-aos="fade-up">
-                    <div class="col-lg-4 col-md-6 tricks-item filter-app">
-                        <div class="tricks-wrap shadow">
-                            <img src="img/tricks/snowtricks-1.jpg" class="img-fluid" alt="">
-                            <div class="tricks-links">
-                                <a href="{{ path('detail') }}" title="More Details">Elbow carve</a>
+                    {% for trick in tricks %}
+                        {% dump(trick) %}
+                        <div class="col-lg-4 col-md-6 tricks-item">
+                            <div class="tricks-wrap shadow">
+                                <img src="{{ asset('img/tricks/' ~ trick.image) }}" class="img-fluid" alt="{{ trick.title }}">
+                                <div class="tricks-links">
+                                    <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details">{{ trick.title | slice(0, 24) }}...</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 tricks-item filter-web">
-                        <div class="tricks-wrap shadow">
-                            <img src="img/tricks/snowtricks-2.jpg" class="img-fluid" alt="">
-                            <div class="tricks-links">
-                                <a href="{{ path('detail') }}" title="More Details">Tail Block</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 tricks-item filter-app">
-                        <div class="tricks-wrap shadow">
-                            <img src="img/tricks/snowtricks-3.jpg" class="img-fluid" alt="">
-                            <div class="tricks-links">
-                                <a href="{{ path('detail') }}" title="More Details">Frontflip</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 tricks-item filter-card">
-                        <div class="tricks-wrap shadow">
-                            <img src="img/tricks/snowtricks-4.jpg" class="img-fluid" alt="">
-                            <div class="tricks-links">
-                                <a href="{{ path('detail') }}" title="More Details">Backflip</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 tricks-item filter-web">
-                        <div class="tricks-wrap shadow">
-                            <img src="img/tricks/snowtricks-5.jpg" class="img-fluid" alt="">
-                            <div class="tricks-links">
-                                <a href="{{ path('detail') }}" title="More Details">Nose grab</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 tricks-item filter-web">
-                        <div class="tricks-wrap shadow">
-                            <img src="img/tricks/snowtricks-6.jpg" class="img-fluid" alt="">
-                            <div class="tricks-links">
-                                <a href="{{ path('detail') }}" title="More Details">Handplant</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 tricks-item filter-card">
-                        <div class="tricks-wrap shadow">
-                            <img src="img/tricks/snowtricks-7.jpg" class="img-fluid" alt="">
-                            <div class="tricks-links">
-                                <a href="{{ path('detail') }}" title="More Details">Tail side</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 tricks-item filter-card">
-                        <div class="tricks-wrap shadow">
-                            <img src="img/tricks/snowtricks-8.jpg" class="img-fluid" alt="">
-                            <div class="tricks-links">
-                                <a href="{{ path('detail') }}" title="More Details">Tripod</a>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section><!-- End Tricks Section -->

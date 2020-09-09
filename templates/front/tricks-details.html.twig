@@ -8,11 +8,14 @@
             <div class="container">
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>Snow tricks nom_tricks</h2>
+                    <div class="d-flex flex-column align-items-start">
+                        <h2>{{ trick.title }}</h2>
+                        <blockquote class="blockquote-footer">Créé le {{ trick.user.pseudo~ " par " ~trick.createdAt | date('d/m/Y à H:i') }}</blockquote>
+                    </div>
                     <ol>
                         <li><a href="/">Home</a></li>
                         <li><a href="/">Tricks</a></li>
-                        <li>Snow tricks information</li>
+                        <li>{{ trick.title | slice(0, 15) }}...</li>
                     </ol>
                 </div>
 
@@ -24,16 +27,16 @@
             <div class="container">
 
                 <div class="tricks-details-container">
-                        <img src="img/tricks/snowtricks-1.jpg" class="img-fluid" alt="">
+                        <img src="{{ asset('img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
 
                     <div class="tricks-info">
-                        <h3>Snow tricks information</h3>
+                        <h3>Snow tricks informations</h3>
                         <ul>
-                            <li><strong>Position</strong>: regular / goofy</li>
-                            <li><strong>Grabs</strong>: mute / sad / indy / ...</li>
-                            <li><strong>Rotation</strong>: 180 / 360 / 540 / ...</li>
-                            <li><strong>Flip</strong>: front / back</li>
-                            <li><strong>Slide</strong>: nose / tail</li>
+                            <li><strong>Position</strong>: {{ trick.position }}</li>
+                            <li><strong>Grabs</strong>: {{ trick.grabs }}</li>
+                            <li><strong>Rotation</strong>: {{ trick.rotation }}</li>
+                            <li><strong>Flip</strong>: {{ trick.flip }}</li>
+                            <li><strong>Slide</strong>: {{ trick.slide }}</li>
                         </ul>
                     </div>
 
@@ -95,10 +98,17 @@
                 </div>
 
                 <div class="tricks-description">
-                    <h2>This is an example of Snow tricks detail</h2>
-                    <p>
-                        Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-                    </p>
+                    <h2>{{ trick.title }}</h2>
+                   {{ trick.description | raw }}
+                </div>
+                <div class="tricks-description">
+                    <blockquote class="blockquote-footer">Historique des contributeurs de l'article :
+                            {%  for trickHistory in trick.trickHistories %}
+                                <ul class="list-group list-group-flush">
+                                    <li>{{ trickHistory.modifiedAt | date('d/m/Y à H:i')~" (contributeur : "~trickHistory.user.pseudo }})</li>
+                                </ul>
+                            {% endfor %}
+                    </blockquote>
                 </div>
             </div>
         </section><!-- End Tricks Details Section -->

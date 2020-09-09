@@ -6,8 +6,8 @@
         <meta name="description" content="SnowTricks : site collaboratif pour faire connaître le snowboard auprès du grand public et aider à l'apprentissage des figures.">
         <meta name="author" content="Riwalenn Bas">
         <title>{% block title %}{{ title }}{% endblock %}</title>  <!-- Favicons -->
-        <link href="img/favicon.png" rel="icon">
-        <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+        <link href="{{ asset('img/favicon.png') }}" rel="icon">
+        <link href="{{ asset('img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -17,13 +17,13 @@
 
         <!-- Mes css -->
         {% block stylesheets %}
-            <link href="css/bootstrap.min.css" rel="stylesheet">
-            <link href="css/icofont.min.css" rel="stylesheet">
-            <link href="css/boxicons.min.css" rel="stylesheet">
-            <link href="css/venobox.css" rel="stylesheet">
-            <link href="css/owl.carousel.min.css" rel="stylesheet">
-            <link href="css/aos.css" rel="stylesheet">
-            <link href="css/style.css" rel="stylesheet">
+            <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/icofont.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/boxicons.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/venobox.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/aos.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/style.css') }}" rel="stylesheet">
         {% endblock %}
         <!-- =======================================================
          * Template Name: Squadfree - v2.2.0
@@ -40,7 +40,7 @@
             <div class="logo mr-auto">
                 {#<h1 class="text-light"><a href="/"><span>Squadfree</span></a></h1>#}
                 <!-- Uncomment below if you prefer to use an image logo -->
-                <a href="{{ path('home') }}"><img src="img/logo.png" alt="" class="img-fluid"></a>
+                <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" alt="" class="img-fluid"></a>
             </div>
 
             <nav class="nav-menu d-none d-lg-block">
@@ -76,17 +76,17 @@
         </footer><!-- End Footer -->
 
         <!-- Liens Javascript -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/jquery.easing.min.js"></script>
-        <script src="js/jquery.waypoints.min.js"></script>
-        <script src="js/counterup.min.js"></script>
-        <script src="js/isotope.pkgd.min.js"></script>
-        <script src="js/venobox.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/aos.js"></script>
+        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
+        <script src="{{ asset('js/counterup.min.js') }}"></script>
+        <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
+        <script src="{{ asset('js/venobox.min.js') }}"></script>
+        <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('js/aos.js') }}"></script>
         {% block javascripts %}
-            <script src="js/main.js"></script>
+            <script src="{{ asset('js/main.js') }}"></script>
         {% endblock %}
     </body>
 </html>
