@@ -47,10 +47,12 @@
                 <ul>
                     <li class="active"><a href="{{ path('home') }}">Accueil</a></li>
                     <li><a href="{{ path('home', {'_fragment': 'tricks'}) }}">Tricks</a></li>
-                    <li><a href="{{ path('security_registration') }}">Inscription</a></li>
-                    <li><a href="{{ path('security_login') }}">Connexion</a></li>
-                    <li><a href="{{ path('security_logout') }}">Déconnexion</a></li>
-
+                    {% if not app.user %}
+                        <li><a href="{{ path('security_registration') }}">Inscription</a></li>
+                        <li><a href="{{ path('security_login') }}">Connexion</a></li>
+                    {% else %}
+                        <li><a href="{{ path('security_logout') }}">Déconnexion</a></li>
+                    {% endif %}
                 </ul>
             </nav><!-- .nav-menu -->
 
@@ -85,6 +87,7 @@
         <script src="{{ asset('js/venobox.min.js') }}"></script>
         <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
         <script src="{{ asset('js/aos.js') }}"></script>
+        <script src="{{ asset('js/snowtricks.js') }}"></script>
         {% block javascripts %}
             <script src="{{ asset('js/main.js') }}"></script>
         {% endblock %}

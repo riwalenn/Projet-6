@@ -1,0 +1,1 @@
+$('.form-control').parent().addClass('form-div');

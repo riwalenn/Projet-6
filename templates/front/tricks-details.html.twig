@@ -10,7 +10,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex flex-column align-items-start">
                         <h2>{{ trick.title }}</h2>
-                        <blockquote class="blockquote-footer">Créé le {{ trick.user.pseudo~ " par " ~trick.createdAt | date('d/m/Y à H:i') }}</blockquote>
+                        <blockquote class="blockquote-footer">Créé par {{ trick.user.username~ " le " ~trick.createdAt | date('d/m/Y à H:i') }}</blockquote>
                     </div>
                     <ol>
                         <li><a href="/">Home</a></li>
@@ -105,7 +105,7 @@
                     <blockquote class="blockquote-footer">Historique des contributeurs de l'article :
                             {%  for trickHistory in trick.trickHistories %}
                                 <ul class="list-group list-group-flush">
-                                    <li>{{ trickHistory.modifiedAt | date('d/m/Y à H:i')~" (contributeur : "~trickHistory.user.pseudo }})</li>
+                                    <li>{{ trickHistory.modifiedAt | date('d/m/Y à H:i')~" (contributeur : "~trickHistory.user.username }})</li>
                                 </ul>
                             {% endfor %}
                     </blockquote>
