@@ -712,6 +712,10 @@ div.carousel.slide {
   border-radius: 15px;
 }
 
+.form-div {
+  width: 85%;
+}
+
 .form-label-group {
   position: relative;
   margin-bottom: 1rem;

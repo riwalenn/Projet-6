@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="265bac9f-db4e-4687-a8c3-c9f0bca99b25" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/TrikFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/front/home.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/home.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/front/tricks-details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/tricks-details.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/snowtricks.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/snowtricks.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +18,13 @@
     <execution>
       <phar pharPath="$PROJECT_DIR$/composer.phar" interpreterId="ae50f519-b808-4006-a882-d6cab4899df6" />
     </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -35,6 +44,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="Authentification" />
+                    <option name="lastUsedInstant" value="1599762539" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="add_models" />
                     <option name="lastUsedInstant" value="1599500194" />
                   </RecentBranch>
@@ -49,10 +62,6 @@
                   <RecentBranch>
                     <option name="branchName" value="UML" />
                     <option name="lastUsedInstant" value="1598896113" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="entities_initialization" />
-                    <option name="lastUsedInstant" value="1598896069" />
                   </RecentBranch>
                 </list>
               </option>
@@ -174,6 +183,7 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
       <path value="$PROJECT_DIR$/vendor/aalaap/faker-youtube" />
+      <path value="$PROJECT_DIR$/vendor/symfony/orm-pack" />
     </include_path>
   </component>
   <component name="ProjectId" id="1gDlytY2tn6irbXtqXms1hJSBFk" />
@@ -189,7 +199,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.smartKeys" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -225,6 +236,10 @@
       <workItem from="1599668639665" duration="4949000" />
       <workItem from="1599717199663" duration="2752000" />
       <workItem from="1599756485885" duration="5000" />
+      <workItem from="1599761154470" duration="6299000" />
+      <workItem from="1599846799929" duration="9193000" />
+      <workItem from="1599857779561" duration="1060000" />
+      <workItem from="1599915913371" duration="6047000" />
     </task>
     <task id="LOCAL-00001" summary="[BASE]symfony &amp; template installation and configuration">
       <created>1598440027272</created>
@@ -261,7 +276,21 @@
       <option name="project" value="LOCAL" />
       <updated>1599499814802</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="[MAJ] maj des assets">
+      <created>1599761314771</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1599761314771</updated>
+    </task>
+    <task id="LOCAL-00007" summary="[ADD] authentication &amp; login &amp; css &amp; js // [MAJ]pseudo =&gt; username (too many login problems with pseudo)">
+      <created>1599918824978</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1599918824978</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,7 +301,9 @@
     <MESSAGE value="[BASE]symfony &amp; template installation and configuration =&gt; add carousel on details tricks with responsive" />
     <MESSAGE value="[conflict] conflict with uml branche" />
     <MESSAGE value="[MAJ] fixtures maj without fixtures for git" />
-    <option name="LAST_COMMIT_MESSAGE" value="[MAJ] fixtures maj without fixtures for git" />
+    <MESSAGE value="[MAJ] maj des assets" />
+    <MESSAGE value="[ADD] authentication &amp; login &amp; css &amp; js // [MAJ]pseudo =&gt; username (too many login problems with pseudo)" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] authentication &amp; login &amp; css &amp; js // [MAJ]pseudo =&gt; username (too many login problems with pseudo)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="540" y="174" key="#CLI_Interpreters" timestamp="1597658119780">
@@ -283,30 +314,42 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="770" y="399" key="#Composer/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597657371126" />
+    <state x="552" y="178" key="#Deployment" timestamp="1599761465710">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#Deployment/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599761465710" />
     <state x="729" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598432522174">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="729" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598432522174" />
-    <state x="585" y="96" key="CommitChangelistDialog2" timestamp="1599499813952">
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1599854185510">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="96" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599499813952" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1598439873644">
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599854185510" />
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599853884296">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598439873644" />
-    <state x="796" y="222" key="RollbackChangesDialog" timestamp="1599499747010">
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599853884296" />
+    <state x="104" y="96" width="1230" height="864" key="CommitChangelistDialog2" timestamp="1599918823296">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="796" y="222" key="RollbackChangesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599499747010" />
-    <state x="461" y="164" key="SettingsEditor" timestamp="1598521622172">
+    <state x="104" y="96" width="1230" height="864" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599918823296" />
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1599851578988">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598521622172" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1598427284501">
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599851578988" />
+    <state x="796" y="222" key="RollbackChangesDialog" timestamp="1599853779478">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598427284501" />
+    <state x="796" y="222" key="RollbackChangesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599853779478" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1599762090167">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599762090167" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1599851575579">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599851575579" />
     <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1598874610161">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -319,9 +362,9 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1753" y="325" width="1466" height="630" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599422162991" />
-    <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1597659960487">
+    <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1599770329385">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="253" width="585" height="534" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597659960487" />
+    <state x="667" y="253" width="585" height="534" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599770329385" />
   </component>
 </project>
