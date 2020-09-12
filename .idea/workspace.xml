@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="265bac9f-db4e-4687-a8c3-c9f0bca99b25" name="Default Changelist" comment="[MAJ] maj des assets">
-      <change afterPath="$PROJECT_DIR$/public/img/tricks/snowtricks-10.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/tricks/snowtricks-11.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/tricks/snowtricks-12.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/tricks/snowtricks-13.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/tricks/snowtricks-14.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/tricks/snowtricks-9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/snowtricks.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/RegistrationType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/snowtricks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/snowtricks.iml" afterDir="false" />
+    <list default="true" id="265bac9f-db4e-4687-a8c3-c9f0bca99b25" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/TrikFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20200903174009.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20200903174009.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/front/tricks-details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/tricks-details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security/registration.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/registration.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/snowtricks.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/snowtricks.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,7 +239,7 @@
       <workItem from="1599761154470" duration="6299000" />
       <workItem from="1599846799929" duration="9193000" />
       <workItem from="1599857779561" duration="1060000" />
-      <workItem from="1599915913371" duration="2785000" />
+      <workItem from="1599915913371" duration="6047000" />
     </task>
     <task id="LOCAL-00001" summary="[BASE]symfony &amp; template installation and configuration">
       <created>1598440027272</created>
@@ -299,7 +283,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599761314771</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="[ADD] authentication &amp; login &amp; css &amp; js // [MAJ]pseudo =&gt; username (too many login problems with pseudo)">
+      <created>1599918824978</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1599918824978</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -311,7 +302,8 @@
     <MESSAGE value="[conflict] conflict with uml branche" />
     <MESSAGE value="[MAJ] fixtures maj without fixtures for git" />
     <MESSAGE value="[MAJ] maj des assets" />
-    <option name="LAST_COMMIT_MESSAGE" value="[MAJ] maj des assets" />
+    <MESSAGE value="[ADD] authentication &amp; login &amp; css &amp; js // [MAJ]pseudo =&gt; username (too many login problems with pseudo)" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] authentication &amp; login &amp; css &amp; js // [MAJ]pseudo =&gt; username (too many login problems with pseudo)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="540" y="174" key="#CLI_Interpreters" timestamp="1597658119780">
@@ -338,10 +330,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599853884296" />
-    <state x="104" y="96" width="1230" height="864" key="CommitChangelistDialog2" timestamp="1599762564745">
+    <state x="104" y="96" width="1230" height="864" key="CommitChangelistDialog2" timestamp="1599918823296">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="104" y="96" width="1230" height="864" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599762564745" />
+    <state x="104" y="96" width="1230" height="864" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599918823296" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1599851578988">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
