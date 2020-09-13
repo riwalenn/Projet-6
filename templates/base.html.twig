@@ -47,12 +47,20 @@
                 <ul>
                     <li class="active"><a href="{{ path('home') }}">Accueil</a></li>
                     <li><a href="{{ path('home', {'_fragment': 'tricks'}) }}">Tricks</a></li>
-                    {% if not app.user %}
-                        <li><a href="{{ path('security_registration') }}">Inscription</a></li>
-                        <li><a href="{{ path('security_login') }}">Connexion</a></li>
-                    {% else %}
-                        <li><a href="{{ path('security_logout') }}">Déconnexion</a></li>
+                    {% if app.user %}
+                        <li><a href="{{ path('add_trick') }}">Ajouter un Trick</a></li>
                     {% endif %}
+                    <li class="drop-down"><a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                        <ul>
+                            {% if not app.user %}
+                            <li><a href="{{ path('security_registration') }}">S'inscrire</a></li>
+                            <li><a href="{{ path('security_login') }}">Connexion</a></li>
+                            {% else %}
+                            <li><a href="#">Mon profil</a></li>
+                            <li><a href="{{ path('security_logout') }}" onclick="return ConfirmDeconnexion()">Déconnexion</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
                 </ul>
             </nav><!-- .nav-menu -->
 

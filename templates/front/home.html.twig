@@ -27,7 +27,12 @@
                             <div class="tricks-wrap shadow">
                                 <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="{{ trick.title }}">
                                 <div class="tricks-links">
-                                    <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details">{{ trick.title | slice(0, 24) }}...</a>
+                                    {% if not app.user %}
+                                        <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-12">{{ trick.title | slice(0, 24) }}...</a>
+                                    {% else %}
+                                        <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-8">{{ trick.title | slice(0, 16) }}...</a>
+                                        <a href="{{ path('edit_trick', {'id': trick.id}) }}" class="trick-link col-2"><i class="fa fa-edit"></i></a><a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -37,4 +42,35 @@
         </section><!-- End Tricks Section -->
     </main><!-- End #main -->
     <a href="#tricks" class="back-to-top"><i class="icofont-simple-up"></i></a>
+    {% if app.user %}
+    {% for trick in tricks %}
+        <div class="portfolio-modal modal fade" id="delete_trick_modal{{ trick.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-dismiss="modal">
+                        <div class="lr">
+                            <div class="rl"></div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+                                <div class="modal-body">
+                                    <p>Souhaitez-vous vraiment supprimer le trick ayant le titre : {{ trick.title }} ?</p>
+                                    <form name="{{ path('delete_trick', {'id': trick.id}) }}" method="post">
+                                        <input type="hidden" id="inputId" name="deleteTrick[id]" value="{{ trick.id }}">
+                                        <div class="buttons">
+                                            <button type="submit" class="btn btn-outline-danger" value="delete" onclick="">Supprimer</button>
+                                            <button class="btn btn-outline-primary" data-dismiss="modal" type="button"><i class="fa fa-times"></i>Annuler</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% endif %}
 {% endblock %}
