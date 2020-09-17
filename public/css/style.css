@@ -510,6 +510,10 @@ section {
   content: "/";
 }
 
+.count-comments {
+  padding: 0 4px!important;
+}
+
 @media (max-width: 768px) {
   .breadcrumbs .d-flex {
     display: block !important;

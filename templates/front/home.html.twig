@@ -27,14 +27,17 @@
                                 <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="{{ trick.title }}">
                                 <div class="tricks-links">
                                     {% if not app.user %}
-                                        <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-12">{{ trick.title | slice(0, 24) }}...</a>
+                                        <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-10">{{ trick.title | slice(0, 24) }}...</a>
+                                        <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-2"><i class="fa fa-comments">{{ trick.comments | length }}</i></a>
                                     {% else %}
                                         {% if app.user == trick.user %}
-                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-8">{{ trick.title | slice(0, 16) }}...</a>
+                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-6">{{ trick.title | slice(0, 14) }}...</a>
+                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-2"><i class="fa fa-comments">{{ trick.comments | length }}</i></a>
                                             <a href="{{ path('edit_trick', {'id': trick.id}) }}" class="trick-link col-2"><i class="fa fa-edit"></i></a>
                                             <a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
                                         {% else %}
-                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-10">{{ trick.title | slice(0, 16) }}...</a>
+                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-8">{{ trick.title | slice(0, 16) }}...</a>
+                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-2"><i class="fa fa-comments">{{ trick.comments | length }}</i></a>
                                             <a href="{{ path('edit_trick', {'id': trick.id}) }}" class="trick-link col-2"><i class="fa fa-edit"></i></a>
                                         {% endif %}
                                     {% endif %}
