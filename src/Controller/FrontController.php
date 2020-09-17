@@ -7,12 +7,16 @@ use App\Entity\TrickHistory;
 use App\Entity\User;
 use App\Repository\TrickHistoryRepository;
 use App\Repository\TrickRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FilesystemIterator;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\File;
 
 class FrontController extends AbstractController
 {
@@ -22,7 +26,7 @@ class FrontController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(TrickRepository $repository)
+    public function home(TrickRepository $repository, UserRepository $userRepository)
     {
         $tricks = $repository->findAll();
         return $this->render('front/home.html.twig', [
@@ -45,8 +49,7 @@ class FrontController extends AbstractController
     }
 
     /**
-     *
-     * @Route("/{id}", name="delete_trick")
+     * @Route("/delete_trick/{id}", name="delete_trick")
      */
     public function deleteTrick(Trick $trick, EntityManagerInterface $manager)
     {
@@ -80,26 +83,32 @@ class FrontController extends AbstractController
     {
         if (!$trick) {
             $trick = new Trick();
-            $title = "Ajouter un nouveau trick";
         }
-        if ($trick) {
-            $title = "test";
-        }
+
         $user = $this->getUser();
-        //Ajout d'une image
-        $files = new FilesystemIterator('img/tricks', FilesystemIterator::SKIP_DOTS);
-        $count = iterator_count($files);
-        $newFileId = $count+1;
 
         $form = $this->createFormBuilder($trick)
                         ->add('title')
-                        ->add('image')
                         ->add('description')
                         ->add('position')
                         ->add('grabs')
                         ->add('rotation')
                         ->add('flip')
                         ->add('slide')
+                        ->add('image', FileType::class, [
+                            'label' => 'snowtricks-',
+                            'mapped' => false,
+                            'required' => false,
+                            'constraints' => [
+                                new File([
+                                    'maxSize' => '1024k',
+                                    'mimeTypes' => [
+                                        'image/jpeg',
+                                    ],
+                                    'mimeTypesMessage' => 'Merci d\'upload un fichier jpeg',
+                                ])
+                            ],
+                        ])
                         ->getForm();
         $form->handleRequest($request);
 
@@ -107,11 +116,32 @@ class FrontController extends AbstractController
             if (!$trick->getId()) {
                 $trick->setCreatedAt(new \DateTime());
                 $trick->setUser($user);
+                $files = $form->get('image')->getData();
+                if ($files) {
+                    $listFiles = new FilesystemIterator('img/tricks', FilesystemIterator::SKIP_DOTS);
+                    $count = iterator_count($listFiles);
+                    $newFileId = $count+1;
+
+                    $newFileName = 'snowtricks-'. $newFileId .'.'. $files->guessExtension();
+
+                    try {
+                        $files->move($this->getParameter('imgTricks_directory'), $newFileName);
+                    }catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+                    $trick->setImage($newFileName);
+                }
             }
             $manager->persist($trick);
             $manager->flush();
 
             return $this->redirectToRoute('home');
+        }
+
+        if ($trick) {
+            $title = $trick->getTitle();
+        } else {
+            $title = "Ajouter un trick.";
         }
 
         return $this->render('front/tricks-form.html.twig', [

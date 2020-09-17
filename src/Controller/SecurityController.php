@@ -4,11 +4,16 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use FilesystemIterator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\File;
 
 class SecurityController extends AbstractController
 {
@@ -21,8 +26,11 @@ class SecurityController extends AbstractController
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $imagesArray = ['https://lorempixel.com/30/30/sports/?84381', 'https://lorempixel.com/30/30/sports/?16271', 'https://lorempixel.com/30/30/sports/?96065', 'https://lorempixel.com/30/30/sports/?65391', 'https://lorempixel.com/30/30/sports/?91953'];
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
+            $user->setToken(bin2hex(random_bytes(32)));
+            $user->setImage(array_rand(array_flip($imagesArray)));
             $manager->persist($user);
             $manager->flush();
 

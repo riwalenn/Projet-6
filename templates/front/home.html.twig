@@ -22,7 +22,6 @@
             <div class="container">
                 <div class="row tricks-container" data-aos="fade-up">
                     {% for trick in tricks %}
-                        {% dump(trick) %}
                         <div class="col-lg-4 col-md-6 tricks-item">
                             <div class="tricks-wrap shadow">
                                 <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="{{ trick.title }}">
@@ -30,8 +29,14 @@
                                     {% if not app.user %}
                                         <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-12">{{ trick.title | slice(0, 24) }}...</a>
                                     {% else %}
-                                        <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-8">{{ trick.title | slice(0, 16) }}...</a>
-                                        <a href="{{ path('edit_trick', {'id': trick.id}) }}" class="trick-link col-2"><i class="fa fa-edit"></i></a><a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                                        {% if app.user == trick.user %}
+                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-8">{{ trick.title | slice(0, 16) }}...</a>
+                                            <a href="{{ path('edit_trick', {'id': trick.id}) }}" class="trick-link col-2"><i class="fa fa-edit"></i></a>
+                                            <a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                                        {% else %}
+                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details" class="trick-link col-10">{{ trick.title | slice(0, 16) }}...</a>
+                                            <a href="{{ path('edit_trick', {'id': trick.id}) }}" class="trick-link col-2"><i class="fa fa-edit"></i></a>
+                                        {% endif %}
                                     {% endif %}
                                 </div>
                             </div>
@@ -57,7 +62,7 @@
                             <div class="col-lg-8 mx-auto">
                                 <div class="modal-body">
                                     <p>Souhaitez-vous vraiment supprimer le trick ayant le titre : {{ trick.title }} ?</p>
-                                    <form name="{{ path('delete_trick', {'id': trick.id}) }}" method="post">
+                                    <form action="{{ path('delete_trick', {'id': trick.id}) }}" method="post">
                                         <input type="hidden" id="inputId" name="deleteTrick[id]" value="{{ trick.id }}">
                                         <div class="buttons">
                                             <button type="submit" class="btn btn-outline-danger" value="delete" onclick="">Supprimer</button>
