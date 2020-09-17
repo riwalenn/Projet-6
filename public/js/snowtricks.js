@@ -9,3 +9,15 @@ if (urlcourante.indexOf('tricks_detail') === 1) {
 } else {
     false;
 }
+
+function ConfirmDeconnexion() {
+    if (confirm("Etes-vous sûr de vouloir vous déconnecter ?")) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function confirmTrickDelete(id){
+    $("#delete_trick_modal"+id).modal();
+}

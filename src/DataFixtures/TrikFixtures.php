@@ -20,7 +20,9 @@ class TrikFixtures extends Fixture
             $user = new User();
             $user->setUsername($faker->userName)
                     ->setEmail($faker->email)
-                    ->setPassword($faker->password(12, 18));
+                    ->setPassword($faker->password(12, 18))
+                    ->setImage($faker->imageUrl(30, 30, 'sports'))
+                    ->setToken(bin2hex(random_bytes(32)));
             $manager->persist($user);
 
             for ($j = 1; $j <= 2; $j++) {
@@ -44,7 +46,7 @@ class TrikFixtures extends Fixture
                 $flip = array_rand(array_flip($arrayFakeTerms[3]));
                 $slide = array_rand(array_flip($arrayFakeTerms[4]));
                 $content = '<p>' . join($faker->paragraphs(2), '</p><p>') . '</p>';
-                $title = $position. ' ' . $grabs . ' à ' . $rotation . ' ° ' . $flip . ' ' . $slide;
+                $title = $position. ' ' . $grabs . ' à ' . $rotation . '° ' . $flip . ' ' . $slide;
 
                 $trick->setUser($user)
                         ->setTitle($title)

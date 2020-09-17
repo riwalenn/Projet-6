@@ -130,7 +130,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #2f4d5a;
   padding: 20px 15px;
   transition: 0.3s;
-  font-size: 13px;
+  font-size: 12px;
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   font-weight: 500;
@@ -563,7 +563,7 @@ section {
 
 .tricks .tricks-wrap .tricks-links a {
   color: #fff;
-  font-size: 28px;
+  font-size: 20px;
   text-align: center;
   background: rgba(103, 176, 209, 0.75);
   transition: 0.3s;
@@ -712,6 +712,10 @@ div.carousel.slide {
   border-radius: 15px;
 }
 
+.trick-link.col-2.trash {
+  cursor: pointer;
+}
+
 .form-div {
   width: 85%;
 }
@@ -720,6 +724,7 @@ div.carousel.slide {
   position: relative;
   margin-bottom: 1rem;
 }
+
 
 .form-label-group>input,
 .form-label-group>label {
