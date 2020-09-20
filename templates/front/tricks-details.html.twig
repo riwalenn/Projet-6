@@ -6,12 +6,11 @@
         <!-- ======= Breadcrumbs Section ======= -->
         <section class="breadcrumbs">
             <div class="container">
-
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex flex-column align-items-start">
                         <h2>{{ trick.title }}</h2>
                         <blockquote class="blockquote-footer">Créé par {{ trick.user.username~ " le " ~trick.createdAt | date('d/m/Y à H:i') }}
-                            <a href="#tricks-comments" class="btn btn-outline-secondary count-comments" role="button"><i class="fa fa-comments"> {{ trick.comments | length }} commentaires</i></a>
+                            <a href="#tricks-comments" class="btn btn-light count-comments" role="button"><i class="fa fa-comments"> {{ trick.comments | length }} commentaires</i></a>
                         </blockquote>
                     </div>
                     <ol>
@@ -20,17 +19,14 @@
                         <li>{{ trick.title | slice(0, 15) }}...</li>
                     </ol>
                 </div>
-
             </div>
         </section><!-- Breadcrumbs Section -->
 
         <!-- ======= Tricks Details Section ======= -->
         <section class="tricks-details">
             <div class="container">
-
                 <div class="tricks-details-container">
                         <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
-
                     <div class="tricks-info">
                         <h3>Snow tricks informations</h3>
                         <ul>
@@ -41,9 +37,7 @@
                             <li><strong>Slide</strong>: {{ trick.slide }}</li>
                         </ul>
                     </div>
-
                 </div>
-
                 <div id="sliders-details" class="container col-12">
                     <div id="carouselForImages" class="carousel slide col-md-6 col-12" data-ride="carousel">
                         <ol class="carousel-indicators">
@@ -98,7 +92,6 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="tricks-description">
                     <h2>{{ trick.title }}</h2>
                    {{ trick.description | raw }}
@@ -121,13 +114,29 @@
                 <div class="tricks-connection col-10">
                     <a href="{{ path('security_login') }}">Connectez-vous</a> ou <a href="{{ path('security_registration') }}">inscrivez-vous</a> pour participer à la conversation !
                 </div>
+                    {% else %}
+                <div class="tricks-connection col-10">
+                <!-- ==== Trick Comment Form ==== -->
+                    <h3 class="login-heading mb-4">Ajouter un commentaire</h3>
+                    {{ form_start(commentForm) }}
+                    <div class="form-group">
+                        {{ form_row(commentForm.title, {'label': 'Titre', 'attr': {'placeholder': 'Titre...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'text', 'id': 'inputTitle'}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(commentForm.content, {'label': 'Contenu', 'attr': {'placeholder': 'Mon commentaire...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'textarea', 'id': 'inputContent'}) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-bottom: 1rem">
+                            Ajouter mon commentaire
+                    </button>
+                    {{ form_end(commentForm) }}
+                </div>
                 {% endif %}
                 <div class="list-group">
                     {% for comments in trick.comments %}
                     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{ comments.title }}</h5>
-                            <small class="text-muted">{{ comments.createdAt | date('d/m/Y à H:i') }} - {{ comments.user.username }} <img src="{{ comments.user.image }}"></small>
+                            <small class="text-muted">{{ comments.createdAt | date('d/m/Y à H:i') }} - {{ comments.user.username }} <img src="{{ asset('/img/profils/' ~ comments.user.image) }}"></small>
                         </div>
                         <p class="mb-1">{{ comments.content | raw }}</p>
                     </a>
@@ -136,6 +145,5 @@
             </div>
         </section>
         <!-- End Tricks Comments Section -->
-
     </main><!-- End #main -->
 {% endblock %}

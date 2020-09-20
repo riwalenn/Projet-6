@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Trick;
+use App\Entity\Comment;
+use App\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Trick;
 use App\Repository\TrickHistoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FilesystemIterator;
@@ -20,13 +22,32 @@ class TrickController extends AbstractController
     /**
      * @Route("/tricks_detail/{id}", name="trick_detail")
      */
-    public function tricks_detail(Trick $trick, TrickHistoryRepository $historyRepository)
+    public function tricks_detail(Trick $trick, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository)
     {
         $trick_history = $historyRepository->findAll();
+        $comment = new Comment();
+        /*$form = $this->createForm(CommentType::class, $comment);*/
+        $form = $this->createFormBuilder($comment)
+                    ->add('title')
+                    ->add('content')
+                    ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setCreatedAt(new \DateTime())
+                ->setTrick($trick)
+                ->setUser($this->getUser());
+
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('trick_detail', ['id' => $trick->getId()]);
+        }
+
         return $this->render('front/tricks-details.html.twig', [
             'title' => "Tricks",
             'trick' => $trick,
-            'trick_history' => $trick_history
+            'trick_history' => $trick_history,
+            'commentForm' => $form->createView()
         ]);
     }
 
