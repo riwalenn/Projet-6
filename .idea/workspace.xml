@@ -20,19 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="265bac9f-db4e-4687-a8c3-c9f0bca99b25" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/migrations/Version20200917161433.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/snowtricks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/snowtricks.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/FrontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FrontController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/TrikFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/TrikFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/RegistrationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/front/home.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/home.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security/registration.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/registration.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +43,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="trick_comment" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -70,6 +58,14 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="master" />
+                    <option name="lastUsedInstant" value="1600621341" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="trick_comment" />
+                    <option name="lastUsedInstant" value="1600365739" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="form_tricks" />
                     <option name="lastUsedInstant" value="1599991810" />
                   </RecentBranch>
@@ -80,14 +76,6 @@
                   <RecentBranch>
                     <option name="branchName" value="add_models" />
                     <option name="lastUsedInstant" value="1599500194" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="master" />
-                    <option name="lastUsedInstant" value="1599500171" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="entities_creation" />
-                    <option name="lastUsedInstant" value="1599154102" />
                   </RecentBranch>
                 </list>
               </option>
@@ -209,6 +197,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/vendor/symfony/config" />
       <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/symfony/orm-pack" />
     </include_path>
   </component>
   <component name="ProjectId" id="1gDlytY2tn6irbXtqXms1hJSBFk" />
@@ -271,6 +260,14 @@
       <workItem from="1600271614772" duration="4302000" />
       <workItem from="1600323911925" duration="3830000" />
       <workItem from="1600356889561" duration="7192000" />
+      <workItem from="1600370541246" duration="5314000" />
+      <workItem from="1600375988015" duration="48000" />
+      <workItem from="1600410406492" duration="2076000" />
+      <workItem from="1600412517461" duration="18000" />
+      <workItem from="1600520520204" duration="2286000" />
+      <workItem from="1600531094471" duration="461000" />
+      <workItem from="1600544419957" duration="3907000" />
+      <workItem from="1600615574764" duration="2816000" />
     </task>
     <task id="LOCAL-00001" summary="[BASE]symfony &amp; template installation and configuration">
       <created>1598440027272</created>
@@ -321,7 +318,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599918824978</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="[ADD] form comments + comments on detail trick">
+      <created>1600376030781</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1600376030781</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,7 +341,9 @@
     <MESSAGE value="[MAJ] fixtures maj without fixtures for git" />
     <MESSAGE value="[MAJ] maj des assets" />
     <MESSAGE value="[ADD] authentication &amp; login &amp; css &amp; js // [MAJ]pseudo =&gt; username (too many login problems with pseudo)" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ADD] authentication &amp; login &amp; css &amp; js // [MAJ]pseudo =&gt; username (too many login problems with pseudo)" />
+    <MESSAGE value="[ADD] form tricks (add/modify/delete by only trick creator)" />
+    <MESSAGE value="[ADD] form comments + comments on detail trick" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] form comments + comments on detail trick" />
   </component>
   <component name="WindowStateProjectService">
     <state x="540" y="174" key="#CLI_Interpreters" timestamp="1597658119780">
@@ -368,10 +374,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600361520624" />
-    <state x="104" y="96" width="1230" height="864" key="CommitChangelistDialog2" timestamp="1599918823296">
+    <state x="104" y="96" width="1230" height="864" key="CommitChangelistDialog2" timestamp="1600376029807">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="104" y="96" width="1230" height="864" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599918823296" />
+    <state x="104" y="96" width="1230" height="864" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600376029807" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1600105203760">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -380,10 +386,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599851578988" />
-    <state x="796" y="222" key="RollbackChangesDialog" timestamp="1600363717189">
+    <state x="796" y="222" key="RollbackChangesDialog" timestamp="1600616628106">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="796" y="222" key="RollbackChangesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600363717189" />
+    <state x="796" y="222" key="RollbackChangesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600616628106" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1600114598273">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -392,10 +398,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="ShowDiffWithBranchDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600105203760" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1599851575579">
+    <state width="498" height="446" key="SwitcherDM" timestamp="1600615790568">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599851575579" />
+    <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600615790568" />
     <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1598874610161">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -404,17 +410,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598439899738" />
-    <state x="-1402" y="0" width="1348" height="809" key="dock-window-1" timestamp="1600001738634">
+    <state x="-1585" y="0" width="1601" height="825" key="dock-window-1" timestamp="1600546374714">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1402" y="0" width="1348" height="809" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600001738634" />
+    <state x="-1585" y="0" width="1601" height="825" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600546374714" />
     <state x="-1429" y="0" width="1348" height="809" key="dock-window-2" timestamp="1600009367972">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1429" y="0" width="1348" height="809" key="dock-window-2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600009367972" />
-    <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1600115275269">
+    <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1600545645316">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="253" width="585" height="534" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600115275269" />
+    <state x="667" y="253" width="585" height="534" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600545645316" />
   </component>
 </project>
