@@ -245,4 +245,14 @@ class User implements UserInterface
     }
 
     public function eraseCredentials(){}
+
+    /**
+     * Transform to string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getUsername();
+    }
 }

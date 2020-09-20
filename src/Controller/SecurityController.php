@@ -26,11 +26,11 @@ class SecurityController extends AbstractController
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $imagesArray = ['https://lorempixel.com/30/30/sports/?84381', 'https://lorempixel.com/30/30/sports/?16271', 'https://lorempixel.com/30/30/sports/?96065', 'https://lorempixel.com/30/30/sports/?65391', 'https://lorempixel.com/30/30/sports/?91953'];
+            $imageArray = array_diff(scandir('public/img/tricks'), array('..', '.'));
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $user->setToken(bin2hex(random_bytes(32)));
-            $user->setImage(array_rand(array_flip($imagesArray)));
+            $user->setImage(array_rand(array_flip($imageArray)));
             $manager->persist($user);
             $manager->flush();
 
