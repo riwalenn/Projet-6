@@ -42,7 +42,6 @@
                 <!-- Uncomment below if you prefer to use an image logo -->
                 <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" alt="" class="img-fluid"></a>
             </div>
-
             <nav class="nav-menu d-none d-lg-block">
                 <ul>
                     <li class="active"><a href="{{ path('home') }}">Accueil</a></li>
@@ -56,7 +55,7 @@
                             <li><a href="{{ path('security_registration') }}">S'inscrire</a></li>
                             <li><a href="{{ path('security_login') }}">Connexion</a></li>
                             {% else %}
-                            <li><a href="#">Mon profil</a></li>
+                            <li><a href="{{ path('profil', {'id': app.user.id}) }}">Mon profil</a></li>
                             <li><a href="{{ path('security_logout') }}" onclick="return ConfirmDeconnexion()">Déconnexion</a></li>
                             {% endif %}
                         </ul>

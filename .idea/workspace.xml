@@ -20,17 +20,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="265bac9f-db4e-4687-a8c3-c9f0bca99b25" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/img/profils/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/CommentType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20200921164915.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/profils/1-thumbail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/profils/2-thumbail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/profils/3-thumbail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/profils/4-thumbail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/profils/5-thumbail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/profils/6-thumbail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/profils/7-thumbail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/profils/8-thumbail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/profils/9-thumbail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/front/profil.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/profils/1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/profils/2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/profils/3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/3.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/profils/4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/4.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/profils/5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/5.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/profils/6.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/6.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/profils/7.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/7.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/profils/8.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/8.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/profils/9.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/9.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/FrontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FrontController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/front/tricks-details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/tricks-details.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +83,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="user_profil" />
+                    <option name="lastUsedInstant" value="1600628312" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="form_tricks" />
                     <option name="lastUsedInstant" value="1599991810" />
                   </RecentBranch>
@@ -82,10 +101,6 @@
                   <RecentBranch>
                     <option name="branchName" value="master" />
                     <option name="lastUsedInstant" value="1599500171" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="entities_creation" />
-                    <option name="lastUsedInstant" value="1599154102" />
                   </RecentBranch>
                 </list>
               </option>
@@ -223,7 +238,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -269,6 +284,10 @@
       <workItem from="1600271614772" duration="4302000" />
       <workItem from="1600323911925" duration="3830000" />
       <workItem from="1600356889561" duration="7192000" />
+      <workItem from="1600624832165" duration="8000" />
+      <workItem from="1600624850042" duration="1271000" />
+      <workItem from="1600690177017" duration="28000" />
+      <workItem from="1600703770153" duration="9513000" />
     </task>
     <task id="LOCAL-00001" summary="[BASE]symfony &amp; template installation and configuration">
       <created>1598440027272</created>
@@ -350,6 +369,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#Deployment/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599761465710" />
+    <state x="715" y="343" key="#Notifications" timestamp="1600624866840">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="715" y="343" key="#Notifications/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600624866840" />
     <state x="729" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598432522174">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -362,10 +385,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="640" y="255" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599991835635" />
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1600361520624">
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1600710260138">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600361520624" />
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600710260138" />
     <state x="104" y="96" width="1230" height="864" key="CommitChangelistDialog2" timestamp="1599918823296">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -382,10 +405,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="796" y="222" key="RollbackChangesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600363717189" />
-    <state x="461" y="164" key="SettingsEditor" timestamp="1600114598273">
+    <state x="461" y="164" key="SettingsEditor" timestamp="1600624805365">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600114598273" />
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600624805365" />
     <state x="92" y="92" width="1736" height="856" key="ShowDiffWithBranchDialog" timestamp="1600105203760">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -394,10 +417,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599851575579" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1598874610161">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1600621468048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598874610161" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600621468048" />
     <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598439899738">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

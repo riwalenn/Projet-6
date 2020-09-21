@@ -9,9 +9,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex flex-column align-items-start">
                         <h2>{{ trick.title }}</h2>
-                        <blockquote class="blockquote-footer">Créé par {{ trick.user.username~ " le " ~trick.createdAt | date('d/m/Y à H:i') }}
-                            <a href="#tricks-comments" class="btn btn-light count-comments" role="button"><i class="fa fa-comments"> {{ trick.comments | length }} commentaires</i></a>
-                        </blockquote>
+                        <blockquote class="blockquote-footer">Créé par {{ trick.user.username~ " le " ~trick.createdAt | date('d/m/Y à H:i') }}</blockquote>
                     </div>
                     <ol>
                         <li><a href="/">Home</a></li>
@@ -136,7 +134,7 @@
                     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{ comments.title }}</h5>
-                            <small class="text-muted">{{ comments.createdAt | date('d/m/Y à H:i') }} - {{ comments.user.username }} <img src="{{ asset('/img/profils/' ~ comments.user.image) }}"></small>
+                            <small class="text-muted">{{ comments.createdAt | date('d/m/Y à H:i') }} - {{ comments.user.username }} <img src="{{ asset('/img/profils/' ~ comments.user.image ~ '-thumbail.jpg') }}"></small>
                         </div>
                         <p class="mb-1">{{ comments.content | raw }}</p>
                     </a>
