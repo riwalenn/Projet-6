@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+            <div class="col-md-8 col-lg-6">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-8">
+                                <div class="profile-head">
+                                    <div class="profil">
+                                        <h3 class="login-heading mb-4">Bienvenue {{ app.user.username }} !</h3>
+                                        <img src="{{ asset('img/profils/' ~app.user.image ~'.jpg') }}">
+                                        <h5>
+                                            Pseudo : {{ app.user.username }}
+                                        </h5>
+                                        <h6>
+                                            Email : {{ app.user.email }}
+                                        </h6>
+                                        <h6 class="activity">
+                                            Mon activité :
+                                        </h6>
+                                    </div>
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                                                    <i class="fa fa-file">
+                                                        <span class="badge badge-info">{{ tricks | length }}</span>
+                                                    </i>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                                                <i class="fa fa-comments">
+                                                    <span class="badge badge-info">{{ comments | length }}</span>
+                                                </i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="tab-content profile-tab" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                <div class="row">
+                                                    <div class="col-md-12 offset-md-3">
+                                                        <h4>Mes articles</h4>
+                                                        <ul class="timeline">
+                                                            {% for trick in tricks %}
+                                                            <li>
+                                                                <a href="{{ path('trick_detail', {'id': trick.id}) }}">{{ trick.title | slice(0, 26) }}...</a>
+                                                                <a href="#" class="float-right">{{ trick.createdAt | date('d/m/Y') }}</a>
+                                                                <p>{{ trick.description | slice(0, 150) | raw }}...</p>
+                                                            </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                <div class="row">
+                                                    <div class="col-md-12 offset-md-3">
+                                                        <h4>Mes commentaires</h4>
+                                                        <ul class="timeline">
+                                                            {% for comment in comments %}
+                                                            <li>
+                                                                <a href="#">{{ comment.title | slice(0,24)}}...</a>
+                                                                <a href="#" class="float-right">{{ comment.createdAt | date('d/m/Y') }}</a>
+                                                                <p>{{ comment.content | slice(0, 150) | raw  }}...</p>
+                                                            </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
