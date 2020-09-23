@@ -54,6 +54,14 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/oubli", name="security_forgot_password"
+     */
+/*    public function forgot_password()
+    {
+
+    }*/
+
+    /**
      * @Route("/deconnexion", name="security_logout")
      */
     public function logout() {}

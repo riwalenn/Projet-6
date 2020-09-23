@@ -20,32 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="265bac9f-db4e-4687-a8c3-c9f0bca99b25" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/migrations/Version20200921164915.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/1-thumbail.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/2-thumbail.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/3-thumbail.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/4-thumbail.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/5-thumbail.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/6-thumbail.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/7-thumbail.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/8-thumbail.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/profils/9-thumbail.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/front/profil.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/profils/1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/profils/2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/profils/3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/3.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/profils/4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/4.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/profils/5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/5.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/profils/6.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/6.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/profils/7.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/7.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/profils/8.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/8.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/profils/9.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/profils/9.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/FrontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FrontController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/front/tricks-details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/front/tricks-details.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TrickController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +62,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="forgot_password" />
+                    <option name="lastUsedInstant" value="1600791654" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="user_profil" />
                     <option name="lastUsedInstant" value="1600628312" />
                   </RecentBranch>
@@ -97,10 +80,6 @@
                   <RecentBranch>
                     <option name="branchName" value="add_models" />
                     <option name="lastUsedInstant" value="1599500194" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="master" />
-                    <option name="lastUsedInstant" value="1599500171" />
                   </RecentBranch>
                 </list>
               </option>
@@ -288,6 +267,8 @@
       <workItem from="1600624850042" duration="1271000" />
       <workItem from="1600690177017" duration="28000" />
       <workItem from="1600703770153" duration="9513000" />
+      <workItem from="1600791499968" duration="7152000" />
+      <workItem from="1600874821418" duration="356000" />
     </task>
     <task id="LOCAL-00001" summary="[BASE]symfony &amp; template installation and configuration">
       <created>1598440027272</created>
@@ -345,6 +326,15 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
@@ -377,10 +367,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="729" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598432522174" />
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1599854185510">
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1600803311687">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599854185510" />
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600803311687" />
     <state x="640" y="255" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1599991835635">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -401,10 +391,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1599851578988" />
-    <state x="796" y="222" key="RollbackChangesDialog" timestamp="1600363717189">
+    <state x="796" y="222" key="RollbackChangesDialog" timestamp="1600803791936">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="796" y="222" key="RollbackChangesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600363717189" />
+    <state x="796" y="222" key="RollbackChangesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600803791936" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1600624805365">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -433,9 +423,13 @@
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1429" y="0" width="1348" height="809" key="dock-window-2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600009367972" />
-    <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1600115275269">
+    <state x="667" y="253" width="608" height="534" key="find.popup" timestamp="1600716483200">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="253" width="585" height="534" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600115275269" />
+    <state x="667" y="253" width="608" height="534" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600716483200" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1600791779235">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600791779235" />
   </component>
 </project>
