@@ -26,6 +26,7 @@ class TrickController extends AbstractController
     {
         $trick_history = $historyRepository->findAll();
         $comment = new Comment();
+        /*$form = $this->createForm(CommentType::class, $comment);*/
         $form = $this->createFormBuilder($comment)
                     ->add('title')
                     ->add('content')
@@ -56,10 +57,15 @@ class TrickController extends AbstractController
      *
      * @return string
      */
-    public function formTrick(Trick $trick = null, Request $request, EntityManagerInterface $manager)
+    public function form_trick(Trick $trick = null, Request $request, EntityManagerInterface $manager)
     {
         if (!$trick) {
+            $title = "Ajouter un trick.";
+            $messageFlash = "Le trick a été ajouté avec succès.";
             $trick = new Trick();
+        } else {
+            $title = $trick->getTitle();
+            $messageFlash = "Le trick a été modifié avec succès.";
         }
 
         $user = $this->getUser();
@@ -112,13 +118,9 @@ class TrickController extends AbstractController
             $manager->persist($trick);
             $manager->flush();
 
-            return $this->redirectToRoute('home');
-        }
+            $this->addFlash('success', $messageFlash);
 
-        if ($trick) {
-            $title = $trick->getTitle();
-        } else {
-            $title = "Ajouter un trick.";
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('front/tricks-form.html.twig', [
@@ -131,7 +133,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/delete_trick/{id}", name="delete_trick")
      */
-    public function deleteTrick(Trick $trick, EntityManagerInterface $manager)
+    public function delete_trick(Trick $trick, EntityManagerInterface $manager, Request $request)
     {
         foreach ($trick->getTrickLibraries() as $library) {
             $trick->removeTrickLibrary($library);
@@ -145,11 +147,11 @@ class TrickController extends AbstractController
             $trick->removeTrickHistory($trickHistory);
             $manager->remove($trickHistory);
         }
-
-        $manager->remove($trick);
-        $manager->flush();
-        $this->addFlash('success', 'Le trick a bien été supprimé !');
-
-        return $this->redirectToRoute('home');
+        if ($this->isCsrfTokenValid('delete'. $trick->getId(), $request->get('_token'))) {
+            $manager->remove($trick);
+            $manager->flush();
+            $this->addFlash('success', 'Le trick a bien été supprimé !');
+            return $this->redirectToRoute('home');
+        }
     }
 }

@@ -6,9 +6,12 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @UniqueEntity("title")
  */
 class Trick
 {
@@ -21,6 +24,7 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=255, minMessage="Vous devez entrer au moins 3 caractères", maxMessage="Vous ne pouvez pas entrer plus de 255 caractères")
      */
     private $title;
 
@@ -42,26 +46,31 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=20, minMessage="Vous devez entrer au moins 3 caractères", maxMessage="Vous devez entrer des mots clés, pas plus de 20 caractères")
      */
     private $position;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=20, minMessage="Vous devez entrer au moins 3 caractères", maxMessage="Vous devez entrer des mots clés, pas plus de 20 caractères")
      */
     private $grabs;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
+     * @Assert\Range(max="1500", maxMessage="Vous devez entrer des valeurs entre 0 et 1600")
      */
     private $rotation;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=20, minMessage="Vous devez entrer au moins 3 caractères", maxMessage="Vous devez entrer des mots clés, pas plus de 20 caractères")
      */
     private $flip;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=20, minMessage="Vous devez entrer au moins 3 caractères", maxMessage="Vous devez entrer des mots clés, pas plus de 20 caractères")
      */
     private $slide;
 

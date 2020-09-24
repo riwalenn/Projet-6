@@ -17,3 +17,5 @@
 
 /_UML/
 .htaccess
+.idea
+.idea/*
