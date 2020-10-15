@@ -21,7 +21,7 @@ class FrontController extends AbstractController
      */
     public function home(TrickRepository $repository)
     {
-        $tricks = $repository->findBy(array(), array('created_at' => 'DESC'), 6, 0);
+        $tricks = $repository->findBy(array(), array('created_at' => 'DESC'), 3, 0);
 
         return $this->render('front/home.html.twig', [
             'controller_name' => 'FrontController',
@@ -30,13 +30,13 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/", name="more_tricks")
+     * @Route("/{start}", name="more_tricks", requirements={"start": "\d+"})
      */
-    public function more_tricks(TrickRepository $repository)
+    public function more_tricks(TrickRepository $repository, $start = 6)
     {
-        $moreTricks = $repository->findBy(array(), array('created_at' => 'DESC'), 3, 6);
+        $tricks = $repository->findBy(array(), array('created_at' => 'DESC'), 3, $start);
 
-        return $this->render('front/tricks-more.html.twig', ['moreTricks' => $moreTricks]);
+        return $this->render('front/tricks-more.html.twig', ['tricks' => $tricks]);
     }
 
     /**

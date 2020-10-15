@@ -45,16 +45,11 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <div class="page-load-status">
-                        <div class="loader-ellips infinite-scroll-request">
-                            <span class="loader-ellips__dot"></span>
-                            <span class="loader-ellips__dot"></span>
-                            <span class="loader-ellips__dot"></span>
-                            <span class="loader-ellips__dot"></span>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button id="moreTricks" class="btn btn-primary">Voir plus de tricks</button>
                     </div>
-
-                    <p><button class="view-more-button">+ de tricks</button></p>
                 </div>
             </div>
         </section><!-- End Tricks Section -->
@@ -91,4 +86,21 @@
         </div>
     {% endfor %}
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var click = 0;
+        function moreTricks(event) {
+            event.preventDefault();
+            click++;
+            var start = 3 * click;
+            const url = "{{ path('more_tricks') }}" + start;
+            axios.get(url).then(function(response) {
+                $(".tricks-container").append(response.data);
+            });
+        }
+        document.getElementById("moreTricks").addEventListener("click", moreTricks);
+    </script>
 {% endblock %}
