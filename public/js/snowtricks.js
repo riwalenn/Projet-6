@@ -21,3 +21,23 @@ function ConfirmDeconnexion() {
 function confirmTrickDelete(id){
     $("#delete_trick_modal"+id).modal();
 }
+
+var nextTricksSlug = [
+
+];
+
+function getPenPath() {
+    var slug = nextTricksSlug[ this.loadCount ];
+    if ( slug ) {
+        return 'https://s.codepen.io/desandro/debug/' + slug;
+    }
+}
+
+var infScroll = new InfiniteScroll( '.container', {
+    path: getPenPath,
+append: '.post',
+    button: '.view-more-button',
+    // using button, disable loading on scroll
+    scrollThreshold: false,
+    status: '.page-load-status',
+});
