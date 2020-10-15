@@ -91,16 +91,18 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        var click = 0;
-        function moreTricks(event) {
-            event.preventDefault();
-            click++;
-            var start = 3 * click;
-            const url = "{{ path('more_tricks') }}" + start;
+        var counter = 0;
+        function moreTricks(e) {
+            e.preventDefault();
+            counter++;
+            var offset = 3 * counter;
+            const url = "{{ path('more_tricks') }}" + offset;
             axios.get(url).then(function(response) {
                 $(".tricks-container").append(response.data);
             });
         }
-        document.getElementById("moreTricks").addEventListener("click", moreTricks);
+        $('#moreTricks').on("click", function (e) {
+            moreTricks(e);
+        });
     </script>
 {% endblock %}
