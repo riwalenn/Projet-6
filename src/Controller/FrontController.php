@@ -21,12 +21,22 @@ class FrontController extends AbstractController
      */
     public function home(TrickRepository $repository)
     {
-        $tricks = $repository->findAll();
+        $tricks = $repository->findBy(array(), array('created_at' => 'DESC'), 3, 0);
 
         return $this->render('front/home.html.twig', [
             'controller_name' => 'FrontController',
             'title' => $this->title,
             'tricks' => $tricks]);
+    }
+
+    /**
+     * @Route("/{offset}", name="more_tricks", requirements={"offset": "\d+"})
+     */
+    public function more_tricks(TrickRepository $repository, $offset = 6)
+    {
+        $tricks = $repository->findBy(array(), array('created_at' => 'DESC'), 3, $offset);
+
+        return $this->render('front/tricks-more.html.twig', ['tricks' => $tricks]);
     }
 
     /**

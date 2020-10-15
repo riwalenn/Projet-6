@@ -46,6 +46,11 @@
                         </div>
                     {% endfor %}
                 </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button id="moreTricks" class="btn btn-primary">Voir plus de tricks</button>
+                    </div>
+                </div>
             </div>
         </section><!-- End Tricks Section -->
     </main><!-- End #main -->
@@ -81,4 +86,23 @@
         </div>
     {% endfor %}
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var counter = 0;
+        function moreTricks(e) {
+            e.preventDefault();
+            counter++;
+            var offset = 3 * counter;
+            const url = "{{ path('more_tricks') }}" + offset;
+            axios.get(url).then(function(response) {
+                $(".tricks-container").append(response.data);
+            });
+        }
+        $('#moreTricks').on("click", function (e) {
+            moreTricks(e);
+        });
+    </script>
 {% endblock %}
