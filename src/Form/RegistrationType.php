@@ -19,8 +19,7 @@ class RegistrationType extends AbstractType
             ->add('email', EmailType::class, array('label' => false))
             ->add('password', null, array('label' => false))
             ->add('confirm_password', PasswordType::class, array('label' => false))
-            ->add('image', TextType::class, array('label' => false))
-        ;
+            ->add('image', TextType::class, array('label' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

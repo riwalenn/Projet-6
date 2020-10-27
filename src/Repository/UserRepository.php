@@ -19,6 +19,21 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    /**
+     * @param $criteria
+     * @param $param
+     * @return int|mixed|string|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * criteria => string
+     */
+    public function findOneByCriteria($criteria, $param)
+    {
+        $select = $this->createQueryBuilder('u');
+        $select->where('u.'.$criteria.' = :'.$criteria.'')
+                ->setParameter($criteria, $param);
+        return $select->getQuery()->getOneOrNullResult();
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

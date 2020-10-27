@@ -23,8 +23,7 @@ class TrickType extends AbstractType
             ->add('flip')
             ->add('slide')
             ->add('created_at')
-            ->add('User')
-        ;
+            ->add('User');
     }
 
     public function configureOptions(OptionsResolver $resolver)

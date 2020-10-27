@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -61,6 +60,17 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="User")
      */
     private $users;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_active;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="User")
@@ -141,6 +151,37 @@ class User implements UserInterface
     {
         $this->image = $image;
 
+        return $this;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @param \DateTimeInterface $created_at
+     * @return $this
+     */
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->is_active;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->is_active = $isActive;
         return $this;
     }
 
@@ -237,14 +278,18 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getSalt(){}
+    public function getSalt()
+    {
+    }
 
     public function getRoles()
     {
         return ['ROLE_USER'];
     }
 
-    public function eraseCredentials(){}
+    public function eraseCredentials()
+    {
+    }
 
     /**
      * Transform to string
@@ -253,6 +298,6 @@ class User implements UserInterface
      */
     public function __toString()
     {
-        return (string) $this->getUsername();
+        return (string)$this->getUsername();
     }
 }
