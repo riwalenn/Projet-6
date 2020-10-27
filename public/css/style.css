@@ -477,11 +477,34 @@ ul.timeline > li:before {
   display: inline-block;
   position: absolute;
   border-radius: 50%;
-  border: 3px solid #22c0e8;
   left: 20px;
   width: 20px;
   height: 20px;
   z-index: 400;
+}
+
+ul.timeline.posts > li:before {
+  border: 3px solid #22c0e8;
+}
+
+ul.timeline.posts > li > a {
+  color: #22c0e8;
+}
+
+.fa.fa-file > .badge.badge-info {
+  background-color: #22c0e8;
+}
+
+ul.timeline.comments > li:before {
+  border: 3px solid #e88822;
+}
+
+ul.timeline.comments > li > a {
+  color: #e88822;
+}
+
+.fa.fa-comments > .badge.badge-info {
+  background-color: #e88822;
 }
 
 .fa-comments, .fa-file {
@@ -499,8 +522,8 @@ ul.timeline > li:before {
   top: -10px;
 }
 
-.activity{
-  margin-top: 5%;
+.activity, .profil, .tab-pane{
+  margin-top: 10%;
 }
 
 .profil{
