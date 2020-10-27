@@ -6,33 +6,48 @@
             <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
             <div class="col-md-8 col-lg-6">
                 <div class="login d-flex align-items-center py-5">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-9 col-lg-8 mx-auto">
-                                    <h3 class="login-heading mb-4">Se connecter</h3>
-                                    <form action="{{ path('security_login') }}" method="post">
-                                        <label for="inputEmail">Email :</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon3"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                            </div>
-                                            <input type="email" name="_username" placeholder="Email..." class="form-control" aria-describedby="basic-addon3" required>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-8 mx-auto">
+                                <h3 class="login-heading mb-4">Se connecter</h3>
+                                {% for label, messages in app.flashes %}
+                                    <div class="container">
+                                        <div class="alert alert-{{ label }} mb-0">
+                                            {% for message in messages %}
+                                                {{ message | raw }}
+                                            {% endfor %}
                                         </div>
-                                        <label for="inputPassword">Mot de passe :</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon3"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                            </div>
-                                            <input type="password" name="_password" placeholder="Mot de passe..." class="form-control" aria-describedby="basic-addon3" required>
+                                    </div>
+                                {% endfor %}
+                                <form action="{{ path('security_login') }}" method="post">
+                                    <label for="inputEmail">Email :</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3"><i
+                                                        class="fa fa-envelope fa" aria-hidden="true"></i></span>
                                         </div>
+                                        <input type="email" name="_username" placeholder="Email..." class="form-control"
+                                               aria-describedby="basic-addon3" required>
+                                    </div>
+                                    <label for="inputPassword">Mot de passe :</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3"><i class="fa fa-lock fa-lg"
+                                                                                                aria-hidden="true"></i></span>
+                                        </div>
+                                        <input type="password" name="_password" placeholder="Mot de passe..."
+                                               class="form-control" aria-describedby="basic-addon3" required>
+                                    </div>
 
-                                        <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Se connecter</button>
-                                        <div class="text-center">
-                                            <a class="small" href="#">Oubli du mot de passe ?</a></div>
-                                    </form>
-                                </div>
+                                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                            type="submit">Se connecter
+                                    </button>
+                                    <div class="text-center">
+                                        <a class="small" href="#">Oubli du mot de passe ?</a></div>
+                                </form>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

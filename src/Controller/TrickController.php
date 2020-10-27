@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Entity\Comment;
-use App\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TrickHistoryRepository;
@@ -28,9 +27,9 @@ class TrickController extends AbstractController
         $comment = new Comment();
         /*$form = $this->createForm(CommentType::class, $comment);*/
         $form = $this->createFormBuilder($comment)
-                    ->add('title')
-                    ->add('content')
-                    ->getForm();
+            ->add('title')
+            ->add('content')
+            ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setCreatedAt(new \DateTime())
@@ -98,13 +97,13 @@ class TrickController extends AbstractController
                 if ($files) {
                     $listFiles = new FilesystemIterator('img/tricks', FilesystemIterator::SKIP_DOTS);
                     $count = iterator_count($listFiles);
-                    $newFileId = $count+1;
+                    $newFileId = $count + 1;
 
-                    $newFileName = 'snowtricks-'. $newFileId .'.'. $files->guessExtension();
+                    $newFileName = 'snowtricks-' . $newFileId . '.' . $files->guessExtension();
 
                     try {
                         $files->move($this->getParameter('imgTricks_directory'), $newFileName);
-                    }catch (FileException $e) {
+                    } catch (FileException $e) {
                         // ... handle exception if something happens during file upload
                     }
                     $trick->setImage($newFileName);

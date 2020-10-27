@@ -10,9 +10,9 @@
                         <div class="row">
                             <div class="col-md-9 col-lg-8 mx-auto">
                                 {% if editMode %}
-                                <h3 class="login-heading mb-4">Modifier un trick</h3>
+                                    <h3 class="login-heading mb-4">Modifier un trick</h3>
                                 {% else %}
-                                <h3 class="login-heading mb-4">Ajouter un trick</h3>
+                                    <h3 class="login-heading mb-4">Ajouter un trick</h3>
                                 {% endif %}
                                 {{ form_start(formTrick) }}
                                 <div class="form-group">
@@ -39,7 +39,8 @@
                                 <div class="form-group">
                                     <input type="hidden" name="MAX_FILES_SIZE" value="200000">
                                     {{ form_row(formTrick.image, {'label': 'Image', 'attr': {'placeholder': 'Image...', 'aria-describedby': 'imageDownload', 'class': 'form-control'}, 'type': 'file', 'id': 'inputImage'}) }}
-                                    <small id="imageDownload" class="form-text text-muted">L'image doit être au format 800x600 et au format jpeg.</small>
+                                    <small id="imageDownload" class="form-text text-muted">L'image doit être au format
+                                        800x600 et au format jpeg.</small>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary" style="margin-top: 1rem">

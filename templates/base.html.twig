@@ -1,103 +1,107 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="SnowTricks : site collaboratif pour faire connaître le snowboard auprès du grand public et aider à l'apprentissage des figures.">
-        <meta name="author" content="Riwalenn Bas">
-        <title>{% block title %}{{ title }}{% endblock %}</title>  <!-- Favicons -->
-        <link href="{{ asset('img/favicon.png') }}" rel="icon">
-        <link href="{{ asset('img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+          content="SnowTricks : site collaboratif pour faire connaître le snowboard auprès du grand public et aider à l'apprentissage des figures.">
+    <meta name="author" content="Riwalenn Bas">
+    <title>{% block title %}{{ title }}{% endblock %}</title>  <!-- Favicons -->
+    <link href="{{ asset('img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
-        <!-- FontAwesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
-        <!-- Mes css -->
-        {% block stylesheets %}
-            <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('css/icofont.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('css/boxicons.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('css/venobox.css') }}" rel="stylesheet">
-            <link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('css/aos.css') }}" rel="stylesheet">
-            <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        {% endblock %}
-        <!-- =======================================================
-         * Template Name: Squadfree - v2.2.0
-         * Template URL: https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/
-         * Author: BootstrapMade.com
-         * License: https://bootstrapmade.com/license/
-         ======================================================== -->
-    </head>
-    <body>
-    <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top header-transparent">
-        <div class="container d-flex align-items-center">
+    <!-- Mes css -->
+    {% block stylesheets %}
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/icofont.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/boxicons.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/venobox.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/aos.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    {% endblock %}
+    <!-- =======================================================
+     * Template Name: Squadfree - v2.2.0
+     * Template URL: https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/
+     * Author: BootstrapMade.com
+     * License: https://bootstrapmade.com/license/
+     ======================================================== -->
+</head>
+<body>
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top header-transparent">
+    <div class="container d-flex align-items-center">
 
-            <div class="logo mr-auto">
-                {#<h1 class="text-light"><a href="/"><span>Squadfree</span></a></h1>#}
-                <!-- Uncomment below if you prefer to use an image logo -->
-                <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" alt="" class="img-fluid"></a>
-            </div>
-            <nav class="nav-menu d-none d-lg-block">
-                <ul>
-                    <li class="active"><a href="{{ path('home') }}">Accueil</a></li>
-                    <li><a href="{{ path('home', {'_fragment': 'tricks'}) }}">Tricks</a></li>
-                    {% if app.user %}
-                        <li><a href="{{ path('add_trick') }}">Ajouter un Trick</a></li>
-                    {% endif %}
-                    <li class="drop-down"><a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
-                        <ul>
-                            {% if not app.user %}
+        <div class="logo mr-auto">
+            {# <h1 class="text-light"><a href="/"><span>Squadfree</span></a></h1> #}
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" alt="" class="img-fluid"></a>
+        </div>
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li class="active"><a href="{{ path('home') }}">Accueil</a></li>
+                <li><a href="{{ path('home', {'_fragment': 'tricks'}) }}">Tricks</a></li>
+                {% if app.user %}
+                    <li><a href="{{ path('add_trick') }}">Ajouter un Trick</a></li>
+                {% endif %}
+                <li class="drop-down"><a class="nav-link" data-toggle="dropdown" href="#" role="button"
+                                         aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                    <ul>
+                        {% if not app.user %}
                             <li><a href="{{ path('security_registration') }}">S'inscrire</a></li>
                             <li><a href="{{ path('security_login') }}">Connexion</a></li>
-                            {% else %}
+                        {% else %}
                             <li><a href="{{ path('profil', {'id': app.user.id}) }}">Mon profil</a></li>
-                            <li><a href="{{ path('security_logout') }}" onclick="return ConfirmDeconnexion()">Déconnexion</a></li>
-                            {% endif %}
-                        </ul>
-                    </li>
-                </ul>
-            </nav><!-- .nav-menu -->
+                            <li><a href="{{ path('security_logout') }}" onclick="return ConfirmDeconnexion()">Déconnexion</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </li>
+            </ul>
+        </nav><!-- .nav-menu -->
+
+    </div>
+</header><!-- End Header -->
+{% block body %}{% endblock %}
+<!-- ======= Footer ======= -->
+<footer id="footer">
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright Developed by <a href="https://www.riwalenn-bas.com">Riwalenn Bas 2020</a> |
+            &copy; Copyright <strong><span>Squadfree</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
 
         </div>
-    </header><!-- End Header -->
-        {% block body %}{% endblock %}
-        <!-- ======= Footer ======= -->
-        <footer id="footer">
-            <div class="container">
-                <div class="copyright">
-                    &copy; Copyright Developed by <a href="https://www.riwalenn-bas.com">Riwalenn Bas 2020</a> |
-                    &copy; Copyright <strong><span>Squadfree</span></strong>. All Rights Reserved
-                </div>
-                <div class="credits">
-                    <!-- All the links in the footer should remain intact. -->
-                    <!-- You can delete the links only if you purchased the pro version. -->
-                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/ -->
-                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+</footer><!-- End Footer -->
 
-                </div>
-            </div>
-        </footer><!-- End Footer -->
-
-        <!-- Liens Javascript -->
-        <script src="{{ asset('js/jquery.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
-        <script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
-        <script src="{{ asset('js/counterup.min.js') }}"></script>
-        <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
-        <script src="{{ asset('js/venobox.min.js') }}"></script>
-        <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-        <script src="{{ asset('js/aos.js') }}"></script>
-        <script src="{{ asset('js/snowtricks.js') }}"></script>
-        {% block javascripts %}
-            <script src="{{ asset('js/main.js') }}"></script>
-            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        {% endblock %}
-    </body>
+<!-- Liens Javascript -->
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+<script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
+<script src="{{ asset('js/counterup.min.js') }}"></script>
+<script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('js/venobox.min.js') }}"></script>
+<script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('js/aos.js') }}"></script>
+<script src="{{ asset('js/snowtricks.js') }}"></script>
+{% block javascripts %}
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{% endblock %}
+</body>
 </html>

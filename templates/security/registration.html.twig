@@ -11,37 +11,52 @@
                         <div class="row">
                             <div class="col-md-9 col-lg-8 mx-auto">
                                 <h3 class="login-heading mb-4">S'inscrire</h3>
+                                {% for label, messages in app.flashes %}
+                                    <div class="container">
+                                        <div class="alert alert-{{ label }} mb-0">
+                                            {% for message in messages %}
+                                                {{ message | raw }}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
                                 {{ form_start(form) }}
-                                    {{ form_label(form, 'Pseudo :') }}
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                        </div>
-                                        {{ form_row(form.username, {'attr': {'placeholder': 'Pseudo...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'text', 'id': 'inputPseudo'}) }}
+                                {{ form_label(form, 'Pseudo :') }}
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3"><i class="fa fa-user fa"
+                                                                                            aria-hidden="true"></i></span>
                                     </div>
-                                    {{ form_label(form, 'Email :') }}
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                        </div>
-                                        {{ form_row(form.email, {'attr': {'placeholder': 'Email...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'email', 'id': 'inputEmail'}) }}
+                                    {{ form_row(form.username, {'attr': {'placeholder': 'Pseudo...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'text', 'id': 'inputPseudo'}) }}
+                                </div>
+                                {{ form_label(form, 'Email :') }}
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3"><i class="fa fa-envelope fa"
+                                                                                            aria-hidden="true"></i></span>
                                     </div>
-                                    {{ form_label(form, 'Mot de passe :') }}
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                        </div>
-                                        {{ form_row(form.password, {'attr': {'placeholder': 'Mot de passe...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'password', 'id': 'inputPassword'}) }}
+                                    {{ form_row(form.email, {'attr': {'placeholder': 'Email...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'email', 'id': 'inputEmail'}) }}
+                                </div>
+                                {{ form_label(form, 'Mot de passe :') }}
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3"><i class="fa fa-lock fa-lg"
+                                                                                            aria-hidden="true"></i></span>
                                     </div>
-                                    {{ form_label(form, 'Confirmer mot de passe :') }}
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                        </div>
-                                        {{ form_row(form.confirm_password, {'attr': {'placeholder': 'Confirmation du mot de passe...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'password', 'id': 'confirmPassword'}) }}
+                                    {{ form_row(form.password, {'attr': {'placeholder': 'Mot de passe...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'password', 'id': 'inputPassword'}) }}
+                                </div>
+                                {{ form_label(form, 'Confirmer mot de passe :') }}
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3"><i class="fa fa-lock fa-lg"
+                                                                                            aria-hidden="true"></i></span>
                                     </div>
-                                    {{ form_row(form.image, {'type': 'hidden'}) }}
-                                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">S'inscrire</button>
+                                    {{ form_row(form.confirm_password, {'attr': {'placeholder': 'Confirmation du mot de passe...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'password', 'id': 'confirmPassword'}) }}
+                                </div>
+                                {{ form_row(form.image, {'type': 'hidden'}) }}
+                                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                        type="submit">S'inscrire
+                                </button>
                                 {{ form_end(form) }}
                             </div>
                         </div>

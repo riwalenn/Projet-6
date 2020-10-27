@@ -16,8 +16,7 @@ class CommentType extends AbstractType
             ->add('content')
             ->add('created_at')
             ->add('User')
-            ->add('Trick')
-        ;
+            ->add('Trick');
     }
 
     public function configureOptions(OptionsResolver $resolver)
