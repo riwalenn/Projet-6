@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Entity\TrickHistory;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
+use App\Service\SendMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TrickHistoryRepository;
@@ -119,6 +120,8 @@ class TrickController extends AbstractController
                                 ->setTrick($trick)
                                 ->setModifiedAt(new \DateTime());
                     $manager->persist($trickHistory);
+                    $serviceMail = new SendMail();
+                    $serviceMail->alertAuthor($author, $trick);
                 }
             }
             $manager->persist($trick);
