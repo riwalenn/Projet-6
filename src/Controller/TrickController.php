@@ -19,9 +19,9 @@ class TrickController extends AbstractController
     private $title = "Bienvenue sur le site communautaire de SnowTricks !";
 
     /**
-     * @Route("/tricks_detail/{id}", name="trick_detail")
+     * @Route("/trick_detail/{id}", name="trick_detail")
      */
-    public function tricks_detail(Trick $trick, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository)
+    public function trick_detail(Trick $trick, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository)
     {
         $trick_history = $historyRepository->findAll();
         $comment = new Comment();
@@ -51,12 +51,12 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/front/newTrick", name="add_trick")
+     * @Route("/front/new_trick", name="add_trick")
      * @Route("/front/{id}/edit", name="edit_trick")
      *
      * @return string
      */
-    public function formTrick(Trick $trick = null, Request $request, EntityManagerInterface $manager)
+    public function form_trick(Trick $trick = null, Request $request, EntityManagerInterface $manager)
     {
         if (!$trick) {
             $trick = new Trick();
@@ -131,7 +131,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/delete_trick/{id}", name="delete_trick")
      */
-    public function deleteTrick(Trick $trick, EntityManagerInterface $manager)
+    public function delete_trick(Trick $trick, EntityManagerInterface $manager)
     {
         foreach ($trick->getTrickLibraries() as $library) {
             $trick->removeTrickLibrary($library);
