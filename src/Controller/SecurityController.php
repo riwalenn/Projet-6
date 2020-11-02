@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ForgotPasswordType;
+use App\Form\PasswordRecoveryType;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use App\Service\SendMail;
@@ -50,26 +52,57 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/iForgotMyPassword", name="change_password")
+     */
+    public function change_password(UserRepository $userRepository, Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager)
+    {
+        $token = $request->query->get('token');
+        $user = $userRepository->findOneBy(array("token" => $token));
+        $form = $this->createForm(ForgotPasswordType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (empty($user)) {
+                $this->addFlash('error', "Votre token n'existe pas");
+                return $this->redirectToRoute('home');
+            } else {
+                $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
+                if ($dateDiff < 2 && $user->getIsActive() == 1) {
+                    $hash = $encoder->encodePassword($user, $user->getPassword());
+                    $user->setPassword($hash);
+                    $user->setToken('');
+                    $manager->persist($user);
+                    $manager->flush();
+                    $this->addFlash('light', "Votre mot de passe a été modifié avec succès !");
+
+                } else {
+                    $this->addFlash('error', "Votre token a expiré !");
+                    return $this->redirectToRoute('security_password_form');
+                }
+            }
+        }
+        return $this->render('security/password-change.html.twig', [
+            'form' => $form->createView(),
+            'title' => "J'ai oublié mon mot de passe !"
+        ]);
+    }
+
+    /**
      * @Route("/confirmation", name="confirmation_registration")
      */
     public function confirmation(UserRepository $userRepository, Request $request, EntityManagerInterface $manager)
     {
         $token = $request->query->get('token');
         $user = $userRepository->findOneBy(array("token" => $token));
-        if (empty($user)) {
-            $this->addFlash('light', "Votre token n'existe pas");
-            return $this->redirectToRoute('home');
+        if (empty($user) || empty($token)) {
+            $this->addFlash('error', "Votre token n'existe pas");
+            return $this->redirectToRoute('security_password_form');
         } else {
             $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
         }
 
-        //$createdAt = null;
-
-        if ($dateDiff < 15) {
+        if ($dateDiff < 7) {
             $user->setIsActive(1);
-            /* $user->setCreatedAt($createdAt);
-             $user->setToken(null);*/
-            $user->setToken(''); //Pourquoi je n'arrive pas à mettre le token et la date à null !
+            $user->setToken('');
             $manager->persist($user);
             $manager->flush();
             $this->addFlash('light', "Votre compte a été activé avec succès !");
@@ -81,6 +114,38 @@ class SecurityController extends AbstractController
             $this->addFlash('danger', "Votre token a expiré ! Veuillez vous réinscrire.");
             return $this->redirectToRoute('security_registration');
         }
+    }
+
+    /**
+     * @Route("/emailForm", name="email_form")
+     */
+    public function forgot_password(Request $request, EntityManagerInterface $manager, UserRepository $userRepository)
+    {
+        $form = $this->createForm(PasswordRecoveryType::class);
+        $form->handleRequest($request);
+        $email = $form->get('email')->getData();
+        $user = $userRepository->findOneBy(array("email" => $email));
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (empty($user)) {
+                $this->addFlash('error', "Votre email n'est pas reconnu dans notre base.");
+                return $this->redirectToRoute('security_registration');
+            }
+            $user->setToken(bin2hex(random_bytes(32)));
+            $user->setCreatedAt(new \DateTime());
+
+            $manager->flush();
+            $manager->persist($user);
+
+            $serviceMail = new SendMail();
+            $serviceMail->sendToken($user, 'oubli');
+
+            $this->addFlash('success', "Un email vous a été envoyé !");
+        }
+
+        return $this->render('security/password-forgotten.html.twig', [
+            'form' => $form->createView(),
+            'title' => "J'ai oublié mon mot de passe !"
+        ]);
     }
 
     /**

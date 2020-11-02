@@ -23,8 +23,7 @@
                                     <label for="inputEmail">Email :</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3"><i
-                                                        class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                            <span class="input-group-text" id="basic-addon3"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
                                         </div>
                                         <input type="email" name="_username" placeholder="Email..." class="form-control"
                                                aria-describedby="basic-addon3" required>
@@ -43,7 +42,7 @@
                                             type="submit">Se connecter
                                     </button>
                                     <div class="text-center">
-                                        <a class="small" href="#">Oubli du mot de passe ?</a></div>
+                                        <a class="small" href="{{ path('email_form') }}">Oubli du mot de passe ?</a></div>
                                 </form>
                             </div>
                         </div>
