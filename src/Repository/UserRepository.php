@@ -29,8 +29,8 @@ class UserRepository extends ServiceEntityRepository
     public function findOneByCriteria($criteria, $param)
     {
         $select = $this->createQueryBuilder('u');
-        $select->where('u.'.$criteria.' = :'.$criteria.'')
-                ->setParameter($criteria, $param);
+        $select->where('u.'.$criteria.' LIKE :'.$criteria.'')
+                ->setParameter($criteria, '%'.$param.'%');
         return $select->getQuery()->getOneOrNullResult();
     }
 
