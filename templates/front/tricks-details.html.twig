@@ -8,7 +8,8 @@
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex flex-column align-items-start">
-                        <h2>{{ trick.title }}</h2>
+                        <h2>{{ trick.title }} <a href="{{ path('edit_trick', {'id': trick.id}) }}"
+                                                class="trick-link col-2"><i class="fa fa-edit"></i></a></h2>
                         <blockquote class="blockquote-footer">Créé
                             par {{ trick.user.username~ " le " ~trick.createdAt | date('d/m/Y à H:i') }}</blockquote>
                     </div>

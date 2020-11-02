@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Entity\Comment;
+use App\Entity\TrickHistory;
+use App\Repository\TrickRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TrickHistoryRepository;
@@ -56,7 +59,7 @@ class TrickController extends AbstractController
      *
      * @return string
      */
-    public function form_trick(Trick $trick = null, Request $request, EntityManagerInterface $manager)
+    public function form_trick(Trick $trick = null, UserRepository $repo, Request $request, EntityManagerInterface $manager)
     {
         if (!$trick) {
             $trick = new Trick();
@@ -108,9 +111,20 @@ class TrickController extends AbstractController
                     }
                     $trick->setImage($newFileName);
                 }
+            } else {
+                $author = $repo->findOneByCriteria("username", $trick->getUser());
+                if ($user->getId() !== $author->getId()) {
+                    $trickHistory = new TrickHistory();
+                    $trickHistory->setUser($user)
+                                ->setTrick($trick)
+                                ->setModifiedAt(new \DateTime());
+                    $manager->persist($trickHistory);
+                }
             }
             $manager->persist($trick);
             $manager->flush();
+
+            $this->addFlash('light', "Le trick a été modifié avec succès !");
 
             return $this->redirectToRoute('home');
         }
