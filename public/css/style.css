@@ -453,6 +453,48 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Profil
  --------------------------------------------------------------*/
+.profil{
+  height: 100%;
+  align-content: center;
+}
+
+.image_outer_container{
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 50%;
+  position: relative;
+}
+
+.image_inner_container{
+  border-radius: 50%;
+  padding: 5px;
+  background: #833ab4;
+  background: -webkit-linear-gradient(to bottom, #22c0e8, #ffffff, #e88822);
+  background: linear-gradient(to bottom, #22c0e8, #ffffff, #e88822);
+}
+.image_inner_container img{
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  border: 5px solid white;
+}
+
+.image_outer_container .orange_icon{
+  background-color: #e88822;
+  position: absolute;
+  right: 30px;
+  bottom: 10px;
+  height: 30px;
+  width: 30px;
+  border:5px solid white;
+  border-radius: 50%;
+}
+
+
+.profil img {
+  margin: 10px 10px;
+}
+
 ul.timeline {
   list-style-type: none;
   position: relative;
@@ -499,7 +541,7 @@ ul.timeline.comments > li:before {
   border: 3px solid #e88822;
 }
 
-ul.timeline.comments > li > a {
+ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
   color: #e88822;
 }
 
@@ -523,7 +565,7 @@ ul.timeline.comments > li > a {
 }
 
 .activity, .profil, .tab-pane{
-  margin-top: 10%;
+  margin-top: 6%;
 }
 
 .profil{
@@ -633,6 +675,10 @@ section {
 /*--------------------------------------------------------------
 # Tricks
 --------------------------------------------------------------*/
+.col-md-9.col-lg-8.mx-auto {
+  margin-top: 3%;
+}
+
 .tricks .tricks-item {
   margin-bottom: 30px;
 }
@@ -744,7 +790,13 @@ section {
 }
 
 .tricks-details .tricks-description {
-  padding-top: 50px;
+  margin: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ced4da;
+}
+
+ul.list-group.list-group-flush {
+  margin-left: 5%;
 }
 
 #sliders-details {
@@ -830,6 +882,10 @@ div.carousel.slide {
 
 .form-div {
   width: 85%;
+}
+
+form > .form-group .form-div label {
+  font-weight: 600;
 }
 
 .form-label-group {

@@ -10,13 +10,17 @@
                             <div class="col-md-12 col-lg-8">
                                 <div class="profile-head">
                                     <div class="profil">
+                                        <div class="d-flex justify-content-center h-100">
+                                            <div class="image_outer_container">
+                                                <div class="orange_icon"></div>
+                                                <div class="image_inner_container">
+                                                    <img src="{{ asset('img/profils/' ~app.user.image ~'.jpg') }}">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <h3 class="login-heading mb-4">Bienvenue {{ app.user.username }} !</h3>
-                                        <img src="{{ asset('img/profils/' ~app.user.image ~'.jpg') }}">
-                                        <h5>
-                                            Pseudo : {{ app.user.username }}
-                                        </h5>
                                         <h6>
-                                            Email : {{ app.user.email }}
+                                            Mon email : {{ app.user.email }}
                                         </h6>
                                         <h6 class="activity">
                                             Mon activité :
@@ -54,10 +58,11 @@
                                                                 <li>
                                                                     <a href="{{ path('trick_detail', {'id': trick.id}) }}">{{ trick.title | slice(0, 26) }}
                                                                         ...</a>
-                                                                    <a href="#"
-                                                                       class="float-right">{{ trick.createdAt | date('d/m/Y') }}</a>
-                                                                    <p>{{ trick.description | slice(0, 150) | raw }}
-                                                                        ...</p>
+                                                                    <p>
+                                                                        <a href="#" class="float-right">{{ trick.createdAt | date('d/m/Y') }}</a><br>
+                                                                        {{ trick.description | slice(0, 150) | raw }}
+                                                                        ...
+                                                                    </p>
                                                                 </li>
                                                             {% endfor %}
                                                         </ul>
@@ -73,10 +78,11 @@
                                                             {% for comment in comments %}
                                                                 <li>
                                                                     <a href="#">{{ comment.title | slice(0,24) }}...</a>
-                                                                    <a href="#"
-                                                                       class="float-right">{{ comment.createdAt | date('d/m/Y') }}</a>
-                                                                    <p>{{ comment.content | slice(0, 150) | raw }}
-                                                                        ...</p>
+                                                                    <p>
+                                                                        <a href="#" class="float-right">{{ comment.createdAt | date('d/m/Y') }}</a><br>
+                                                                        {{ comment.content | slice(0, 150) | raw }}
+                                                                        ...
+                                                                    </p>
                                                                 </li>
                                                             {% endfor %}
                                                         </ul>
