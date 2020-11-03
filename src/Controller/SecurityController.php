@@ -69,7 +69,6 @@ class SecurityController extends AbstractController
                 if ($dateDiff < 2 && $user->getIsActive() == 1) {
                     $hash = $encoder->encodePassword($user, $user->getPassword());
                     $user->setPassword($hash);
-                    $user->setToken('');
                     $manager->persist($user);
                     $manager->flush();
                     $this->addFlash('light', "Votre mot de passe a été modifié avec succès !");
@@ -100,9 +99,8 @@ class SecurityController extends AbstractController
             $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
         }
 
-        if ($dateDiff < 7) {
+        if ($dateDiff < 3) {
             $user->setIsActive(1);
-            $user->setToken('');
             $manager->persist($user);
             $manager->flush();
             $this->addFlash('light', "Votre compte a été activé avec succès !");
