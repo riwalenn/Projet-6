@@ -22,7 +22,7 @@
             </div>
         </section><!-- Breadcrumbs Section -->
 
-        <!-- ======= Tricks Details Section ======= -->
+        <!-- ======= Trick Details Section ======= -->
         <section class="tricks-details">
             <div class="container">
                 <div class="tricks-details-container">
@@ -96,6 +96,7 @@
                     <h2>{{ trick.title }}</h2>
                     {{ trick.description | raw }}
                 </div>
+                <!-- ======= Trick history Section ======= -->
                 <div class="tricks-description">
                     <blockquote class="blockquote-footer">Historique des contributeurs de l'article :
                         {% for trickHistory in trick.trickHistories %}
@@ -106,10 +107,10 @@
                             </ul>
                         {% endfor %}
                     </blockquote>
-                </div>
+                </div><!-- End Trick history Section -->
             </div>
-        </section><!-- End Tricks Details Section -->
-        <!-- ======= Tricks Comments Section ======= -->
+        </section><!-- End Trick Details Section -->
+        <!-- ======= Trick Comments Section ======= -->
         <section class="tricks-comments" id="tricks-comments">
             <div class="container">
                 {% if not app.user %}
