@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Entity\TrickHistory;
-use App\Repository\TrickRepository;
+use App\Form\TrickType;
 use App\Repository\UserRepository;
 use App\Service\SendMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,10 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TrickHistoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FilesystemIterator;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\File;
 
 class TrickController extends AbstractController
 {
@@ -68,8 +66,7 @@ class TrickController extends AbstractController
 
         $user = $this->getUser();
 
-        $form = $this->createFormBuilder($trick)
-            ->add('title')
+        /*$form = $this->createFormBuilder($trick)
             ->add('description')
             ->add('position')
             ->add('grabs')
@@ -90,11 +87,21 @@ class TrickController extends AbstractController
                     ])
                 ],
             ])
-            ->getForm();
+            ->getForm();*/
+        $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
+
+
+        $position = $trick->getPosition();
+        $grabs = $trick->getGrabs();
+        $rotation = $trick->getRotation();
+        $flip = $trick->getFlip();
+        $slide = $trick->getSlide();
+        $title = $position. ' ' . $grabs . ' à ' . $rotation . '° ' . $flip . ' ' . $slide;
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$trick->getId()) {
+                $trick->setTitle($title);
                 $trick->setCreatedAt(new \DateTime());
                 $trick->setUser($user);
                 $files = $form->get('image')->getData();
@@ -113,6 +120,7 @@ class TrickController extends AbstractController
                     $trick->setImage($newFileName);
                 }
             } else {
+                $trick->setTitle($title);
                 $author = $repo->findOneByCriteria("username", $trick->getUser());
                 if ($user->getId() !== $author->getId()) {
                     $trickHistory = new TrickHistory();

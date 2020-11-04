@@ -3,27 +3,51 @@
 namespace App\Form;
 
 use App\Entity\Trick;
-use Doctrine\DBAL\Types\DateType;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class TrickType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('title', HiddenType::class)
             ->add('image')
             ->add('description')
-            ->add('position')
-            ->add('grabs')
-            ->add('rotation')
-            ->add('flip')
-            ->add('slide')
-            ->add('created_at')
-            ->add('User');
+            ->add('position', ChoiceType::class, [
+                'choices' => Trick::POSITION
+            ])
+            ->add('grabs', ChoiceType::class, [
+                'choices' => Trick::GRABS
+            ])
+            ->add('rotation', ChoiceType::class, [
+                'choices' => Trick::ROTATION
+            ])
+            ->add('flip', ChoiceType::class, [
+                'choices' => Trick::FLIP
+            ])
+            ->add('slide', ChoiceType::class, [
+                'choices' => Trick::SLIDE
+            ])
+            ->add('image', FileType::class, [
+                'label' => 'snowtricks-',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                        ],
+                        'mimeTypesMessage' => 'Merci d\'upload un fichier jpeg',
+                    ])
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -15,7 +15,7 @@
                     </div>
                     <ol>
                         <li><a href="/">Home</a></li>
-                        <li><a href="/">Tricks</a></li>
+                        <li><a href="{{ path('home', {'_fragment': 'tricks'}) }}">Tricks</a></li>
                         <li>{{ trick.title | slice(0, 15) }}...</li>
                     </ol>
                 </div>
