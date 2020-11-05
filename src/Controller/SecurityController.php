@@ -58,7 +58,7 @@ class SecurityController extends AbstractController
     {
         $token = $request->query->get('token');
         $user = $userRepository->findOneBy(array("token" => $token));
-        $form = $this->createForm(ForgotPasswordType::class, $user);
+        $form = $this->createForm(ForgotPasswordType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if (empty($user)) {
@@ -67,11 +67,12 @@ class SecurityController extends AbstractController
             } else {
                 $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
                 if ($dateDiff < 2 && $user->getIsActive() == 1) {
-                    $hash = $encoder->encodePassword($user, $user->getPassword());
+                    $data = $form->getData();
+                    $hash = $encoder->encodePassword($user, $data['password']);
                     $user->setPassword($hash);
                     $manager->persist($user);
                     $manager->flush();
-                    $this->addFlash('light', "Votre mot de passe a été modifié avec succès !");
+                    $this->addFlash('success', "Votre mot de passe a été modifié avec succès !");
 
                 } else {
                     $this->addFlash('error', "Votre token a expiré !");
