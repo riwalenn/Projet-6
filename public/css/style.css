@@ -576,6 +576,58 @@ ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
 }
 
 /*--------------------------------------------------------------
+# Section Admin
+ --------------------------------------------------------------*/
+div#panel_admin {
+  width: 100%;
+}
+#panel_admin > nav > .nav.nav-tabs{
+
+  border: none;
+  color:#fff;
+  background:#272e38;
+  border-radius:0;
+
+}
+#panel_admin > nav > div a.nav-item.nav-link,
+#panel_admin > nav > div a.nav-item.nav-link.active
+{
+  border: none;
+  padding: 18px 25px;
+  color:#fff;
+  background:#272e38;
+  border-radius:0;
+}
+
+#panel_admin > nav > div a.nav-item.nav-link.active:after
+{
+  content: "";
+  position: relative;
+  bottom: -60px;
+  left: -10%;
+  border: 15px solid transparent;
+  border-top-color: rgba(103, 176, 209, 0.8) ;
+}
+#panel_admin > .tab-content{
+  background: #fdfdfd;
+  line-height: 25px;
+  border: 1px solid #ddd;
+  border-top:5px solid rgba(103, 176, 209, 0.8);
+  border-bottom:5px solid rgba(103, 176, 209, 0.8);
+  padding:30px 25px;
+}
+
+#panel_admin > nav > div a.nav-item.nav-link:hover,
+#panel_admin > nav > div a.nav-item.nav-link:focus
+{
+  border: none;
+  background: rgba(103, 176, 209, 0.8);
+  color:#fff;
+  border-radius:0;
+  transition:background 0.20s linear;
+}
+
+/*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
 section {
