@@ -58,7 +58,12 @@
                             <li><a href="{{ path('security_registration') }}">S'inscrire</a></li>
                             <li><a href="{{ path('security_login') }}">Connexion</a></li>
                         {% else %}
-                            <li><a href="{{ path('profil', {'id': app.user.id}) }}">Mon profil</a></li>
+                            {% for role in app.user.roles %}
+                                {% if role == 'ROLE_ADMIN' %}
+                                    <li><a href="{{ path('admin') }}">Panel Admin</a> </li>
+                                {% endif %}
+                            {% endfor %}
+                            <li><a href="{{ path('profil', {'id': app.user.id}) }}">Ma page de profil</a></li>
                             <li><a href="{{ path('security_logout') }}" onclick="return ConfirmDeconnexion()">Déconnexion</a>
                             </li>
                         {% endif %}

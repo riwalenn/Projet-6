@@ -19,6 +19,23 @@
                                             </div>
                                         </div>
                                         <h3 class="login-heading mb-4">Bienvenue {{ app.user.username }} !</h3>
+                                        <!-- ======= Rank Section ======= -->
+                                        <h6>Mon rang :
+                                            {% for role in app.user.roles %}
+                                                {% if(role == 'ROLE_ADMIN') %}
+                                                    Admin et
+                                                {% else %}
+                                                    {% if( tricks | length > 0) %}
+                                                        Auteur
+                                                    {% else %}
+                                                        Utilisateur
+                                                    {% endif %}
+                                                    {% if comments | length > 0 %}
+                                                        - contributeur
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </h6><!-- End Rank Section -->
                                         <h6>
                                             Mon email : {{ app.user.email }}
                                         </h6>

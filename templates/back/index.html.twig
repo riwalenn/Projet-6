@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Admin !{% endblock %}
+
+{% block body %}
+    <main id="main">
+
+        <!-- ======= Breadcrumbs Section ======= -->
+        <section class="breadcrumbs">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <ol>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="{{ path('admin') }}">Admin</a></li>
+                    </ol>
+                </div>
+            </div>
+        </section><!-- Breadcrumbs Section -->
+
+        <!-- ======= Trick Details Section ======= -->
+        <section class="tricks-details">
+            <div class="container">
+                <div class="tricks-description">
+                    <h2>titre</h2>
+                    description
+                </div>
+            </div>
+        </section><!-- End Trick Details Section -->
+    </main><!-- End #main -->
+{% endblock %}
