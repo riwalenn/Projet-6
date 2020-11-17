@@ -581,6 +581,12 @@ ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
 div#panel_admin {
   width: 100%;
 }
+i.danger {
+  color: red;
+}
+tr.role_admin {
+  background-color: #fbe8b0;
+}
 #panel_admin > nav > .nav.nav-tabs{
 
   border: none;

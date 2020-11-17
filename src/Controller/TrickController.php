@@ -65,29 +65,6 @@ class TrickController extends AbstractController
         }
 
         $user = $this->getUser();
-
-        /*$form = $this->createFormBuilder($trick)
-            ->add('description')
-            ->add('position')
-            ->add('grabs')
-            ->add('rotation')
-            ->add('flip')
-            ->add('slide')
-            ->add('image', FileType::class, [
-                'label' => 'snowtricks-',
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                        ],
-                        'mimeTypesMessage' => 'Merci d\'upload un fichier jpeg',
-                    ])
-                ],
-            ])
-            ->getForm();*/
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
@@ -154,6 +131,7 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @Route("/admin/{id}/delete_trick", name="admin_delete_trick")
      * @Route("/delete_trick/{id}", name="delete_trick")
      */
     public function delete_trick(Trick $trick, EntityManagerInterface $manager)
@@ -176,5 +154,6 @@ class TrickController extends AbstractController
         $this->addFlash('success', 'Le trick a bien été supprimé !');
 
         return $this->redirectToRoute('home');
+        //TODO: autre route si admin ?
     }
 }
