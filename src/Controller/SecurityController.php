@@ -95,7 +95,7 @@ class SecurityController extends AbstractController
         $user = $userRepository->findOneBy(array("token" => $token));
         if (empty($user) || empty($token)) {
             $this->addFlash('error', "Votre token n'existe pas");
-            return $this->redirectToRoute('security_password_form');
+            return $this->redirectToRoute('security_registration');
         } else {
             $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
         }

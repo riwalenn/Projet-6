@@ -154,6 +154,5 @@ class TrickController extends AbstractController
         $this->addFlash('success', 'Le trick a bien été supprimé !');
 
         return $this->redirectToRoute('home');
-        //TODO: autre route si admin ?
     }
 }

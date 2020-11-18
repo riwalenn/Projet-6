@@ -21,7 +21,6 @@ class BackController extends AbstractController
         $users = $userRepo->findAll();
         $comments = $commentRepo->findAll();
 
-
         return $this->render('back/index.html.twig', [
             'controller_name' => 'BackController',
             'tricks'          => $tricks,
