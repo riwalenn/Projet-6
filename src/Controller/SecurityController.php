@@ -46,8 +46,8 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/registration.html.twig', [
-            'form' => $form->createView(),
-            'title' => "S'inscrire sur SnowTricks"
+            'form'      => $form->createView(),
+            'title'     => "S'inscrire sur SnowTricks"
         ]);
     }
 
@@ -76,13 +76,13 @@ class SecurityController extends AbstractController
 
                 } else {
                     $this->addFlash('error', "Votre token a expiré !");
-                    return $this->redirectToRoute('security_password_form');
+                    return $this->redirectToRoute('email_form');
                 }
             }
         }
         return $this->render('security/password-change.html.twig', [
-            'form' => $form->createView(),
-            'title' => "J'ai oublié mon mot de passe !"
+            'form'      => $form->createView(),
+            'title'     => "J'ai oublié mon mot de passe !"
         ]);
     }
 
@@ -142,8 +142,8 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/password-forgotten.html.twig', [
-            'form' => $form->createView(),
-            'title' => "J'ai oublié mon mot de passe !"
+            'form'      => $form->createView(),
+            'title'     => "J'ai oublié mon mot de passe !"
         ]);
     }
 
@@ -153,7 +153,7 @@ class SecurityController extends AbstractController
     public function login()
     {
         return $this->render('security/login.html.twig', [
-            'title' => "Connectez-vous !"
+            'title'     => "Connectez-vous !"
         ]);
     }
 

@@ -45,10 +45,10 @@ class TrickController extends AbstractController
         }
 
         return $this->render('front/tricks-details.html.twig', [
-            'title' => "Tricks",
-            'trick' => $trick,
-            'trick_history' => $trick_history,
-            'commentForm' => $form->createView()
+            'title'             => "Tricks",
+            'trick'             => $trick,
+            'trick_history'     => $trick_history,
+            'commentForm'       => $form->createView()
         ]);
     }
 
@@ -124,17 +124,13 @@ class TrickController extends AbstractController
         }
 
         return $this->render('front/tricks-form.html.twig', [
-            'title' => $title,
-            'formTrick' => $form->createView(),
-            'editMode' => $trick->getId() !== null
+            'title'         => $title,
+            'formTrick'     => $form->createView(),
+            'editMode'      => $trick->getId() !== null
         ]);
     }
 
-    /**
-     * @Route("/admin/{id}/delete_trick", name="admin_delete_trick")
-     * @Route("/delete_trick/{id}", name="delete_trick")
-     */
-    public function delete_trick(Trick $trick, EntityManagerInterface $manager)
+    public function deleteAction(Trick $trick, EntityManagerInterface $manager)
     {
         foreach ($trick->getTrickLibraries() as $library) {
             $trick->removeTrickLibrary($library);
@@ -152,7 +148,23 @@ class TrickController extends AbstractController
         $manager->remove($trick);
         $manager->flush();
         $this->addFlash('success', 'Le trick a bien été supprimé !');
+    }
 
+    /**
+     * @Route("/delete_trick/{id}", name="delete_trick")
+     */
+    public function delete_trick(Trick $trick, EntityManagerInterface $manager)
+    {
+        $this->deleteAction($trick, $manager);
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/admin/{id}/delete_trick", name="admin_delete_trick")
+     */
+    public function delete_admin_trick(Trick $trick, EntityManagerInterface $manager)
+    {
+        $this->deleteAction($trick, $manager);
+        return $this->redirectToRoute('admin');
     }
 }

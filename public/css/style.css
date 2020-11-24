@@ -564,7 +564,7 @@ ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
   top: -10px;
 }
 
-.activity, .profil, .tab-pane{
+.activity, .profil{
   margin-top: 6%;
 }
 
@@ -578,6 +578,19 @@ ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
 /*--------------------------------------------------------------
 # Section Admin
  --------------------------------------------------------------*/
+.table{margin-bottom: 0!important;}
+#nav-users-tab.nav-link.active:after{
+  left: -17%!important;
+}
+#nav-tricks-tab.nav-link.active:after{
+  left: -11%!important;
+}
+#nav-comments-tab.nav-link.active:after{
+  left: -19%!important;
+}
+#nav-pictures-tab.nav-link.active:after{
+  left: -20%!important;
+}
 div#panel_admin {
   width: 100%;
 }

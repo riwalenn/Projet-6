@@ -51,30 +51,33 @@
                                     </thead>
                                     <tbody>
                                     {% for user in users %}
-                                        <tr class="{% for role in user.roles %}{% if role == 'ROLE_ADMIN' %}role_admin{% endif %}{% endfor %}">
+                                        {% for role in user.roles %}
+                                        <tr class="{% if role == 'ROLE_ADMIN' %}role_admin{% endif %}}">
                                             <th scope="row" class="id_user">{{ user.id }}</th>
                                             <td class="username_user">{{ user.username }}</td>
                                             <td class="email_user">{{ user.email }}</td>
-                                            <td class="img_user"><img
-                                                        src="{{ asset('/img/profils/' ~ user.image ~ '-thumbail.jpg') }}"></td>
+                                            <td class="img_user">
+                                                <img src="{{ asset('/img/profils/' ~ user.image ~ '-thumbail.jpg') }}"></td>
                                             <td class="activ_user">
                                                 {% if user.isActive == 1 %}
                                                     <i class="fa fa-check-square" style="color: green"></i>
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                {% for role in user.roles %}
-                                                    {% if role == 'ROLE_USER' %}
-                                                        utilisateur
-                                                    {% else %}
-                                                        administrateur,
-                                                    {% endif %}
-                                                {% endfor %}
+                                                {{ form_start(userForm) }}
+                                                    {% for test in role %}
+                                                        <div class="form-group">
+                                                            {{ form_row(userForm.test, {'attr': {'placeholder': 'roles...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'select', 'id': 'inputRoles'}) }}
+                                                            <button type="submit" class="btn btn-primary" style="margin-top: 1rem"><i class="fa fa-save"></i></button>
+                                                        </div>
+                                                    {% endfor %}
+                                                {{ form_end(userForm) }}
                                             </td>
                                             <td>
-                                                <i class="fa fa-trash danger"></i>
+                                                <a href="{{ path('admin_delete_user', {'id': user.id}) }}" class="js-delete"><i class="fa fa-trash danger"></i></a>
                                             </td>
                                         </tr>
+                                        {% endfor %}
                                     {% endfor %}
                                     </tbody>
                                 </table>
@@ -142,7 +145,7 @@
                                             <td>{{ comment.title }}</td>
                                             <td>{{ comment.content | raw }}</td>
                                             <td>{{ comment.createdAt | date('d/m/Y') }}</td>
-                                            <td><i class="fa fa-trash danger"></i></td>
+                                            <td><a href="{{ path('admin_delete_comment', {'id': comment.id}) }}" class="js-delete"><i class="fa fa-trash danger"></i></a></td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
