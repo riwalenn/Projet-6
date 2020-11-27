@@ -21,3 +21,7 @@ function ConfirmDeconnexion() {
 function confirmTrickDelete(id){
     $("#delete_trick_modal"+id).modal();
 }
+
+function modifyRoleUser(id){
+    $("#change_role_user"+id).modal();
+}

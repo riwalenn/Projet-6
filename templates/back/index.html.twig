@@ -51,8 +51,9 @@
                                     </thead>
                                     <tbody>
                                     {% for user in users %}
-                                        {% for role in user.roles %}
-                                        <tr class="{% if role == 'ROLE_ADMIN' %}role_admin{% endif %}}">
+
+                                        <tr class="{% for role in user.roles %}{% if role == 'ROLE_ADMIN' %}role_admin{% endif %}{% endfor %}">
+
                                             <th scope="row" class="id_user">{{ user.id }}</th>
                                             <td class="username_user">{{ user.username }}</td>
                                             <td class="email_user">{{ user.email }}</td>
@@ -64,20 +65,15 @@
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                {{ form_start(userForm) }}
-                                                    {% for test in role %}
-                                                        <div class="form-group">
-                                                            {{ form_row(userForm.test, {'attr': {'placeholder': 'roles...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'select', 'id': 'inputRoles'}) }}
-                                                            <button type="submit" class="btn btn-primary" style="margin-top: 1rem"><i class="fa fa-save"></i></button>
-                                                        </div>
-                                                    {% endfor %}
-                                                {{ form_end(userForm) }}
+                                                <div class="custom-control custom-switch">
+                                                    <input onclick="modifyRoleUser('{{ user.id }}')" type="checkbox" class="custom-control-input" id="customSwitches{{ user.id }}" {% for role in user.roles %}{% if role == 'ROLE_ADMIN' %}checked{% endif %}{% endfor %}>
+                                                    <label class="custom-control-label" for="customSwitches{{ user.id }}"></label>
+                                                </div>
                                             </td>
                                             <td>
                                                 <a href="{{ path('admin_delete_user', {'id': user.id}) }}" class="js-delete"><i class="fa fa-trash danger"></i></a>
                                             </td>
                                         </tr>
-                                        {% endfor %}
                                     {% endfor %}
                                     </tbody>
                                 </table>
@@ -160,4 +156,39 @@
             </div>
         </section><!-- End Trick Details Section -->
     </main><!-- End #main -->
+    {% for user in users %}
+    <div class="portfolio-modal modal fade" id="change_role_user{{ user.id }}" tabindex="-1" role="dialog"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <div class="modal-body">
+                                <p>Souhaitez-vous vraiment modifier le rôle de l'utilisateur ?</p>
+                                <form action="{{ path('change_role', {'id': user.id}) }}" method="post">
+                                    <input type="hidden" id="inputId" name="modifyRole[id]"
+                                           value="">
+                                    <div class="buttons">
+                                        <button type="submit" class="btn btn-outline-danger" value="delete"
+                                                onclick="">modifier
+                                        </button>
+                                        <button class="btn btn-outline-primary" data-dismiss="modal"
+                                                type="button"><i class="fa fa-times"></i>Annuler
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}

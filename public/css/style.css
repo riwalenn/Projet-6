@@ -578,6 +578,14 @@ ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
 /*--------------------------------------------------------------
 # Section Admin
  --------------------------------------------------------------*/
+.custom-control-input:checked~.custom-control-label::before{
+  color: #fff;
+  border-color: #28a745;
+  background-color: #28a745;
+}
+.fa.fa-check-square{
+  color: #28a745;
+}
 .table{margin-bottom: 0!important;}
 #nav-users-tab.nav-link.active:after{
   left: -17%!important;
@@ -598,7 +606,7 @@ i.danger {
   color: red;
 }
 tr.role_admin {
-  background-color: #fbe8b0;
+  background-color: #fbe8b0!important;
 }
 #panel_admin > nav > .nav.nav-tabs{
 

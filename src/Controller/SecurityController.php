@@ -33,6 +33,7 @@ class SecurityController extends AbstractController
             $user->setImage(mt_rand(1, 9));
             $user->setCreatedAt(new \DateTime());
             $user->setIsActive(0);
+            $user->setRoles((array)'ROLE_USER');
 
             $manager->persist($user);
             $manager->flush();

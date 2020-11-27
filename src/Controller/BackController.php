@@ -43,6 +43,22 @@ class BackController extends AbstractController
     }
 
     /**
+     * @Route("/admin/user/{id}/change_role", name="change_role")
+     */
+    public function change_Admin_Role(User $user, EntityManagerInterface $manager)
+    {
+        if($user->getRoles()[0] === "ROLE_ADMIN") {
+            $user->setRoles((array)'ROLE_USER');
+        } elseif($user->getRoles()[0] === "ROLE_USER") {
+            $user->setRoles((array)'ROLE_ADMIN');
+        }
+
+        $manager->persist($user);
+        $manager->flush();
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
      * @Route("/admin/{id}/delete_comment", name="admin_delete_comment")
      */
     public function delete_Admin_Comment(Comment $comment, EntityManagerInterface $manager)
