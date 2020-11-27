@@ -148,7 +148,17 @@
                                 </table>
                             </div>
                             <div class="tab-pane fade" id="nav-pictures" role="tabpanel" aria-labelledby="nav-pictures-tab">
-                                Future bibliothèque d'images
+                                <div class="row">
+                                    {% for library in itemslibrary %}
+                                        <div class="col-lg-4 col-md-6" style="margin-bottom: 0.4rem; margin-left: 0.2rem; margin-right: 0; padding: 0 0; max-width: 32%!important;">
+                                            {% if library.type == 1 %}
+                                                <img src="{{ library.lien }}">
+                                            {% else %}
+                                                <iframe width="290" height="217" src="{{ library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Entity\User;
 use App\Form\ChangeRoleType;
 use App\Repository\CommentRepository;
+use App\Repository\TrickLibraryRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,11 +19,12 @@ class BackController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
-    public function index(UserRepository $userRepo, TrickRepository $trickRepo, CommentRepository $commentRepo, Request $request, EntityManagerInterface $manager)
+    public function index(UserRepository $userRepo, TrickRepository $trickRepo, TrickLibraryRepository $libraryRepository, CommentRepository $commentRepo, Request $request, EntityManagerInterface $manager)
     {
         $tricks = $trickRepo->findAll();
         $users = $userRepo->findAll();
         $comments = $commentRepo->findAll();
+        $itemslibrary = $libraryRepository->findAll();
         $user = new User();
         $form = $this->createForm(ChangeRoleType::class, $user);
         /*$form = $this->createFormBuilder($user)
@@ -39,6 +41,7 @@ class BackController extends AbstractController
             'userForm'        => $form->createView(),
             'tricks'          => $tricks,
             'users'           => $users,
+            'itemslibrary'    => $itemslibrary,
             'comments'        => $comments]);
     }
 
