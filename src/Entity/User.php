@@ -86,6 +86,10 @@ class User implements UserInterface
      * @ORM\Column(type="json")
      */
     private $roles = [];
+    const ROLES = [
+        'Utilisateur' => 'ROLE_USER',
+        'Administrateur' => 'ROLE_ADMIN',
+    ];
 
     public function __construct()
     {
@@ -294,7 +298,7 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(?array $roles): self
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
         return $this;

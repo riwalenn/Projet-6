@@ -22,7 +22,9 @@ class TrikFixtures extends Fixture
                     ->setEmail($faker->email)
                     ->setPassword($faker->password(12, 18))
                     ->setImage($faker->imageUrl(30, 30, 'sports'))
-                    ->setToken(bin2hex(random_bytes(32)));
+                    ->setToken(bin2hex(random_bytes(32)))
+                    ->setCreatedAt(new \DateTime())
+                    ->setRoles((array)'ROLE_USER');
             $manager->persist($user);
 
             for ($j = 1; $j <= 2; $j++) {

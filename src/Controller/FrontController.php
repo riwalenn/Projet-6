@@ -20,9 +20,9 @@ class FrontController extends AbstractController
         $tricks = $repository->findBy(array(), array('created_at' => 'DESC'), 3, 0);
 
         return $this->render('front/home.html.twig', [
-            'controller_name' => 'FrontController',
-            'title' => $this->title,
-            'tricks' => $tricks]);
+            'controller_name'   => 'FrontController',
+            'title'             => $this->title,
+            'tricks'            => $tricks]);
     }
 
     /**
@@ -44,9 +44,9 @@ class FrontController extends AbstractController
         $tricks = $repo->findBy(array("User" => $user), array('id' => 'DESC'));
         $comments = $commentRepository->findBy(array("User" => $user), array('id' => 'DESC'));
         return $this->render('front/profil.html.twig', [
-            'title' => $this->title,
-            'tricks' => $tricks,
-            'comments' => $comments
+            'title'         => $this->title,
+            'tricks'        => $tricks,
+            'comments'      => $comments
         ]);
     }
 }

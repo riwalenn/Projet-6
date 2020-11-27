@@ -33,6 +33,7 @@ class SecurityController extends AbstractController
             $user->setImage(mt_rand(1, 9));
             $user->setCreatedAt(new \DateTime());
             $user->setIsActive(0);
+            $user->setRoles((array)'ROLE_USER');
 
             $manager->persist($user);
             $manager->flush();
@@ -46,8 +47,8 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/registration.html.twig', [
-            'form' => $form->createView(),
-            'title' => "S'inscrire sur SnowTricks"
+            'form'      => $form->createView(),
+            'title'     => "S'inscrire sur SnowTricks"
         ]);
     }
 
@@ -76,13 +77,13 @@ class SecurityController extends AbstractController
 
                 } else {
                     $this->addFlash('error', "Votre token a expiré !");
-                    return $this->redirectToRoute('security_password_form');
+                    return $this->redirectToRoute('email_form');
                 }
             }
         }
         return $this->render('security/password-change.html.twig', [
-            'form' => $form->createView(),
-            'title' => "J'ai oublié mon mot de passe !"
+            'form'      => $form->createView(),
+            'title'     => "J'ai oublié mon mot de passe !"
         ]);
     }
 
@@ -95,7 +96,7 @@ class SecurityController extends AbstractController
         $user = $userRepository->findOneBy(array("token" => $token));
         if (empty($user) || empty($token)) {
             $this->addFlash('error', "Votre token n'existe pas");
-            return $this->redirectToRoute('security_password_form');
+            return $this->redirectToRoute('security_registration');
         } else {
             $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
         }
@@ -142,8 +143,8 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/password-forgotten.html.twig', [
-            'form' => $form->createView(),
-            'title' => "J'ai oublié mon mot de passe !"
+            'form'      => $form->createView(),
+            'title'     => "J'ai oublié mon mot de passe !"
         ]);
     }
 
@@ -153,7 +154,7 @@ class SecurityController extends AbstractController
     public function login()
     {
         return $this->render('security/login.html.twig', [
-            'title' => "Connectez-vous !"
+            'title'     => "Connectez-vous !"
         ]);
     }
 

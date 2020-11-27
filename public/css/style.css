@@ -564,7 +564,7 @@ ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
   top: -10px;
 }
 
-.activity, .profil, .tab-pane{
+.activity, .profil{
   margin-top: 6%;
 }
 
@@ -573,6 +573,85 @@ ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+/*--------------------------------------------------------------
+# Section Admin
+ --------------------------------------------------------------*/
+.custom-control-input:checked~.custom-control-label::before{
+  color: #fff;
+  border-color: #28a745;
+  background-color: #28a745;
+}
+.fa.fa-check-square{
+  color: #28a745;
+}
+.table{margin-bottom: 0!important;}
+#nav-users-tab.nav-link.active:after{
+  left: -17%!important;
+}
+#nav-tricks-tab.nav-link.active:after{
+  left: -11%!important;
+}
+#nav-comments-tab.nav-link.active:after{
+  left: -19%!important;
+}
+#nav-pictures-tab.nav-link.active:after{
+  left: -20%!important;
+}
+div#panel_admin {
+  width: 100%;
+}
+i.danger {
+  color: red;
+}
+tr.role_admin {
+  background-color: #fbe8b0!important;
+}
+#panel_admin > nav > .nav.nav-tabs{
+
+  border: none;
+  color:#fff;
+  background:#272e38;
+  border-radius:0;
+
+}
+#panel_admin > nav > div a.nav-item.nav-link,
+#panel_admin > nav > div a.nav-item.nav-link.active
+{
+  border: none;
+  padding: 18px 25px;
+  color:#fff;
+  background:#272e38;
+  border-radius:0;
+}
+
+#panel_admin > nav > div a.nav-item.nav-link.active:after
+{
+  content: "";
+  position: relative;
+  bottom: -60px;
+  left: -10%;
+  border: 15px solid transparent;
+  border-top-color: rgba(103, 176, 209, 0.8) ;
+}
+#panel_admin > .tab-content{
+  background: #fdfdfd;
+  line-height: 25px;
+  border: 1px solid #ddd;
+  border-top:5px solid rgba(103, 176, 209, 0.8);
+  border-bottom:5px solid rgba(103, 176, 209, 0.8);
+  padding:30px 25px;
+}
+
+#panel_admin > nav > div a.nav-item.nav-link:hover,
+#panel_admin > nav > div a.nav-item.nav-link:focus
+{
+  border: none;
+  background: rgba(103, 176, 209, 0.8);
+  color:#fff;
+  border-radius:0;
+  transition:background 0.20s linear;
 }
 
 /*--------------------------------------------------------------
