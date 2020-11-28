@@ -6,6 +6,7 @@ use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Entity\TrickHistory;
 use App\Form\TrickType;
+use App\Repository\TrickLibraryRepository;
 use App\Repository\UserRepository;
 use App\Service\SendMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FilesystemIterator;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class TrickController extends AbstractController
 {
@@ -23,11 +25,11 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick_detail/{id}", name="trick_detail")
      */
-    public function trick_detail(Trick $trick, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository)
+    public function trick_detail(Trick $trick, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository, TrickLibraryRepository $libraryRepository)
     {
         $trick_history = $historyRepository->findAll();
+        $itemsLibrary = $libraryRepository->findBy(array("trick" => $trick->getId()));
         $comment = new Comment();
-        /*$form = $this->createForm(CommentType::class, $comment);*/
         $form = $this->createFormBuilder($comment)
             ->add('title')
             ->add('content')
@@ -47,6 +49,7 @@ class TrickController extends AbstractController
         return $this->render('front/tricks-details.html.twig', [
             'title'             => "Tricks",
             'trick'             => $trick,
+            'itemsLibrary'      => $itemsLibrary,
             'trick_history'     => $trick_history,
             'commentForm'       => $form->createView()
         ]);
