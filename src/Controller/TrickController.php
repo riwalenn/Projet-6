@@ -59,9 +59,9 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick_detail/{id}/{offset}", name="more_medias", requirements={"offset": "\d+"})
      */
-    public function more_medias(Trick $trick, TrickLibraryRepository $libraryRepository, $offset = 3)
+    public function more_medias(Trick $trick, TrickLibraryRepository $libraryRepository, $offset = 6)
     {
-        $medias = $libraryRepository->findBy(array('trick_id' => $trick->getId()), array(), 3, $offset);
+        $medias = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, $offset);
 
         return $this->render('front/medias-more.html.twig', ['medias' => $medias,'trick' => $trick,]);
     }
@@ -169,6 +169,14 @@ class TrickController extends AbstractController
         $manager->remove($trick);
         $manager->flush();
         $this->addFlash('success', 'Le trick a bien été supprimé !');
+    }
+
+    /**
+     * @Route("/trick_detail/{id}/add_media/", name="add_media")
+     */
+    public function add_trick_media()
+    {
+
     }
 
     /**

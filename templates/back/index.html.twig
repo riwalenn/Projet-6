@@ -153,8 +153,10 @@
                                         <div class="col-lg-4 col-md-6" style="margin-bottom: 0.4rem; margin-left: 0.2rem; margin-right: 0; padding: 0 0; max-width: 32%!important;">
                                             {% if library.type == 1 %}
                                                 <img src="{{ library.lien }}">
+                                            {% elseif library.type == 3 %}
+                                                <img src="{{ asset('/img/tricks/' ~ library.lien) }}" class="img-fluid" style="width: 337px; height: 252px">
                                             {% else %}
-                                                <iframe width="290" height="217" src="{{ library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                <iframe width="337" height="252" src="{{ library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                             {% endif %}
                                         </div>
                                     {% endfor %}

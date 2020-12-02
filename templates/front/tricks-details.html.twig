@@ -9,7 +9,13 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex flex-column align-items-start">
                         <h2>{{ trick.title }} <a href="{{ path('edit_trick', {'id': trick.id}) }}"
-                                                class="trick-link col-2"><i class="fa fa-edit"></i></a><a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-trash"></i></a></h2>
+                                                class="trick-link col-2"><i class="fa fa-edit"></i></a>
+                            {% if app.user %}
+                                {% if app.user == trick.user %}
+                                    <a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                                {% endif %}
+                            {% endif %}
+                        </h2>
                         <blockquote class="blockquote-footer">Créé
                             par {{ trick.user.username~ " le " ~trick.createdAt | date('d/m/Y à H:i') }}</blockquote>
                     </div>
@@ -48,8 +54,10 @@
                             {% for library in itemsLibrary %}
                                 <div class="col-lg-4 col-md-6 tricks-item">
                                     <div class="tricks-wrap shadow">
-                                        {% if ( library.type == 1 ) %}
+                                        {% if library.type == 1 %}
                                             <img src="{{ library.lien }}" class="img-fluid">
+                                        {% elseif library.type == 3 %}
+                                            <img src="{{ asset('/img/tricks/' ~ library.lien) }}" class="img-fluid">
                                         {% else %}
                                             <iframe width="337" height="252" src="{{ library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                         {% endif %}
@@ -64,10 +72,17 @@
                                     </div>
                                 </div>
                             {% endfor %}
+                            <div class="col-lg-4 col-md-6 tricks-item">
+                                <div class="tricks-wrap shadow">
+                                    <a onclick="addMedia('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-12 text-center">
-                                <button id="moreMedias" class="btn btn-primary">Voir plus de médias</button>
+                                {% if itemsLibrary|length > 0 %}
+                                    <button id="moreMedias" class="btn btn-primary">Voir plus de médias</button>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -178,6 +193,44 @@
                 </div>
             </div>
     {% endif %}
+    <div class="portfolio-modal modal fade" id="add_trick_media{{ trick.id }}" tabindex="-1" role="dialog"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <div class="modal-body">
+                                <p>Ajouter une image ou une vidéo</p>
+                                <form action="{{ path('add_media', {'id': trick.id}) }}" method="post">
+                                    <input type="hidden" id="inputId" name="addLibrary[id]"
+                                           value="{{ trick.id }}">
+                                    <div class="form-group">
+                                        <input type="text" name="lien" class="form-control">
+                                        <small id="imageDownload" class="form-text text-muted">L'image doit être au format
+                                            800x600 et au format jpeg (un lien http est toléré). La vidéo doit être sans le embed (juste le lien).</small>
+                                    </div>
+                                    <div class="buttons">
+                                        <button type="submit" class="btn btn-outline-primary" value="delete"
+                                                onclick="">ajouter
+                                        </button>
+                                        <button class="btn btn-outline-danger" data-dismiss="modal"
+                                                type="button"><i class="fa fa-times"></i>Annuler
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

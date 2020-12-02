@@ -18,6 +18,10 @@ function ConfirmDeconnexion() {
     }
 }
 
+function addMedia(id) {
+    $("#add_trick_media"+id).modal();
+}
+
 function confirmTrickDelete(id){
     $("#delete_trick_modal"+id).modal();
 }
