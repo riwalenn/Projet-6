@@ -9,7 +9,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex flex-column align-items-start">
                         <h2>{{ trick.title }} <a href="{{ path('edit_trick', {'id': trick.id}) }}"
-                                                class="trick-link col-2"><i class="fa fa-edit"></i></a></h2>
+                                                class="trick-link col-2"><i class="fa fa-edit"></i></a><a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-trash"></i></a></h2>
                         <blockquote class="blockquote-footer">Créé
                             par {{ trick.user.username~ " le " ~trick.createdAt | date('d/m/Y à H:i') }}</blockquote>
                     </div>
@@ -26,7 +26,11 @@
         <section class="tricks-details">
             <div class="container">
                 <div class="tricks-details-container">
+                    {% if(trick.image) %}
                     <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
+                        {% else %}
+                        <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid" alt="">
+                    {% endif %}
                     <div class="tricks-info">
                         <h3>Snow tricks informations</h3>
                         <ul>
@@ -38,18 +42,36 @@
                         </ul>
                     </div>
                 </div>
-                <!-- TODO: librairie des images et vidéos par trick -->
-                <div class="row tricks-container" data-aos="fade-up" id="library">
-                    <div class="card col-lg-3 col-md-6 tricks-item" style="flex-direction: row">
-                        {% for library in itemsLibrary %}
-                               {% if library.type == 1 %}
-                                   <img src="{{ library.lien }}">
-                               {% else %}
-                                   <iframe width="290" height="217" src="{{ library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                               {% endif %}
-                        {% endfor %}
+                <section id="tricks" class="tricks_medias">
+                    <div class="container">
+                        <div class="row tricks-container" data-aos="fade-up">
+                            {% for library in itemsLibrary %}
+                                <div class="col-lg-4 col-md-6 tricks-item">
+                                    <div class="tricks-wrap shadow">
+                                        {% if ( library.type == 1 ) %}
+                                            <img src="{{ library.lien }}" class="img-fluid">
+                                        {% else %}
+                                            <iframe width="337" height="252" src="{{ library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        {% endif %}
+                                        <div class="tricks-links">
+                                            {% if app.user %}
+                                                {% if app.user == trick.user %}
+                                                    <a onclick="confirmTrickDelete('{{ trick.id }}')"
+                                                       class="trick-link col-2 trash">{{ library.id }}{#<i class="fa fa-trash"></i>#}</a>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button id="moreMedias" class="btn btn-primary">Voir plus de médias</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </section>
                 <div class="tricks-description">
                     <h2>{{ trick.title }}</h2>
                     {{ trick.description | raw }}
@@ -104,7 +126,7 @@
                     </div>
                 {% endfor %}
                 <div class="list-group">
-                    {% for comments in trick.comments %}
+                    {% for comments in trick.comments|sort((a, b) => b.createdAt <=> a.createdAt) %}
                         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ comments.title }}</h5>
@@ -120,4 +142,61 @@
         </section>
         <!-- End Tricks Comments Section -->
     </main><!-- End #main -->
+    {% if app.user %}
+            <div class="portfolio-modal modal fade" id="delete_trick_modal{{ trick.id }}" tabindex="-1" role="dialog"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="close-modal" data-dismiss="modal">
+                            <div class="lr">
+                                <div class="rl"></div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                    <div class="modal-body">
+                                        <p>Souhaitez-vous vraiment supprimer le trick ayant le titre : {{ trick.title }}
+                                            ?</p>
+                                        <form action="{{ path('delete_trick', {'id': trick.id}) }}" method="post">
+                                            <input type="hidden" id="inputId" name="deleteTrick[id]"
+                                                   value="{{ trick.id }}">
+                                            <div class="buttons">
+                                                <button type="submit" class="btn btn-outline-danger" value="delete"
+                                                        onclick="">Supprimer
+                                                </button>
+                                                <button class="btn btn-outline-primary" data-dismiss="modal"
+                                                        type="button"><i class="fa fa-times"></i>Annuler
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var counter = 0;
+        function moreMedias(e) {
+            e.preventDefault();
+            counter++;
+            var offset = 3 * counter;
+            const url = "{{ path('more_medias', {'id': trick.id}) }}/" + offset;
+            console.log(url);
+            axios.get(url).then(function (response) {
+                $(".tricks-container").append(response.data);
+            });
+        }
+
+        $('#moreMedias').on("click", function (e) {
+            moreMedias(e);
+        });
+    </script>
 {% endblock %}

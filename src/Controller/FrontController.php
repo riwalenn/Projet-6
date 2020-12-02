@@ -28,7 +28,7 @@ class FrontController extends AbstractController
     /**
      * @Route("/{offset}", name="more_tricks", requirements={"offset": "\d+"})
      */
-    public function more_tricks(TrickRepository $repository, $offset = 6)
+    public function more_tricks(TrickRepository $repository, $offset = 3)
     {
         $tricks = $repository->findBy(array(), array('created_at' => 'DESC'), 3, $offset);
 

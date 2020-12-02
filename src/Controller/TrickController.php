@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Entity\TrickHistory;
+use App\Entity\TrickLibrary;
 use App\Form\TrickType;
 use App\Repository\TrickLibraryRepository;
+use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use App\Service\SendMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +18,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use FilesystemIterator;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class TrickController extends AbstractController
 {
@@ -28,7 +29,7 @@ class TrickController extends AbstractController
     public function trick_detail(Trick $trick, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository, TrickLibraryRepository $libraryRepository)
     {
         $trick_history = $historyRepository->findAll();
-        $itemsLibrary = $libraryRepository->findBy(array("trick" => $trick->getId()));
+        $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, 0);
         $comment = new Comment();
         $form = $this->createFormBuilder($comment)
             ->add('title')
@@ -56,12 +57,22 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @Route("/trick_detail/{id}/{offset}", name="more_medias", requirements={"offset": "\d+"})
+     */
+    public function more_medias(Trick $trick, TrickLibraryRepository $libraryRepository, $offset = 3)
+    {
+        $medias = $libraryRepository->findBy(array('trick_id' => $trick->getId()), array(), 3, $offset);
+
+        return $this->render('front/medias-more.html.twig', ['medias' => $medias,'trick' => $trick,]);
+    }
+
+    /**
      * @Route("/front/new_trick", name="add_trick")
      * @Route("/front/{id}/edit", name="edit_trick")
      *
      * @return string
      */
-    public function form_trick(Trick $trick = null, UserRepository $repo, Request $request, EntityManagerInterface $manager)
+    public function form_trick(Trick $trick = null, TrickRepository $repository, UserRepository $repo, Request $request, EntityManagerInterface $manager)
     {
         if (!$trick) {
             $trick = new Trick();
@@ -78,6 +89,9 @@ class TrickController extends AbstractController
         $flip = $trick->getFlip();
         $slide = $trick->getSlide();
         $title = $position. ' ' . $grabs . ' à ' . $rotation . '° ' . $flip . ' ' . $slide;
+
+        $result = $repository->findOneBy(['title' => $title]);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$trick->getId()) {
@@ -98,6 +112,10 @@ class TrickController extends AbstractController
                         // ... handle exception if something happens during file upload
                     }
                     $trick->setImage($newFileName);
+                }
+                if (!empty($result)) {
+                    $this->addFlash('red', "Le trick existe déjà !");
+                    return $this->redirectToRoute('add_trick');
                 }
             } else {
                 $trick->setTitle($title);

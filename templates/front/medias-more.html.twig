@@ -1,0 +1,19 @@
+{% for media in medias %}
+    <div class="col-lg-4 col-md-6 tricks-item">
+        <div class="tricks-wrap shadow">
+            {% if ( media.type == 1 ) %}
+                <img src="{{ media.lien }}" class="img-fluid">
+            {% else %}
+                <iframe width="337" height="252" src="{{ media.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            {% endif %}
+            <div class="tricks-links">
+                {% if app.user %}
+                    {% if app.user %}
+                        <a onclick="confirmTrickDelete('{{ media.id }}')"
+                           class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endfor %}

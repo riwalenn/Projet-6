@@ -14,6 +14,15 @@
                                 {% else %}
                                     <h3 class="login-heading mb-4">Ajouter un trick</h3>
                                 {% endif %}
+                                {% for label, messages in app.flashes %}
+                                    <div class="container">
+                                        <div class="alert alert-{{ label }} mb-0">
+                                            {% for message in messages %}
+                                                {{ message | raw }}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
                                 {{ form_start(formTrick) }}
                                 <div class="form-group">
                                     {{ form_row(formTrick.description, {'label': 'Description', 'attr': {'placeholder': 'Description du trick...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'textarea', 'id': 'inputDescription'}) }}
