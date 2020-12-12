@@ -1,8 +1,10 @@
 {% for media in medias %}
     <div class="col-lg-4 col-md-6 tricks-item">
         <div class="tricks-wrap shadow">
-            {% if ( media.type == 1 ) %}
-                <img src="{{ media.lien }}" class="img-fluid">
+            {% if media.type == 1 %}
+                <img src="{{ asset('/img/tricks/' ~ library.lien) }}" class="img-fluid">
+            {% elseif media.type == 3 %}
+                 <img src="{{ media.lien }}" class="img-fluid">
             {% else %}
                 <iframe width="337" height="252" src="{{ media.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             {% endif %}
@@ -17,3 +19,11 @@
         </div>
     </div>
 {% endfor %}
+{% dump(count) %}
+{% if count > 1 %}
+    <div class="col-lg-4 col-md-6 tricks_medias tricks-item">
+        <div class="tricks-wrap shadow">
+            <a onclick="addMedia('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>
+        </div>
+    </div>
+{% endif %}

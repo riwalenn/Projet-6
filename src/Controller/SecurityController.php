@@ -63,7 +63,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if (empty($user)) {
-                $this->addFlash('error', "Votre token n'existe pas");
+                $this->addFlash('danger', "Votre token n'existe pas");
                 return $this->redirectToRoute('home');
             } else {
                 $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
@@ -76,7 +76,7 @@ class SecurityController extends AbstractController
                     $this->addFlash('success', "Votre mot de passe a été modifié avec succès !");
 
                 } else {
-                    $this->addFlash('error', "Votre token a expiré !");
+                    $this->addFlash('danger', "Votre token a expiré !");
                     return $this->redirectToRoute('email_form');
                 }
             }
@@ -95,7 +95,7 @@ class SecurityController extends AbstractController
         $token = $request->query->get('token');
         $user = $userRepository->findOneBy(array("token" => $token));
         if (empty($user) || empty($token)) {
-            $this->addFlash('error', "Votre token n'existe pas");
+            $this->addFlash('danger', "Votre token n'existe pas");
             return $this->redirectToRoute('security_registration');
         } else {
             $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
@@ -127,7 +127,7 @@ class SecurityController extends AbstractController
         $user = $userRepository->findOneBy(array("email" => $email));
         if ($form->isSubmitted() && $form->isValid()) {
             if (empty($user)) {
-                $this->addFlash('error', "Votre email n'est pas reconnu dans notre base.");
+                $this->addFlash('danger', "Votre email n'est pas reconnu dans notre base.");
                 return $this->redirectToRoute('security_registration');
             }
             $user->setToken(bin2hex(random_bytes(32)));

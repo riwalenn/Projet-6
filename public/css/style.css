@@ -874,6 +874,9 @@ section {
 }
 
 /* Tricks Details */
+.form-control:disabled{
+  opacity: .5;
+}
 
 i.fa.fa-plus.tricks-details{
   font-size: 147px;
@@ -883,7 +886,7 @@ i.fa.fa-plus.tricks-details{
   padding-bottom: 30px;
 }
 
-.trick-link.col-2{
+h2.col-2{
   padding-right: 0!important;
   padding-left: 5px!important;
 }

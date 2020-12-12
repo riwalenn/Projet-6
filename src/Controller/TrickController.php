@@ -30,6 +30,8 @@ class TrickController extends AbstractController
     {
         $trick_history = $historyRepository->findAll();
         $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, 0);
+        $itemsToCount = $libraryRepository->findBy(array('trick' => $trick->getId()));
+        $count = count($itemsToCount);
         $comment = new Comment();
         $form = $this->createFormBuilder($comment)
             ->add('title')
@@ -52,6 +54,7 @@ class TrickController extends AbstractController
             'trick'             => $trick,
             'itemsLibrary'      => $itemsLibrary,
             'trick_history'     => $trick_history,
+            'count'             => $count,
             'commentForm'       => $form->createView()
         ]);
     }
@@ -62,8 +65,10 @@ class TrickController extends AbstractController
     public function more_medias(Trick $trick, TrickLibraryRepository $libraryRepository, $offset = 6)
     {
         $medias = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, $offset);
+        $itemsToCount = $libraryRepository->findBy(array('trick' => $trick->getId()));
+        $count = count($itemsToCount)-3;
 
-        return $this->render('front/medias-more.html.twig', ['medias' => $medias,'trick' => $trick,]);
+        return $this->render('front/medias-more.html.twig', ['medias' => $medias,'trick' => $trick, 'count' => $count]);
     }
 
     /**
@@ -98,23 +103,8 @@ class TrickController extends AbstractController
                 $trick->setTitle($title);
                 $trick->setCreatedAt(new \DateTime());
                 $trick->setUser($user);
-                $files = $form->get('image')->getData();
-                if ($files) {
-                    $listFiles = new FilesystemIterator('img/tricks', FilesystemIterator::SKIP_DOTS);
-                    $count = iterator_count($listFiles);
-                    $newFileId = $count + 1;
-
-                    $newFileName = 'snowtricks-' . $newFileId . '.' . $files->guessExtension();
-
-                    try {
-                        $files->move($this->getParameter('imgTricks_directory'), $newFileName);
-                    } catch (FileException $e) {
-                        // ... handle exception if something happens during file upload
-                    }
-                    $trick->setImage($newFileName);
-                }
                 if (!empty($result)) {
-                    $this->addFlash('red', "Le trick existe déjà !");
+                    $this->addFlash('danger', "Le trick existe déjà !");
                     return $this->redirectToRoute('add_trick');
                 }
             } else {
@@ -129,6 +119,21 @@ class TrickController extends AbstractController
                     $serviceMail = new SendMail();
                     $serviceMail->alertAuthor($author, $trick);
                 }
+            }
+            $files = $form->get('image')->getData();
+            if ($files) {
+                $listFiles = new FilesystemIterator('img/tricks', FilesystemIterator::SKIP_DOTS);
+                $count = iterator_count($listFiles);
+                $newFileId = $count + 1;
+
+                $newFileName = 'snowtricks-' . $newFileId . '.' . $files->guessExtension();
+
+                try {
+                    $files->move($this->getParameter('imgTricks_directory'), $newFileName);
+                } catch (FileException $e) {
+                    $this->addFlash('danger', "Un problème est survenu lors du téléchargement de l'image.");
+                }
+                $trick->setImage($newFileName);
             }
             $manager->persist($trick);
             $manager->flush();
@@ -151,6 +156,36 @@ class TrickController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/trick_detail/{id}/add_media/", name="add_media")
+     * @Route("/trick_detail/{id}/edit_media/{id_media}", name="edit_media")
+     */
+    public function add_trick_media()
+    {
+        //TODO:faire la fonction
+    }
+
+    /**
+     * @Route("/delete_media/{id}", name="delete_media")
+     */
+    public function delete_media(TrickLibrary $library, EntityManagerInterface $manager)
+    {
+        if (!$library){
+            $this->addFlash('danger', "Aucune image n'a été séléctionnée.");
+        }
+        $manager->remove($library);
+        $manager->flush();
+        return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/trick_detail/{id}/delete_first_media", name="delete_first_medi")
+     */
+    public function delete_first_media()
+    {
+        //TODO:faire la fonction
+    }
+
     public function deleteAction(Trick $trick, EntityManagerInterface $manager)
     {
         foreach ($trick->getTrickLibraries() as $library) {
@@ -169,14 +204,6 @@ class TrickController extends AbstractController
         $manager->remove($trick);
         $manager->flush();
         $this->addFlash('success', 'Le trick a bien été supprimé !');
-    }
-
-    /**
-     * @Route("/trick_detail/{id}/add_media/", name="add_media")
-     */
-    public function add_trick_media()
-    {
-
     }
 
     /**
