@@ -30,6 +30,7 @@ class TrickController extends AbstractController
     {
         $trick_history = $historyRepository->findAll();
         $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, 0);
+        $allItems = $libraryRepository->findAll();
         $itemsToCount = $libraryRepository->findBy(array('trick' => $trick->getId()));
         $count = count($itemsToCount);
         $comment = new Comment();
@@ -53,6 +54,7 @@ class TrickController extends AbstractController
             'title'             => "Tricks",
             'trick'             => $trick,
             'itemsLibrary'      => $itemsLibrary,
+            'allItems'          => $allItems,
             'trick_history'     => $trick_history,
             'count'             => $count,
             'commentForm'       => $form->createView()

@@ -30,6 +30,10 @@ function confirmMediaDelete(id){
     $("#delete_media_modal"+id).modal();
 }
 
+function confirmFirstMediaDelete(id){
+    $("#delete_first_media"+id).modal();
+}
+
 function confirmTrickDelete(id){
     $("#delete_trick_modal"+id).modal();
 }

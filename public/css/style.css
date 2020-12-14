@@ -808,6 +808,10 @@ section {
   z-index: 1;
 }
 
+.tricks_medias .tricks-item.more .tricks-wrap{
+  height: 229px;
+}
+
 .tricks .tricks-wrap::before {
   content: "";
   background: rgba(255, 255, 255, 0.5);
@@ -832,6 +836,11 @@ section {
   transition: all ease-in-out 0.3s;
   display: flex;
   justify-content: center;
+}
+
+.tricks-details-container .tricks-wrap .tricks-links {
+  bottom: 0!important;
+  width: 80%;
 }
 
 .tricks .tricks-wrap .tricks-links a,
@@ -992,7 +1001,7 @@ ul.list-group.list-group-flush {
   border-radius: 15px;
 }
 
-.trick-link.col-2.trash {
+.trick-link.col-2.trash, .trick-link.col-2.edit {
   cursor: pointer;
 }
 
