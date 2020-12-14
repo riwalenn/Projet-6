@@ -22,6 +22,10 @@ function addMedia(id) {
     $("#add_trick_media"+id).modal();
 }
 
+function editMedia(id) {
+    $("#edit_trick_media"+id).modal();
+}
+
 function confirmMediaDelete(id){
     $("#delete_media_modal"+id).modal();
 }
@@ -34,36 +38,24 @@ function modifyRoleUser(id){
     $("#change_role_user"+id).modal();
 }
 function toggleInput() {
-    var inputLink  = $("input[name='lien']");
-    var inputFile = $("input[name='file']");
-    var checkboxImgUp = $("#typeImageUpload");
-    var checkboxImg = $("#typeImage");
-    var checkboxVid = $("#typeVideo");
-    if (inputLink.attr("disabled")) {
-        //inputs
-        inputLink.prop({disabled: false});
-        inputFile.prop({disabled: true});
-        $("input[name='type']").prop({disabled: false});
-        $("#imageDownload").css("opacity",".5");
-        $("#imageLink").css("opacity","1");
-        //checkbox
-        checkboxImgUp.prop({checked: false});
-        checkboxImg.prop({checked: true});
-        checkboxImgUp.prop({disabled: true});
-        checkboxImg.prop({disabled: false});
-        checkboxVid.prop({disabled: false});
+    var fieldLinks = $("fieldset.form-group.links");
+    var fieldUpload = $("fieldset.form-group.upload");
+    var checkImg = $("#typeImage");
+    var checkLink = $("#typeImageUpload");
+
+    if (fieldLinks.attr("disabled")) {
+        fieldUpload.css("opacity", ".5");
+        fieldLinks.css("opacity", "1");
+        fieldLinks.prop("disabled", false);
+        fieldUpload.prop("disabled", true);
+        checkLink.prop("checked", false);
+        checkImg.prop("checked", true);
     } else {
-        //inputs
-        inputLink.prop({disabled: true});
-        inputFile.prop({disabled: false});
-        $("#imageLink").css("opacity",".5");
-        $("#imageDownload").css("opacity","1");
-        //checkbox
-        checkboxImgUp.prop({checked: true});
-        checkboxImg.prop({checked: false});
-        checkboxVid.prop({checked: false});
-        checkboxImgUp.prop({disabled: false});
-        checkboxImg.prop({disabled: true});
-        checkboxVid.prop({disabled: true});
+        fieldLinks.css("opacity", ".5");
+        fieldUpload.css("opacity", "1");
+        fieldLinks.prop("disabled", true);
+        fieldUpload.prop("disabled", false);
+        checkLink.prop("checked", true);
+        checkImg.prop("checked", false);
     }
 }

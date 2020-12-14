@@ -1,26 +1,27 @@
-{% for media in medias %}
+{% for library in itemsLibrary %}
     <div class="col-lg-4 col-md-6 tricks-item">
         <div class="tricks-wrap shadow">
-            {% if media.type == 1 %}
-                <img src="{{ asset('/img/tricks/' ~ library.lien) }}" class="img-fluid">
-            {% elseif media.type == 3 %}
-                 <img src="{{ media.lien }}" class="img-fluid">
+            {% if library.type == 1 %}
+                <img src="{{ asset('/img/tricks/' ~ library.lien) }}" class="img-fluid" alt="snowtricks">
+            {% elseif library.type == 3 %}
+                <img src="{{ library.lien }}" class="img-fluid" alt="snowtricks">
             {% else %}
-                <iframe width="337" height="252" src="{{ media.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="337" height="252" src="{{ library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             {% endif %}
             <div class="tricks-links">
                 {% if app.user %}
-                    {% if app.user %}
-                        <a onclick="confirmTrickDelete('{{ media.id }}')"
+                    {% if app.user == trick.user %}
+                        <a onclick="confirmMediaDelete('{{ library.id }}')"
                            class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
                     {% endif %}
+                    <a onclick="editMedia('{{ library.id }}')" class="trick-link col-2"><i
+                                class="fa fa-edit"></i></a>
                 {% endif %}
             </div>
         </div>
     </div>
 {% endfor %}
-{% dump(count) %}
-{% if count > 1 %}
+{% if count >= 4 %}
     <div class="col-lg-4 col-md-6 tricks_medias tricks-item">
         <div class="tricks-wrap shadow">
             <a onclick="addMedia('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>

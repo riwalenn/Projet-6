@@ -31,12 +31,22 @@
         <!-- ======= Trick Details Section ======= -->
         <section class="tricks-details">
             <div class="container">
-                <div class="tricks-details-container">
-                    {% if(trick.image) %}
-                        <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
-                    {% else %}
-                        <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid" alt="">
-                    {% endif %}
+                <div class="tricks-details-container tricks_medias">
+                    <div class="tricks-wrap shadow">
+                        {% if(trick.image) %}
+                            <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
+                        {% else %}
+                            <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid" alt="">
+                        {% endif %}
+                        <div class="tricks-links">
+                            {% if app.user %}
+                                {% if app.user == trick.user %}
+                                    <a onclick="confirmMediaDelete('{{ trick.id }}')"
+                                       class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
                     <div class="tricks-info">
                         <h3>Snow tricks informations</h3>
                         <ul>
@@ -55,9 +65,9 @@
                                 <div class="col-lg-4 col-md-6 tricks-item">
                                     <div class="tricks-wrap shadow">
                                         {% if library.type == 1 %}
-                                            <img src="{{ asset('/img/tricks/' ~ library.lien) }}" class="img-fluid">
+                                            <img src="{{ asset('/img/tricks/' ~ library.lien) }}" class="img-fluid" alt="snowtricks">
                                         {% elseif library.type == 3 %}
-                                            <img src="{{ asset('/img/tricks/' ~ library.lien) }}" class="img-fluid">
+                                            <img src="{{ library.lien }}" class="img-fluid" alt="snowtricks">
                                         {% else %}
                                             <iframe width="337" height="252" src="{{ library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                         {% endif %}
@@ -67,19 +77,21 @@
                                                     <a onclick="confirmMediaDelete('{{ library.id }}')"
                                                        class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
                                                 {% endif %}
+                                                <a onclick="editMedia('{{ library.id }}')" class="trick-link col-2"><i
+                                                            class="fa fa-edit"></i></a>
                                             {% endif %}
                                         </div>
                                     </div>
                                 </div>
                             {% endfor %}
-                            {% if count < 3 %}
-                                <div class="col-lg-4 col-md-6 tricks-item">
-                                    <div class="tricks-wrap shadow">
-                                        <a onclick="addMedia('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>
-                                    </div>
-                                </div>
-                            {% endif %}
                         </div>
+                        {% if count <= 3 %}
+                            <div class="col-lg-4 col-md-6 tricks-item">
+                                <div class="tricks-wrap shadow">
+                                    <a onclick="addMedia('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>
+                                </div>
+                            </div>
+                        {% endif %}
                         <div class="row">
                             <div class="col-12 text-center">
                                 {% if count > 3 %}
@@ -248,32 +260,32 @@
                                 <form action="{{ path('add_media', {'id': trick.id}) }}" method="post">
                                     <input type="hidden" id="inputId" name="trick_id"
                                            value="{{ trick.id }}">
-                                    <div class="form-group">
+                                    <fieldset class="form-group upload">
                                         <small id="imageDownload" class="form-text text-muted">L'image chargée doit être au format
                                             800x600 et au format jpeg.</small>
                                         <input type="hidden" name="MAX_FILES_SIZE" value="200000">
                                         <input type="file" aria-describedby="imageDownload" name="file" id="file" class="form-control" value="">
-                                    </div>
+                                    </fieldset>
                                     <div class="custom-control custom-checkbox checkbox">
                                         <input onclick="toggleInput()" type="checkbox" class="custom-control-input" id="switch" value="1">
                                         <label class="custom-control-label" for="switch">Je préfère ajouter le lien d'une image ou une vidéo</label>
                                     </div>
-                                    <div class="form-group">
+                                    <fieldset class="form-group links" disabled>
                                         <small id="imageLink" class="form-text text-muted">Lien http, si vidéo alors mettre le lien sans le embed (ex: https://www.youtube.com/embed/SQyTWk7OxSI), vous trouverez le lien dans "partager > intégrer".</small>
-                                        <input type="text" name="lien" id="lien" class="form-control" value="" disabled>
+                                        <input type="text" name="lien" id="lien" class="form-control" value="">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="type" id="typeImage" value="1" disabled>
+                                            <input class="form-check-input" type="radio" name="type" id="typeImage" value="1">
                                             <label class="form-check-label" for="typeImage">lien de type image</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="type" id="typeVideo" value="2" disabled>
+                                            <input class="form-check-input" type="radio" name="type" id="typeVideo" value="2">
                                             <label class="form-check-label" for="typeVideo">lien de type vidéo</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="type" id="typeImageUpload" value="3" checked>
                                             <label class="form-check-label" for="typeImageUpload">type upload</label>
                                         </div>
-                                    </div>
+                                    </fieldset>
 
                                     <div class="buttons">
                                         <button type="submit" class="btn btn-outline-primary" value="delete"
@@ -291,6 +303,76 @@
             </div>
         </div>
     </div>
+    {% for library in itemsLibrary %}
+    <div class="portfolio-modal modal fade" id="edit_trick_media{{ library.id }}" tabindex="-1" role="dialog"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="modal-body">
+                                <h5>Ajouter une image ou une vidéo</h5>
+                                <form action="{{ path('add_media', {'id': trick.id}) }}" method="post">
+                                    <input type="hidden" id="inputId" name="trick_id"
+                                           value="{{ library.id }}">
+                                    <fieldset class="form-group upload">
+                                        <small id="imageDownload" class="form-text text-muted">L'image chargée doit être au format
+                                            800x600 et au format jpeg.</small>
+                                        <input type="hidden" name="MAX_FILES_SIZE" value="200000">
+                                        {% if library.type == 1 %}
+                                            <input type="file" aria-describedby="imageDownload" placeholder="{{ library.lien }}" name="file" id="file" class="form-control" value="">
+                                        {% else %}
+                                            <input type="file" aria-describedby="imageDownload" name="file" id="file" class="form-control" value="">
+                                        {% endif %}
+                                    </fieldset>
+                                    <div class="custom-control custom-checkbox checkbox">
+                                        <input onclick="toggleInput()" type="checkbox" class="custom-control-input" id="switch" value="1">
+                                        <label class="custom-control-label" for="switch">Je préfère ajouter le lien d'une image ou une vidéo</label>
+                                    </div>
+                                    <fieldset class="form-group links" disabled>
+                                        <small id="imageLink" class="form-text text-muted">Lien http, si vidéo alors mettre le lien sans le embed (ex: https://www.youtube.com/embed/SQyTWk7OxSI), vous trouverez le lien dans "partager > intégrer".</small>
+                                        {% if library.type == 2 or library.type == 3 %}
+                                            <input type="text" name="lien" id="lien" class="form-control" value="{{ library.lien }}">
+                                        {% else %}
+                                            <input type="text" name="lien" id="lien" class="form-control" value="">
+                                        {% endif %}
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="type" id="typeImage" value="1" {% if library.type == 1 %}checked{% endif %}>
+                                            <label class="form-check-label" for="typeImage">lien de type image</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="type" id="typeVideo" value="2" {% if library.type == 2 %}checked{% endif %}>
+                                            <label class="form-check-label" for="typeVideo">lien de type vidéo</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="type" id="typeImageUpload" value="3"  {% if library.type == 3 %}checked{% endif %}>
+                                            <label class="form-check-label" for="typeImageUpload">type upload</label>
+                                        </div>
+                                    </fieldset>
+
+                                    <div class="buttons">
+                                        <button type="submit" class="btn btn-outline-primary" value="delete"
+                                                onclick="">Ajouter
+                                        </button>
+                                        <button class="btn btn-outline-danger" data-dismiss="modal"
+                                                type="button"><i class="fa fa-times"></i>Annuler
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}
 
 {% block javascripts %}

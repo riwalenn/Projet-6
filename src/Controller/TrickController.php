@@ -64,11 +64,15 @@ class TrickController extends AbstractController
      */
     public function more_medias(Trick $trick, TrickLibraryRepository $libraryRepository, $offset = 6)
     {
-        $medias = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, $offset);
+        $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, $offset);
         $itemsToCount = $libraryRepository->findBy(array('trick' => $trick->getId()));
         $count = count($itemsToCount)-3;
 
-        return $this->render('front/medias-more.html.twig', ['medias' => $medias,'trick' => $trick, 'count' => $count]);
+        return $this->render('front/medias-more.html.twig', [
+            'itemsLibrary' => $itemsLibrary,
+            'trick' => $trick,
+            'count' => $count
+        ]);
     }
 
     /**
@@ -175,15 +179,20 @@ class TrickController extends AbstractController
         }
         $manager->remove($library);
         $manager->flush();
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('trick_detail');
     }
 
     /**
-     * @Route("/trick_detail/{id}/delete_first_media", name="delete_first_medi")
+     * @Route("/trick_detail/{id}/delete_first_media", name="delete_first_media")
      */
-    public function delete_first_media()
+    public function delete_first_media(Trick $trick, EntityManagerInterface $manager)
     {
-        //TODO:faire la fonction
+        if (!$trick){
+            $this->addFlash('danger', "Aucun article ne correspond.");
+        }
+        $trick->setImage(null);
+        $manager->flush();
+        return $this->redirectToRoute('trick_detail');
     }
 
     public function deleteAction(Trick $trick, EntityManagerInterface $manager)
@@ -204,6 +213,7 @@ class TrickController extends AbstractController
         $manager->remove($trick);
         $manager->flush();
         $this->addFlash('success', 'Le trick a bien été supprimé !');
+        return $this->redirectToRoute('home');
     }
 
     /**
