@@ -32,7 +32,7 @@
         <section class="tricks-details">
             <div class="container">
                 <div class="tricks-details-container tricks_medias">
-                    <div class="tricks-wrap shadow">
+                    <div class="tricks-wrap shadow first_media">
                         {% if(trick.image) %}
                             <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
                         {% else %}
@@ -291,7 +291,7 @@
                         <div class="col-lg-12 mx-auto">
                             <div class="modal-body">
                                 <h5>Ajouter une image ou une vidéo</h5>
-                                <form action="{{ path('add_media', {'id': trick.id}) }}" method="post">
+                                <form action="{{ path('add_media', {'id': trick.id}) }}" method="post" enctype="multipart/form-data">
                                     <input type="hidden" id="inputId" name="trick_id"
                                            value="{{ trick.id }}">
                                     <fieldset class="form-group upload">
@@ -308,22 +308,21 @@
                                         <small id="imageLink" class="form-text text-muted">Lien http, si vidéo alors mettre le lien sans le embed (ex: https://www.youtube.com/embed/SQyTWk7OxSI), vous trouverez le lien dans "partager > intégrer".</small>
                                         <input type="text" name="lien" id="lien" class="form-control" value="">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="type" id="typeImage" value="1">
+                                            <input class="form-check-input" type="radio" name="type" id="typeImage" value="3">
                                             <label class="form-check-label" for="typeImage">lien de type image</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="type" id="typeVideo" value="2">
                                             <label class="form-check-label" for="typeVideo">lien de type vidéo</label>
                                         </div>
+                                    </fieldset>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="type" id="typeImageUpload" value="3" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="typeImageUpload" value="1" checked>
                                             <label class="form-check-label" for="typeImageUpload">type upload</label>
                                         </div>
-                                    </fieldset>
 
                                     <div class="buttons">
-                                        <button type="submit" class="btn btn-outline-primary" value="delete"
-                                                onclick="">Ajouter
+                                        <button type="submit" id="submit" class="btn btn-outline-primary" value="delete">Ajouter
                                         </button>
                                         <button class="btn btn-outline-danger" data-dismiss="modal"
                                                 type="button"><i class="fa fa-times"></i>Annuler
@@ -352,8 +351,8 @@
                         <div class="col-lg-12 mx-auto">
                             <div class="modal-body">
                                 <h5>Ajouter une image ou une vidéo</h5>
-                                <form action="{{ path('add_media', {'id': trick.id}) }}" method="post">
-                                    <input type="hidden" id="inputId" name="trick_id"
+                                <form action="{{ path('add_media', {'id': trick.id}) }}" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" id="library_id" name="library_id"
                                            value="{{ library.id }}">
                                     <fieldset class="form-group upload">
                                         <small id="imageDownload" class="form-text text-muted">L'image chargée doit être au format

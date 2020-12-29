@@ -11,7 +11,10 @@ use App\Repository\TrickLibraryRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use App\Service\SendMail;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TrickHistoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +27,15 @@ class TrickController extends AbstractController
     private $title = "Bienvenue sur le site communautaire de SnowTricks !";
 
     /**
+     * Trick details : trick, histories, libraries, comments
+     *
      * @Route("/trick_detail/{id}", name="trick_detail")
+     * @param Trick $trick
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param TrickHistoryRepository $historyRepository
+     * @param TrickLibraryRepository $libraryRepository
+     * @return RedirectResponse|Response
      */
     public function trick_detail(Trick $trick, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository, TrickLibraryRepository $libraryRepository)
     {
@@ -62,7 +73,13 @@ class TrickController extends AbstractController
     }
 
     /**
+     * More medias on trick
+     *
      * @Route("/trick_detail/{id}/{offset}", name="more_medias", requirements={"offset": "\d+"})
+     * @param Trick $trick
+     * @param TrickLibraryRepository $libraryRepository
+     * @param int $offset
+     * @return Response
      */
     public function more_medias(Trick $trick, TrickLibraryRepository $libraryRepository, $offset = 6)
     {
@@ -81,7 +98,13 @@ class TrickController extends AbstractController
      * @Route("/front/new_trick", name="add_trick")
      * @Route("/front/{id}/edit", name="edit_trick")
      *
+     * @param Trick|null $trick
+     * @param TrickRepository $repository
+     * @param UserRepository $repo
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return string
+     * @throws NonUniqueResultException
      */
     public function form_trick(Trick $trick = null, TrickRepository $repository, UserRepository $repo, Request $request, EntityManagerInterface $manager)
     {
@@ -103,7 +126,6 @@ class TrickController extends AbstractController
 
         $result = $repository->findOneBy(['title' => $title]);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$trick->getId()) {
                 $trick->setTitle($title);
@@ -119,8 +141,8 @@ class TrickController extends AbstractController
                 if ($user->getId() !== $author->getId()) {
                     $trickHistory = new TrickHistory();
                     $trickHistory->setUser($user)
-                                ->setTrick($trick)
-                                ->setModifiedAt(new \DateTime());
+                        ->setTrick($trick)
+                        ->setModifiedAt(new \DateTime());
                     $manager->persist($trickHistory);
                     $serviceMail = new SendMail();
                     $serviceMail->alertAuthor($author, $trick);
@@ -128,19 +150,10 @@ class TrickController extends AbstractController
             }
             $files = $form->get('image')->getData();
             if ($files) {
-                $listFiles = new FilesystemIterator('img/tricks', FilesystemIterator::SKIP_DOTS);
-                $count = iterator_count($listFiles);
-                $newFileId = $count + 1;
 
-                $newFileName = 'snowtricks-' . $newFileId . '.' . $files->guessExtension();
-
-                try {
-                    $files->move($this->getParameter('imgTricks_directory'), $newFileName);
-                } catch (FileException $e) {
-                    $this->addFlash('danger', "Un problème est survenu lors du téléchargement de l'image.");
-                }
-                $trick->setImage($newFileName);
+                $trick->setImage($this->uploader($files));
             }
+
             $manager->persist($trick);
             $manager->flush();
 
@@ -165,14 +178,71 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick_detail/{id}/add_media/", name="add_media")
      * @Route("/trick_detail/{id}/edit_media/{id_media}", name="edit_media")
+     * @param Request $request
+     * @param TrickLibraryRepository $repository
+     * @param Trick $trick
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
      */
-    public function add_trick_media()
+    public function add_trick_media(Request $request, TrickLibraryRepository $repository, Trick $trick, EntityManagerInterface $manager)
     {
-        //TODO:faire la fonction
+        if (!$trick) {
+            $this->addFlash('danger', "Vous n'avez pas sélectionné de trick !");
+        }
+
+        $link = null;
+        $library = new TrickLibrary();
+        if (!empty($request->get('library_id'))) {
+            $library = $repository->findOneBy(array("id" => $request->get("library_id")));
+        }
+        if ($request->get('type') == 1) {
+            $file = $request->files->get('file');
+            $link = $this->uploader($file);
+            $library->setLien($link);
+
+        } else if ($request->get('type') == 3 || $request->get('type') == 2) {
+            $link = $request->get('lien');
+            $library->setLien($link);
+
+        } else {
+            $this->addFlash('danger', "Aucune image n'a été entrée !");
+        }
+
+        $library->setType($request->get('type'));
+        $library->setTrick($trick);
+        $manager->persist($library);
+        $manager->flush();
+        return $this->redirectToRoute('trick_detail', array('id' => $trick->getId()));
     }
 
     /**
+     * Upload picture
+     *
+     * @param $file
+     * @return string
+     */
+    protected function uploader($file)
+    {
+        $listFiles = new FilesystemIterator('img/tricks', FilesystemIterator::SKIP_DOTS);
+        $count = iterator_count($listFiles);
+        $newFileId = $count + 1;
+        $newFileName = 'snowtricks-' . $newFileId . '.' . $file->guessExtension();
+
+        try {
+            $file->move($this->getParameter('imgTricks_directory'), $newFileName);
+        } catch (FileException $e) {
+            $this->addFlash('danger', "Un problème est survenu lors du téléchargement de l'image.");
+        }
+        return $newFileName;
+    }
+
+    /**
+     * Delete media picture on library trick
+     *
      * @Route("/delete_media/{id}", name="delete_media")
+     * @param TrickLibrary $library
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
      */
     public function delete_media(TrickLibrary $library, EntityManagerInterface $manager)
     {
@@ -181,23 +251,35 @@ class TrickController extends AbstractController
         }
         $manager->remove($library);
         $manager->flush();
-        return $this->redirectToRoute('trick_detail');
+        return $this->redirectToRoute('trick_detail', array('id' => $library->getTrick()));
     }
 
     /**
+     * Delete picture trick
+     *
      * @Route("/trick_detail/{id}/delete_first_media", name="delete_first_media")
+     * @param Trick $trick
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
      */
     public function delete_first_media(Trick $trick, EntityManagerInterface $manager)
     {
         if (!$trick){
             $this->addFlash('danger', "Aucun article ne correspond.");
         }
-        $trick->setImage(null);
+        $trick->setImage("");
         $manager->flush();
-        return $this->redirectToRoute('trick_detail');
+        return $this->redirectToRoute('trick_detail', array('id' => $trick->getId()));
     }
 
-    public function deleteAction(Trick $trick, EntityManagerInterface $manager)
+    /**
+     * Delete one trick => libraries, histories and comments
+     *
+     * @param Trick $trick
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
+     */
+    protected function deleteAction(Trick $trick, EntityManagerInterface $manager)
     {
         foreach ($trick->getTrickLibraries() as $library) {
             $trick->removeTrickLibrary($library);
@@ -220,6 +302,9 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/delete_trick/{id}", name="delete_trick")
+     * @param Trick $trick
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
      */
     public function delete_trick(Trick $trick, EntityManagerInterface $manager)
     {
@@ -229,6 +314,9 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/admin/{id}/delete_trick", name="admin_delete_trick")
+     * @param Trick $trick
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
      */
     public function delete_admin_trick(Trick $trick, EntityManagerInterface $manager)
     {

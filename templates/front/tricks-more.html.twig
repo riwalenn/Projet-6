@@ -1,7 +1,13 @@
 {% for trick in tricks %}
     <div class="col-lg-4 col-md-6 tricks-item">
         <div class="tricks-wrap shadow">
-            <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="{{ trick.title }}">
+            {% if(trick.image) %}
+                <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid"
+                     alt="{{ trick.title }}">
+            {% else %}
+                <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid"
+                     alt="snowtrick">
+            {% endif %}
             <div class="tricks-links">
                 {% if not app.user %}
                     <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details"
