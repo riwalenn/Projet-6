@@ -9,8 +9,11 @@ use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use App\Service\SendMail;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -18,6 +21,12 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/inscription", name="security_registration")
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param UserPasswordEncoderInterface $encoder
+     * @param UserRepository $userRepository
+     * @return RedirectResponse|Response
+     * @throws Exception
      */
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, UserRepository $userRepository)
     {
@@ -25,11 +34,9 @@ class SecurityController extends AbstractController
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //$imageArray = array_diff(scandir('img/profils'), array('..', '.'));
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $user->setToken(bin2hex(random_bytes(32)));
-            //$user->setImage(array_rand(array_flip($imageArray)));
             $user->setImage(mt_rand(1, 9));
             $user->setCreatedAt(new \DateTime());
             $user->setIsActive(0);
@@ -40,7 +47,6 @@ class SecurityController extends AbstractController
 
             $serviceMail = new SendMail();
             $userEmail = $userRepository->findOneBy(array("email" => $user->getEmail()));
-            //$userEmail = $userRepository->findOneByCriteria('email', $user->getEmail());
             $serviceMail->sendToken($userEmail, 'inscription');
 
             return $this->redirectToRoute('security_login');
@@ -54,6 +60,11 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/iForgotMyPassword", name="change_password")
+     * @param UserRepository $userRepository
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse|Response
      */
     public function change_password(UserRepository $userRepository, Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager)
     {
@@ -63,7 +74,8 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if (empty($user)) {
-                $this->addFlash('error', "Votre token n'existe pas");
+                $this->addFlash('danger', "Votre token n'existe pas");
+
                 return $this->redirectToRoute('home');
             } else {
                 $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
@@ -76,11 +88,13 @@ class SecurityController extends AbstractController
                     $this->addFlash('success', "Votre mot de passe a été modifié avec succès !");
 
                 } else {
-                    $this->addFlash('error', "Votre token a expiré !");
+                    $this->addFlash('danger', "Votre token a expiré !");
+
                     return $this->redirectToRoute('email_form');
                 }
             }
         }
+
         return $this->render('security/password-change.html.twig', [
             'form'      => $form->createView(),
             'title'     => "J'ai oublié mon mot de passe !"
@@ -89,13 +103,18 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/confirmation", name="confirmation_registration")
+     * @param UserRepository $userRepository
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
      */
     public function confirmation(UserRepository $userRepository, Request $request, EntityManagerInterface $manager)
     {
         $token = $request->query->get('token');
         $user = $userRepository->findOneBy(array("token" => $token));
         if (empty($user) || empty($token)) {
-            $this->addFlash('error', "Votre token n'existe pas");
+            $this->addFlash('danger', "Votre token n'existe pas");
+
             return $this->redirectToRoute('security_registration');
         } else {
             $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
@@ -112,12 +131,18 @@ class SecurityController extends AbstractController
             $manager->remove($user);
             $manager->flush();
             $this->addFlash('danger', "Votre token a expiré ! Veuillez vous réinscrire.");
+
             return $this->redirectToRoute('security_registration');
         }
     }
 
     /**
      * @Route("/emailForm", name="email_form")
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param UserRepository $userRepository
+     * @return RedirectResponse|Response
+     * @throws Exception
      */
     public function forgot_password(Request $request, EntityManagerInterface $manager, UserRepository $userRepository)
     {
@@ -127,7 +152,7 @@ class SecurityController extends AbstractController
         $user = $userRepository->findOneBy(array("email" => $email));
         if ($form->isSubmitted() && $form->isValid()) {
             if (empty($user)) {
-                $this->addFlash('error', "Votre email n'est pas reconnu dans notre base.");
+                $this->addFlash('danger', "Votre email n'est pas reconnu dans notre base.");
                 return $this->redirectToRoute('security_registration');
             }
             $user->setToken(bin2hex(random_bytes(32)));

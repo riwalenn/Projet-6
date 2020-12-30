@@ -5,19 +5,20 @@
 * License: https://bootstrapmade.com/license/
 */
 
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
+/* Général */
+
 body {
   font-family: "Open Sans", sans-serif;
-  color: #444444;
+  color: #444;
 }
 
 a {
   color: #67b0d1;
 }
 
-.fa-comment, .fa-file, #myTab .nav-link.active{
+.fa-comment,
+.fa-file,
+#myTab .nav-link.active{
   color: #67b0d1!important;
 }
 
@@ -26,13 +27,17 @@ a:hover {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Raleway", sans-serif;
 }
 
-/*--------------------------------------------------------------
-# Back to top button
---------------------------------------------------------------*/
+/* Back to top button */
+
 .back-to-top {
   position: fixed;
   display: none;
@@ -64,9 +69,8 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 90px;
 }
 
-/*--------------------------------------------------------------
-# Header
---------------------------------------------------------------*/
+/* Header */
+
 #header {
   transition: all 0.5s;
   z-index: 997;
@@ -94,7 +98,8 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
 }
 
-#header .logo h1 a, #header .logo h1 a:hover {
+#header .logo h1 a,
+#header .logo h1 a:hover {
   color: #fff;
   text-decoration: none;
 }
@@ -111,9 +116,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/*--------------------------------------------------------------
-# Load more
- --------------------------------------------------------------*/
+/* Load more */
+
 .page-load-status {
   display: none; /* hidden by default */
   padding-top: 20px;
@@ -122,11 +126,12 @@ h1, h2, h3, h4, h5, h6 {
   color: #777;
 }
 
-/*--------------------------------------------------------------
-# Navigation Menu
---------------------------------------------------------------*/
+/* Navigation Menu */
+
 /* Desktop Navigation */
-.nav-menu, .nav-menu * {
+
+.nav-menu,
+.nav-menu * {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -151,7 +156,9 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
-.nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
+.nav-menu a:hover,
+.nav-menu .active > a,
+.nav-menu li:hover > a {
   background: rgba(255, 255, 255, 0.2);
   text-decoration: none;
 }
@@ -164,7 +171,9 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 
-.header-scrolled .nav-menu a:hover, .header-scrolled .nav-menu .active > a, .header-scrolled .nav-menu li:hover > a {
+.header-scrolled .nav-menu a:hover,
+.header-scrolled .nav-menu .active > a,
+.header-scrolled .nav-menu li:hover > a {
   background: rgba(255, 255, 255, 0.2);
 }
 
@@ -201,11 +210,13 @@ h1, h2, h3, h4, h5, h6 {
   color: #25607a;
 }
 
-.nav-menu .drop-down ul a:hover, .nav-menu .drop-down ul .active > a, .nav-menu .drop-down ul li:hover > a {
+.nav-menu .drop-down ul a:hover,
+.nav-menu .drop-down ul .active > a,
+.nav-menu .drop-down ul li:hover > a {
   color: #67b0d1;
 }
 
-.nav-menu .drop-down > a:after {
+.nav-menu .drop-down > a::after {
   content: "\ea99";
   font-family: IcoFont;
   padding-left: 5px;
@@ -226,7 +237,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-right: 35px;
 }
 
-.nav-menu .drop-down .drop-down > a:after {
+.nav-menu .drop-down .drop-down > a::after {
   content: "\eaa0";
   font-family: IcoFont;
   position: absolute;
@@ -237,10 +248,12 @@ h1, h2, h3, h4, h5, h6 {
   .nav-menu .drop-down .drop-down ul {
     left: -90%;
   }
+
   .nav-menu .drop-down .drop-down:hover > ul {
     left: -100%;
   }
-  .nav-menu .drop-down .drop-down > a:after {
+
+  .nav-menu .drop-down .drop-down > a::after {
     content: "\ea9d";
   }
 }
@@ -296,12 +309,14 @@ h1, h2, h3, h4, h5, h6 {
   outline: none;
 }
 
-.mobile-nav a:hover, .mobile-nav .active > a, .mobile-nav li:hover > a {
+.mobile-nav a:hover,
+.mobile-nav .active > a,
+.mobile-nav li:hover > a {
   color: #67b0d1;
   text-decoration: none;
 }
 
-.mobile-nav .drop-down > a:after {
+.mobile-nav .drop-down > a::after {
   content: "\ea99";
   font-family: IcoFont;
   padding-left: 10px;
@@ -309,7 +324,7 @@ h1, h2, h3, h4, h5, h6 {
   right: 15px;
 }
 
-.mobile-nav .active.drop-down > a:after {
+.mobile-nav .active.drop-down > a::after {
   content: "\eaa1";
 }
 
@@ -352,9 +367,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 
-/*--------------------------------------------------------------
-# Hero Section
---------------------------------------------------------------*/
+/* Hero Section */
+
 #hero {
   width: 100%;
   height: 100vh;
@@ -443,6 +457,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 28px;
     line-height: 36px;
   }
+
   #hero h2 {
     font-size: 18px;
     line-height: 24px;
@@ -450,9 +465,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/*--------------------------------------------------------------
-# Profil
- --------------------------------------------------------------*/
+/* Profil */
+
 .profil{
   height: 100%;
   align-content: center;
@@ -469,9 +483,10 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
   padding: 5px;
   background: #833ab4;
-  background: -webkit-linear-gradient(to bottom, #22c0e8, #ffffff, #e88822);
-  background: linear-gradient(to bottom, #22c0e8, #ffffff, #e88822);
+  background: -webkit-linear-gradient(to bottom, #22c0e8, #fff, #e88822);
+  background: linear-gradient(to bottom, #22c0e8, #fff, #e88822);
 }
+
 .image_inner_container img{
   height: 200px;
   width: 200px;
@@ -499,7 +514,8 @@ ul.timeline {
   list-style-type: none;
   position: relative;
 }
-ul.timeline:before {
+
+ul.timeline::before {
   content: ' ';
   background: #d4d9df;
   display: inline-block;
@@ -509,11 +525,13 @@ ul.timeline:before {
   height: 100%;
   z-index: 400;
 }
+
 ul.timeline > li {
   margin: 20px 0;
   padding-left: 20px;
 }
-ul.timeline > li:before {
+
+ul.timeline > li::before {
   content: ' ';
   background: white;
   display: inline-block;
@@ -525,7 +543,7 @@ ul.timeline > li:before {
   z-index: 400;
 }
 
-ul.timeline.posts > li:before {
+ul.timeline.posts > li::before {
   border: 3px solid #22c0e8;
 }
 
@@ -537,11 +555,12 @@ ul.timeline.posts > li > a {
   background-color: #22c0e8;
 }
 
-ul.timeline.comments > li:before {
+ul.timeline.comments > li::before {
   border: 3px solid #e88822;
 }
 
-ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
+ul.timeline.comments > li > a,
+ul.timeline.comments > li > p > a {
   color: #e88822;
 }
 
@@ -549,14 +568,17 @@ ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
   background-color: #e88822;
 }
 
-.fa-comments, .fa-file {
+.fa-comments,
+.fa-file {
   position: relative;
   width: 36px;
   font-size: 24px;
   top: 3px;
   line-height: 12px;
 }
-.fa-comments > .badge, .fa-file > .badge {
+
+.fa-comments > .badge,
+.fa-file > .badge {
   font-size: 0.75rem;
   position: absolute;
   right: 28px;
@@ -564,7 +586,8 @@ ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
   top: -10px;
 }
 
-.activity, .profil{
+.activity,
+.profil{
   margin-top: 6%;
 }
 
@@ -575,39 +598,47 @@ ul.timeline.comments > li > a, ul.timeline.comments > li > p > a {
   flex-direction: column;
 }
 
-/*--------------------------------------------------------------
-# Section Admin
- --------------------------------------------------------------*/
+/* Section Admin */
+
 .custom-control-input:checked~.custom-control-label::before{
   color: #fff;
   border-color: #28a745;
   background-color: #28a745;
 }
+
 .fa.fa-check-square{
   color: #28a745;
 }
+
 .table{margin-bottom: 0!important;}
-#nav-users-tab.nav-link.active:after{
+#nav-users-tab.nav-link.active::after{
   left: -17%!important;
 }
-#nav-tricks-tab.nav-link.active:after{
+
+#nav-tricks-tab.nav-link.active::after{
   left: -11%!important;
 }
-#nav-comments-tab.nav-link.active:after{
+
+#nav-comments-tab.nav-link.active::after{
   left: -19%!important;
 }
-#nav-pictures-tab.nav-link.active:after{
+
+#nav-pictures-tab.nav-link.active::after{
   left: -20%!important;
 }
+
 div#panel_admin {
   width: 100%;
 }
+
 i.danger {
   color: red;
 }
+
 tr.role_admin {
   background-color: #fbe8b0!important;
 }
+
 #panel_admin > nav > .nav.nav-tabs{
 
   border: none;
@@ -616,6 +647,7 @@ tr.role_admin {
   border-radius:0;
 
 }
+
 #panel_admin > nav > div a.nav-item.nav-link,
 #panel_admin > nav > div a.nav-item.nav-link.active
 {
@@ -626,7 +658,7 @@ tr.role_admin {
   border-radius:0;
 }
 
-#panel_admin > nav > div a.nav-item.nav-link.active:after
+#panel_admin > nav > div a.nav-item.nav-link.active::after
 {
   content: "";
   position: relative;
@@ -635,6 +667,7 @@ tr.role_admin {
   border: 15px solid transparent;
   border-top-color: rgba(103, 176, 209, 0.8) ;
 }
+
 #panel_admin > .tab-content{
   background: #fdfdfd;
   line-height: 25px;
@@ -654,11 +687,14 @@ tr.role_admin {
   transition:background 0.20s linear;
 }
 
-/*--------------------------------------------------------------
-# Sections General
---------------------------------------------------------------*/
+/* Sections General */
+
 section {
   padding: 25px 0;
+}
+
+.tricks_medias {
+  padding: 50px;
 }
 
 .section-bg {
@@ -695,9 +731,8 @@ section {
   margin-bottom: 0;
 }
 
-/*--------------------------------------------------------------
-# Breadcrumbs
---------------------------------------------------------------*/
+/* Breadcrumbs */
+
 .breadcrumbs {
   padding: 15px 0;
   background-color: #f8fbfd;
@@ -735,6 +770,7 @@ section {
   line-height: 1.2!important;
   color: #6c757d!important;
 }
+
 .list-group-item-action:hover {
   background-color: #f8f9fa!important;
 }
@@ -743,30 +779,41 @@ section {
   .breadcrumbs .d-flex {
     display: block !important;
   }
+
   .breadcrumbs ol {
     display: block;
   }
+
   .breadcrumbs ol li {
     display: inline-block;
   }
 }
 
-/*--------------------------------------------------------------
-# Tricks
---------------------------------------------------------------*/
+/* Tricks */
+
 .col-md-9.col-lg-8.mx-auto {
   margin-top: 3%;
 }
 
-.tricks .tricks-item {
+.tricks .tricks-item,
+.tricks_medias .tricks-item {
   margin-bottom: 30px;
 }
 
-.tricks .tricks-wrap {
+.tricks .tricks-wrap,
+.tricks_medias .tricks-wrap {
   transition: 0.3s;
   position: relative;
   overflow: hidden;
   z-index: 1;
+}
+
+.tricks_medias .tricks-wrap.shadow.first_media {
+    width: 78%;
+}
+
+.tricks_medias .tricks-item.more .tricks-wrap{
+  height: 229px;
 }
 
 .tricks .tricks-wrap::before {
@@ -782,7 +829,8 @@ section {
   opacity: 0;
 }
 
-.tricks .tricks-wrap .tricks-links {
+.tricks .tricks-wrap .tricks-links,
+.tricks_medias .tricks-wrap .tricks-links {
   opacity: 1;
   left: 0;
   right: 0;
@@ -794,7 +842,8 @@ section {
   justify-content: center;
 }
 
-.tricks .tricks-wrap .tricks-links a {
+.tricks .tricks-wrap .tricks-links a,
+.tricks_medias .tricks-wrap .tricks-links a {
   color: #fff;
   font-size: 20px;
   text-align: center;
@@ -807,15 +856,18 @@ section {
   padding: 0 8px!important;
 }
 
-.tricks .tricks-wrap .tricks-links a:hover {
+.tricks .tricks-wrap .tricks-links a:hover,
+.tricks_medias .tricks-wrap .tricks-links a:hover {
   background: rgba(103, 176, 209, 0.95);
 }
 
-.tricks .tricks-wrap .tricks-links a + a {
+.tricks .tricks-wrap .tricks-links a + a,
+.tricks_medias .tricks-wrap .tricks-links a + a {
   border-left: 1px solid #8ec4dd;
 }
 
-.tricks .tricks-wrap:hover::before {
+.tricks .tricks-wrap:hover::before,
+.tricks_medias .tricks-wrap:hover::before {
   top: 0;
   left: 0;
   right: 0;
@@ -823,15 +875,30 @@ section {
   opacity: 1;
 }
 
-.tricks .tricks-wrap:hover .tricks-links {
+.tricks .tricks-wrap:hover .tricks-links,
+.tricks_medias .tricks-wrap:hover .tricks-links {
   opacity: 1;
   bottom: 0;
 }
 
+/* Tricks Details */
+.form-control:disabled{
+  opacity: .5;
+}
 
-/*--------------------------------------------------------------
-# Tricks Details
---------------------------------------------------------------*/
+i.fa.fa-plus.tricks-details{
+  font-size: 147px;
+  justify-content: center;
+  display: flex;
+  color: #dee2e6;
+  padding-bottom: 30px;
+}
+
+h2.col-2{
+  padding-right: 0!important;
+  padding-left: 5px!important;
+}
+
 .tricks-details {
   padding-top: 30px;
 }
@@ -897,36 +964,14 @@ ul.list-group.list-group-flush {
   .tricks-details .tricks-description h2 {
     width: 100%;
   }
+
   .tricks-details .tricks-info {
     position: static;
     margin-top: 30px;
   }
 }
 
-/* ----------------------------------------
-# CAROUSEL
------------------------------------------*/
-.carousel-indicators, #sliders-details, .carousel {
-  margin-left: 0!important;
-  padding-left: 0!important;
-  margin-right: 0!important;
-  padding-right: 0!important;
-}
-
-#sliders-details {
-  display: flex;
-  justify-content: space-around;
-  flex-flow: row wrap;
-}
-
-div.carousel.slide {
-  margin-top: 3% !important;
-}
-
-
-/*----------------------------------------
-# SIGNUP/LOGIN
-------------------------------------------*/
+/* SignUp/login */
 
 :root {
   --input-padding-x: 1.5rem;
@@ -955,7 +1000,7 @@ div.carousel.slide {
   border-radius: 15px;
 }
 
-.trick-link.col-2.trash {
+.trick-link.col-2.trash, .trick-link.col-2.edit {
   cursor: pointer;
 }
 
@@ -973,14 +1018,14 @@ form > .form-group .form-div label {
 }
 
 
-.form-label-group>input,
-.form-label-group>label {
+.form-label-group > input,
+.form-label-group > label {
   padding: var(--input-padding-y) var(--input-padding-x);
   height: auto;
   border-radius: 2rem;
 }
 
-.form-label-group>label {
+.form-label-group > label {
   position: absolute;
   top: 0;
   left: 0;
@@ -1029,39 +1074,33 @@ form > .form-group .form-div label {
   color: #777;
 }
 
-/* Fallback for Edge
--------------------------------------------------- */
+/* Fallback for Edge */
 
 @supports (-ms-ime-align: auto) {
-  .form-label-group>label {
+  .form-label-group > label {
     display: none;
   }
+
   .form-label-group input::-ms-input-placeholder {
     color: #777;
   }
 }
 
-/* Fallback for IE
--------------------------------------------------- */
+/* Fallback for IE */
 
 @media all and (-ms-high-contrast: none),
 (-ms-high-contrast: active) {
-  .form-label-group>label {
+  .form-label-group > label {
     display: none;
   }
+
   .form-label-group input:-ms-input-placeholder {
     color: #777;
   }
 }
 
-/*--------------------------------------------------------------
-# LOGIN/SIGNUP
---------------------------------------------------------------*/
+/* Footer */
 
-
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
 #footer {
   background: #263f49;
   padding: 0 0 30px 0;

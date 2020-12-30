@@ -42,9 +42,11 @@ class TrickType extends AbstractType
                     new File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
+                            'image/jpg',
                             'image/jpeg',
+                            'image/png',
                         ],
-                        'mimeTypesMessage' => 'Merci d\'upload un fichier jpeg',
+                        'mimeTypesMessage' => 'Merci d\'upload un fichier jpg, jpeg ou png',
                     ])
                 ],
             ]);

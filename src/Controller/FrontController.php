@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FrontController extends AbstractController
@@ -14,6 +15,8 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/", name="home")
+     * @param TrickRepository $repository
+     * @return Response
      */
     public function home(TrickRepository $repository)
     {
@@ -26,9 +29,14 @@ class FrontController extends AbstractController
     }
 
     /**
+     * More medias on home
+     *
      * @Route("/{offset}", name="more_tricks", requirements={"offset": "\d+"})
+     * @param TrickRepository $repository
+     * @param int $offset
+     * @return Response
      */
-    public function more_tricks(TrickRepository $repository, $offset = 6)
+    public function more_tricks(TrickRepository $repository, $offset = 3)
     {
         $tricks = $repository->findBy(array(), array('created_at' => 'DESC'), 3, $offset);
 
@@ -36,13 +44,19 @@ class FrontController extends AbstractController
     }
 
     /**
+     * User profil
+     *
      * @Route("/profil/{id}", name="profil")
+     * @param TrickRepository $repo
+     * @param CommentRepository $commentRepository
+     * @return Response
      */
     public function show_profil(TrickRepository $repo, CommentRepository $commentRepository)
     {
         $user = $this->getUser();
         $tricks = $repo->findBy(array("User" => $user), array('id' => 'DESC'));
         $comments = $commentRepository->findBy(array("User" => $user), array('id' => 'DESC'));
+
         return $this->render('front/profil.html.twig', [
             'title'         => $this->title,
             'tricks'        => $tricks,

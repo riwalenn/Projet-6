@@ -9,7 +9,13 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex flex-column align-items-start">
                         <h2>{{ trick.title }} <a href="{{ path('edit_trick', {'id': trick.id}) }}"
-                                                class="trick-link col-2"><i class="fa fa-edit"></i></a></h2>
+                                                 class="trick-link col-2"><i class="fa fa-edit"></i></a>
+                            {% if app.user %}
+                                {% if app.user == trick.user %}
+                                    <a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                                {% endif %}
+                            {% endif %}
+                        </h2>
                         <blockquote class="blockquote-footer">Créé
                             par {{ trick.user.username~ " le " ~trick.createdAt | date('d/m/Y à H:i') }}</blockquote>
                     </div>
@@ -25,8 +31,22 @@
         <!-- ======= Trick Details Section ======= -->
         <section class="tricks-details">
             <div class="container">
-                <div class="tricks-details-container">
-                    <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
+                <div class="tricks-details-container tricks_medias">
+                    <div class="tricks-wrap shadow first_media">
+                        {% if(trick.image) %}
+                            <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
+                        {% else %}
+                            <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid" alt="">
+                        {% endif %}
+                        <div class="tricks-links">
+                            {% if app.user %}
+                                {% if app.user == trick.user %}
+                                    <a onclick="confirmFirstMediaDelete('{{ trick.id }}')"
+                                       class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
                     <div class="tricks-info">
                         <h3>Snow tricks informations</h3>
                         <ul>
@@ -38,60 +58,49 @@
                         </ul>
                     </div>
                 </div>
-                <div id="sliders-details" class="container col-12">
-                    <div id="carouselForImages" class="carousel slide col-md-6 col-12" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselForImages" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselForImages" data-slide-to="1"></li>
-                            <li data-target="#carouselForImages" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://placehold.it/100x50" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://placehold.it/100x50" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://placehold.it/100x50" class="d-block w-100" alt="...">
+                <section id="tricks" class="tricks_medias">
+                    <div class="container">
+                        <div class="row tricks-container" data-aos="fade-up">
+                            {% for library in itemsLibrary %}
+                                <div class="col-lg-4 col-md-6 tricks-item">
+                                    <div class="tricks-wrap shadow">
+                                        {% if library.type == 1 %}
+                                            <img src="{{ asset('/img/tricks/' ~ library.lien) }}" class="img-fluid" alt="snowtricks">
+                                        {% elseif library.type == 3 %}
+                                            <img src="{{ library.lien }}" class="img-fluid" alt="snowtricks">
+                                        {% else %}
+                                            <iframe width="307" height="229" src="{{ library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        {% endif %}
+                                        <div class="tricks-links">
+                                            {% if app.user %}
+                                                {% if app.user == trick.user %}
+                                                    <a onclick="confirmMediaDelete('{{ library.id }}')"
+                                                       class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                                                {% endif %}
+                                                <a onclick="editMedia('{{ library.id }}')" class="trick-link col-2 edit"><i
+                                                            class="fa fa-edit"></i></a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            {% if count <= 3 %}
+                                <div class="col-lg-4 col-md-6 tricks-item more">
+                                    <div class="tricks-wrap shadow">
+                                        <a onclick="addMedia('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                {% if count > 3 %}
+                                    <button id="moreMedias" class="btn btn-primary">Voir plus de médias</button>
+                                {% endif %}
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselForImages" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselForImages" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
                     </div>
-                    <div id="carouselForVideos" class="carousel slide col-md-6 col-12" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselForVideos" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselForVideos" data-slide-to="1"></li>
-                            <li data-target="#carouselForVideos" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://placehold.it/100x50" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://placehold.it/100x50" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://placehold.it/100x50" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselForVideos" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselForVideos" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
+                </section>
                 <div class="tricks-description">
                     <h2>{{ trick.title }}</h2>
                     {{ trick.description | raw }}
@@ -146,7 +155,7 @@
                     </div>
                 {% endfor %}
                 <div class="list-group">
-                    {% for comments in trick.comments %}
+                    {% for comments in trick.comments|sort((a, b) => b.createdAt <=> a.createdAt) %}
                         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ comments.title }}</h5>
@@ -162,4 +171,260 @@
         </section>
         <!-- End Tricks Comments Section -->
     </main><!-- End #main -->
+    {% if app.user %}
+        <div class="portfolio-modal modal fade" id="delete_trick_modal{{ trick.id }}" tabindex="-1" role="dialog"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-dismiss="modal">
+                        <div class="lr">
+                            <div class="rl"></div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+                                <div class="modal-body">
+                                    <p>Souhaitez-vous vraiment supprimer le trick ayant le titre : {{ trick.title }}
+                                        ?</p>
+                                    <form action="{{ path('delete_trick', {'id': trick.id}) }}" method="post">
+                                        <input type="hidden" id="inputId" name="deleteTrick[id]"
+                                               value="{{ trick.id }}">
+                                        <div class="buttons">
+                                            <button type="submit" class="btn btn-outline-danger" value="delete"
+                                                    onclick="">Supprimer
+                                            </button>
+                                            <button class="btn btn-outline-primary" data-dismiss="modal"
+                                                    type="button"><i class="fa fa-times"></i>Annuler
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-modal modal fade" id="delete_first_media{{ trick.id }}" tabindex="-1" role="dialog"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-dismiss="modal">
+                        <div class="lr">
+                            <div class="rl"></div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+                                <div class="modal-body">
+                                    <p>Souhaitez-vous vraiment supprimer l'image du trick ayant le titre : {{ trick.title }}
+                                        ?</p>
+                                    <form action="{{ path('delete_first_media', {'id': trick.id}) }}" method="post">
+                                        <input type="hidden" id="inputId" name="deleteTrick[id]"
+                                               value="{{ trick.id }}">
+                                        <div class="buttons">
+                                            <button type="submit" class="btn btn-outline-danger" value="delete"
+                                                    onclick="">Supprimer
+                                            </button>
+                                            <button class="btn btn-outline-primary" data-dismiss="modal"
+                                                    type="button"><i class="fa fa-times"></i>Annuler
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% for library in allItems %}
+            <div class="portfolio-modal modal fade" id="delete_media_modal{{ library.id }}" tabindex="-1" role="dialog"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="close-modal" data-dismiss="modal">
+                            <div class="lr">
+                                <div class="rl"></div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                    <div class="modal-body">
+                                        <p>Souhaitez-vous vraiment supprimer le media ?
+                                            ?</p>
+                                        <form action="{{ path('delete_media', {'id': library.id}) }}" method="post">
+                                            <input type="hidden" id="inputId" name="deleteMedia[id]"
+                                                   value="{{ library.id }}">
+                                            <div class="buttons">
+                                                <button type="submit" class="btn btn-outline-danger" value="delete"
+                                                        onclick="">Supprimer
+                                                </button>
+                                                <button class="btn btn-outline-primary" data-dismiss="modal"
+                                                        type="button"><i class="fa fa-times"></i>Annuler
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="portfolio-modal modal fade" id="add_trick_media{{ trick.id }}" tabindex="-1" role="dialog"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="modal-body">
+                                <h5>Ajouter une image ou une vidéo</h5>
+                                <form action="{{ path('add_media', {'id': trick.id}) }}" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" id="inputId" name="trick_id"
+                                           value="{{ trick.id }}">
+                                    <fieldset class="form-group upload">
+                                        <small id="imageDownload" class="form-text text-muted">L'image chargée doit être au format
+                                            800x600 et au format jpeg.</small>
+                                        <input type="hidden" name="MAX_FILES_SIZE" value="200000">
+                                        <input type="file" aria-describedby="imageDownload" name="file" id="file" class="form-control" value="">
+                                    </fieldset>
+                                    <div class="custom-control custom-checkbox checkbox">
+                                        <input onclick="toggleInput()" type="checkbox" class="custom-control-input" id="switch" value="1">
+                                        <label class="custom-control-label" for="switch">Je préfère ajouter le lien d'une image ou une vidéo</label>
+                                    </div>
+                                    <fieldset class="form-group links" disabled>
+                                        <small id="imageLink" class="form-text text-muted">Lien http, si vidéo alors mettre le lien sans le embed (ex: https://www.youtube.com/embed/SQyTWk7OxSI), vous trouverez le lien dans "partager > intégrer".</small>
+                                        <input type="text" name="lien" id="lien" class="form-control" value="">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="type" id="typeImage" value="3">
+                                            <label class="form-check-label" for="typeImage">lien de type image</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="type" id="typeVideo" value="2">
+                                            <label class="form-check-label" for="typeVideo">lien de type vidéo</label>
+                                        </div>
+                                    </fieldset>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="type" id="typeImageUpload" value="1" checked>
+                                            <label class="form-check-label" for="typeImageUpload">type upload</label>
+                                        </div>
+
+                                    <div class="buttons">
+                                        <button type="submit" id="submit" class="btn btn-outline-primary" value="delete">Ajouter
+                                        </button>
+                                        <button class="btn btn-outline-danger" data-dismiss="modal"
+                                                type="button"><i class="fa fa-times"></i>Annuler
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for library in allItems %}
+    <div class="portfolio-modal modal fade" id="edit_trick_media{{ library.id }}" tabindex="-1" role="dialog"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="modal-body">
+                                <h5>Ajouter une image ou une vidéo</h5>
+                                <form action="{{ path('add_media', {'id': trick.id}) }}" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" id="library_id" name="library_id"
+                                           value="{{ library.id }}">
+                                    <fieldset class="form-group upload">
+                                        <small id="imageDownload" class="form-text text-muted">L'image chargée doit être au format
+                                            800x600 et au format jpeg.</small>
+                                        <input type="hidden" name="MAX_FILES_SIZE" value="200000">
+                                        {% if library.type == 1 %}
+                                            <input type="file" aria-describedby="imageDownload" placeholder="{{ library.lien }}" name="file" id="file" class="form-control" value="">
+                                        {% else %}
+                                            <input type="file" aria-describedby="imageDownload" name="file" id="file" class="form-control" value="">
+                                        {% endif %}
+                                    </fieldset>
+                                    <div class="custom-control custom-checkbox checkbox">
+                                        <input onclick="toggleInput()" type="checkbox" class="custom-control-input" id="switch" value="1">
+                                        <label class="custom-control-label" for="switch">Je préfère ajouter le lien d'une image ou une vidéo</label>
+                                    </div>
+                                    <fieldset class="form-group links" disabled>
+                                        <small id="imageLink" class="form-text text-muted">Lien http, si vidéo alors mettre le lien sans le embed (ex: https://www.youtube.com/embed/SQyTWk7OxSI), vous trouverez le lien dans "partager > intégrer".</small>
+                                        {% if library.type == 2 or library.type == 3 %}
+                                            <input type="text" name="lien" id="lien" class="form-control" value="{{ library.lien }}">
+                                        {% else %}
+                                            <input type="text" name="lien" id="lien" class="form-control" value="">
+                                        {% endif %}
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="type" id="typeImage" value="1" {% if library.type == 1 %}checked{% endif %}>
+                                            <label class="form-check-label" for="typeImage">lien de type image</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="type" id="typeVideo" value="2" {% if library.type == 2 %}checked{% endif %}>
+                                            <label class="form-check-label" for="typeVideo">lien de type vidéo</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="type" id="typeImageUpload" value="3"  {% if library.type == 3 %}checked{% endif %}>
+                                            <label class="form-check-label" for="typeImageUpload">type upload</label>
+                                        </div>
+                                    </fieldset>
+
+                                    <div class="buttons">
+                                        <button type="submit" class="btn btn-outline-primary" value="delete"
+                                                onclick="">Ajouter
+                                        </button>
+                                        <button class="btn btn-outline-danger" data-dismiss="modal"
+                                                type="button"><i class="fa fa-times"></i>Annuler
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var counter = 0;
+        function moreMedias(e) {
+            e.preventDefault();
+            counter++;
+            var offset = 3 * counter;
+            const url = "{{ path('more_medias', {'id': trick.id}) }}/" + offset;
+            console.log(url);
+            axios.get(url).then(function (response) {
+                $(".tricks-container").append(response.data);
+            });
+        }
+
+        $('#moreMedias').on("click", function (e) {
+            moreMedias(e);
+        });
+    </script>
 {% endblock %}
