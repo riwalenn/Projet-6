@@ -24,8 +24,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TrickController extends AbstractController
 {
-    private $title = "Bienvenue sur le site communautaire de SnowTricks !";
-
     /**
      * Trick details : trick, histories, libraries, comments
      *
@@ -62,7 +60,7 @@ class TrickController extends AbstractController
         }
 
         return $this->render('front/tricks-details.html.twig', [
-            'title'             => "Tricks",
+            'title'             => $trick->getTitle(),
             'trick'             => $trick,
             'itemsLibrary'      => $itemsLibrary,
             'allItems'          => $allItems,
@@ -135,7 +133,8 @@ class TrickController extends AbstractController
                     $this->addFlash('danger', "Le trick existe déjà !");
                     return $this->redirectToRoute('add_trick');
                 }
-            } else {
+            }
+            if ($trick->getId()) {
                 $trick->setTitle($title);
                 $author = $repo->findOneByCriteria("username", $trick->getUser());
                 if ($user->getId() !== $author->getId()) {
@@ -148,9 +147,9 @@ class TrickController extends AbstractController
                     $serviceMail->alertAuthor($author, $trick);
                 }
             }
+
             $files = $form->get('image')->getData();
             if ($files) {
-
                 $trick->setImage($this->uploader($files));
             }
 
@@ -162,14 +161,8 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        if ($trick) {
-            $title = $trick->getTitle();
-        } else {
-            $title = "Ajouter un trick.";
-        }
-
         return $this->render('front/tricks-form.html.twig', [
-            'title'         => $title,
+            'title'         => $trick->getTitle() ?? "Ajouter un trick.",
             'formTrick'     => $form->createView(),
             'editMode'      => $trick->getId() !== null
         ]);

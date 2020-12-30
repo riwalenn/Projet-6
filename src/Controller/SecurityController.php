@@ -77,7 +77,8 @@ class SecurityController extends AbstractController
                 $this->addFlash('danger', "Votre token n'existe pas");
 
                 return $this->redirectToRoute('home');
-            } else {
+            }
+            if (!empty($user)) {
                 $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
                 if ($dateDiff < 2 && $user->getIsActive() == 1) {
                     $data = $form->getData();
@@ -93,6 +94,8 @@ class SecurityController extends AbstractController
                     return $this->redirectToRoute('email_form');
                 }
             }
+
+
         }
 
         return $this->render('security/password-change.html.twig', [

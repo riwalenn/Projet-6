@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Framework\Constantes;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -90,45 +91,6 @@ class Trick
      */
     private $trickHistories;
 
-    const POSITION = [
-        'Goofy' => 'goofy',
-        'Regular' => 'regular'
-    ];
-
-    const GRABS = [
-        'mute' => 'mute',
-        'sad' => 'sad',
-        'indy' => 'indy',
-        'stalefish' => 'stalefish',
-        'tail grab' => 'tail grab',
-        'nose grab' => 'nose grab',
-        'japan' => 'japan',
-        'seat belt' => 'seat belt',
-        'truck driver' => 'truck driver'
-    ];
-
-    const ROTATION = [
-        '180' => 180,
-        '360' => 360,
-        '540' => 540,
-        '720' => 720,
-        '900' => 900,
-        '1080' => 1080
-    ];
-
-    const FLIP = [
-        'front flip' => 'front flip',
-        'back flip' => 'back flip'
-    ];
-
-    const SLIDE = [
-        'perpendiculaire' => 'perpendiculaire',
-        'dans l\'axe' => 'dans l\'axe',
-        'désaxé' => 'désaxé',
-        'nose slide' => 'nose slide',
-        'tail slide' => 'tail slide'
-    ];
-
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -191,8 +153,8 @@ class Trick
 
     public function getPosition($string = false): ?string
     {
-        if ($string && \in_array($this->position, self::POSITION))
-            return \array_search($this->position, self::POSITION);
+        if ($string && \in_array($this->position, Constantes::POSITION))
+            return \array_search($this->position, Constantes::POSITION);
 
         return $this->position;
     }
@@ -206,8 +168,8 @@ class Trick
 
     public function getGrabs($string = false): ?string
     {
-        if ($string && \in_array($this->grabs, self::GRABS))
-            return \array_search($this->grabs, self::GRABS);
+        if ($string && \in_array($this->grabs, Constantes::GRABS))
+            return \array_search($this->grabs, Constantes::GRABS);
 
         return $this->grabs;
     }
@@ -221,8 +183,8 @@ class Trick
 
     public function getRotation($string = false): ?string
     {
-        if ($string && \in_array($this->rotation, self::ROTATION))
-            return \array_search($this->rotation, self::ROTATION);
+        if ($string && \in_array($this->rotation, Constantes::ROTATION))
+            return \array_search($this->rotation, Constantes::ROTATION);
 
         return $this->rotation;
     }
@@ -236,8 +198,8 @@ class Trick
 
     public function getFlip($string = false): ?string
     {
-        if ($string && \in_array($this->flip, self::FLIP))
-            return \array_search($this->flip, self::FLIP);
+        if ($string && \in_array($this->flip, Constantes::FLIP))
+            return \array_search($this->flip, Constantes::FLIP);
 
         return $this->flip;
     }
@@ -251,8 +213,8 @@ class Trick
 
     public function getSlide($string = false): ?string
     {
-        if ($string && \in_array($this->slide, self::SLIDE))
-            return \array_search($this->slide, self::SLIDE);
+        if ($string && \in_array($this->slide, Constantes::SLIDE))
+            return \array_search($this->slide, Constantes::SLIDE);
 
         return $this->slide;
     }

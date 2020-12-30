@@ -10,9 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FrontController extends AbstractController
 {
-    private $title = "Bienvenue sur le site communautaire de SnowTricks !";
-
-
     /**
      * @Route("/", name="home")
      * @param TrickRepository $repository
@@ -24,7 +21,7 @@ class FrontController extends AbstractController
 
         return $this->render('front/home.html.twig', [
             'controller_name'   => 'FrontController',
-            'title'             => $this->title,
+            'title'             => "Bienvenue sur le site communautaire de SnowTricks !",
             'tricks'            => $tricks]);
     }
 
@@ -58,7 +55,7 @@ class FrontController extends AbstractController
         $comments = $commentRepository->findBy(array("User" => $user), array('id' => 'DESC'));
 
         return $this->render('front/profil.html.twig', [
-            'title'         => $this->title,
+            'title'         => "Bienvenue ".$user->getUsername()." sur le site de SnowTricks !",
             'tricks'        => $tricks,
             'comments'      => $comments
         ]);
