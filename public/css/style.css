@@ -74,7 +74,6 @@ h6 {
 #header {
     transition: all 0.5s;
     z-index: 997;
-    transition: all 0.5s;
     padding: 15px 0;
     background: rgba(103, 176, 209, 0.8);
 }
@@ -121,7 +120,7 @@ h6 {
 .page-load-status {
     display: none; /* hidden by default */
     padding-top: 20px;
-    border-top: 1px solid #DDD;
+    border-top: 1px solid #ddd;
     text-align: center;
     color: #777;
 }
@@ -187,7 +186,7 @@ h6 {
     visibility: hidden;
     padding: 10px 0;
     background: #fff;
-    box-shadow: 0px 0px 1px rgba(127, 137, 161, 0.25);
+    box-shadow: 0 0 1px rgba(127, 137, 161, 0.25);
     transition: ease all 0.3s;
 }
 
@@ -505,7 +504,6 @@ h6 {
     border-radius: 50%;
 }
 
-
 .profil img {
     margin: 10px 10px;
 }
@@ -586,8 +584,7 @@ ul.timeline.comments > li > p > a {
     top: -10px;
 }
 
-.activity,
-.profil {
+.activity {
     margin-top: 6%;
 }
 
@@ -596,6 +593,7 @@ ul.timeline.comments > li > p > a {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 6%;
 }
 
 /* Section Admin */
@@ -913,7 +911,7 @@ h2.col-2 {
     right: 0;
     bottom: -25px;
     background: #fff;
-    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     z-index: 2;
 }
 
