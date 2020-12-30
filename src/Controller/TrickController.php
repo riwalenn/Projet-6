@@ -135,7 +135,8 @@ class TrickController extends AbstractController
                     $this->addFlash('danger', "Le trick existe déjà !");
                     return $this->redirectToRoute('add_trick');
                 }
-            } else {
+            }
+            if ($trick->getId()) {
                 $trick->setTitle($title);
                 $author = $repo->findOneByCriteria("username", $trick->getUser());
                 if ($user->getId() !== $author->getId()) {
