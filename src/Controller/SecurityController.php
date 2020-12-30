@@ -80,19 +80,22 @@ class SecurityController extends AbstractController
             }
             if (!empty($user)) {
                 $dateDiff = (new \DateTime())->diff($user->getCreatedAt())->days;
-                if ($dateDiff > 2 && $user->getIsActive() != 1) {
+                if ($dateDiff < 2 && $user->getIsActive() == 1) {
+                    $data = $form->getData();
+                    $hash = $encoder->encodePassword($user, $data['password']);
+                    $user->setPassword($hash);
+                    $manager->persist($user);
+                    $manager->flush();
+                    $this->addFlash('success', "Votre mot de passe a été modifié avec succès !");
+
+                } else {
                     $this->addFlash('danger', "Votre token a expiré !");
 
                     return $this->redirectToRoute('email_form');
                 }
-
-                $data = $form->getData();
-                $hash = $encoder->encodePassword($user, $data['password']);
-                $user->setPassword($hash);
-                $manager->persist($user);
-                $manager->flush();
-                $this->addFlash('success', "Votre mot de passe a été modifié avec succès !");
             }
+
+
         }
 
         return $this->render('security/password-change.html.twig', [
