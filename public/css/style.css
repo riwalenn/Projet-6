@@ -466,11 +466,6 @@ h6 {
 
 /* Profil */
 
-.profil {
-    height: 100%;
-    align-content: center;
-}
-
 .image_outer_container {
     margin-top: auto;
     margin-bottom: auto;
@@ -594,6 +589,8 @@ ul.timeline.comments > li > p > a {
     align-items: center;
     flex-direction: column;
     margin-top: 6%;
+    height: 100%;
+    align-content: center;
 }
 
 /* Section Admin */
@@ -641,12 +638,10 @@ tr.role_admin {
 }
 
 #panel_admin > nav > .nav.nav-tabs {
-
     border: none;
     color: #fff;
     background: #272e38;
     border-radius: 0;
-
 }
 
 #panel_admin > nav > div a.nav-item.nav-link,
@@ -682,7 +677,7 @@ tr.role_admin {
     background: rgba(103, 176, 209, 0.8);
     color: #fff;
     border-radius: 0;
-    transition: background 0.20s linear;
+    transition: background 0.2s linear;
 }
 
 /* Sections General */
@@ -881,7 +876,7 @@ section {
 
 /* Tricks Details */
 .form-control:disabled {
-    opacity: .5;
+    opacity: 0.5;
 }
 
 i.fa.fa-plus.tricks-details {
@@ -998,7 +993,8 @@ ul.list-group.list-group-flush {
     border-radius: 15px;
 }
 
-.trick-link.col-2.trash, .trick-link.col-2.edit {
+.trick-link.col-2.trash,
+.trick-link.col-2.edit {
     cursor: pointer;
 }
 
@@ -1015,7 +1011,6 @@ form > .form-group .form-div label {
     margin-bottom: 1rem;
 }
 
-
 .form-label-group > input,
 .form-label-group > label {
     padding: var(--input-padding-y) var(--input-padding-x);
@@ -1030,14 +1025,16 @@ form > .form-group .form-div label {
     display: block;
     width: 100%;
     margin-bottom: 0;
+
     /* Override default `<label>` margin */
     line-height: 1.5;
     color: #495057;
     cursor: text;
+
     /* Match the input under the label */
     border: 1px solid transparent;
-    border-radius: .25rem;
-    transition: all .1s ease-in-out;
+    border-radius: 0.25rem;
+    transition: all 0.1s ease-in-out;
 }
 
 .form-label-group input::-webkit-input-placeholder {
