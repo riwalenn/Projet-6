@@ -20,7 +20,7 @@ You need a web development environment like WampServer (for Windows), MAMP (for 
 - Return to the console and write "php bin/console doctrine:database:create"
 - "php bin/console doctrine:migrations:migrate"
 - To have some initial dataset : "php bin/console doctrine:fixtures:load"
-- Run the application with "symfony serve"
+- Run the application with "php -S localhost:8000 -t public"
 - If you want an admin account go to your database, change the email (get yours), the role (["ROLE_ADMIN"]) and get 1 to the is_active column of one of the exemple, 
   then go to Connexion page (login) > "Oubli du mot de passe ?" (I forgot my password) and follow the instructions to have yours.
 
