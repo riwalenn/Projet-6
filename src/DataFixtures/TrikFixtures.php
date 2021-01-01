@@ -39,9 +39,6 @@ class TrikFixtures extends Fixture
                                 ['front flip', 'back flip'],
                                 ['perpendiculaire', 'dans l\'axe', 'désaxé', 'nose slide', 'tail slide']
                           );
-
-                //random fakers
-                //$faker->randomElement(['regular', 'goofy']);
                 $image = array_rand(array_flip($imageArray));
                 $position = array_rand(array_flip($arrayFakeTerms[0]));
                 $grabs = array_rand(array_flip($arrayFakeTerms[1]));
@@ -85,7 +82,7 @@ class TrikFixtures extends Fixture
                     $trick_library = new TrickLibrary();
                     $trick_library->setTrick($trick)
                                     ->setLien($faker->imageUrl(800, 600))
-                                    ->setType(1);
+                                    ->setType(3);
                     $manager->persist($trick_library);
                 }
             }
