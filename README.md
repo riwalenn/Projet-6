@@ -21,8 +21,7 @@ You need a web development environment like WampServer (for Windows), MAMP (for 
 - "php bin/console doctrine:migrations:migrate"
 - To have some initial dataset : "php bin/console doctrine:fixtures:load"
 - Run the application with "php -S localhost:8000 -t public"
-- If you want an admin account go to your database, change the email (get yours), the role (["ROLE_ADMIN"]) and get 1 to the is_active column of one of the exemple, 
-  then go to Connexion page (login) > "Oubli du mot de passe ?" (I forgot my password) and follow the instructions to have yours.
+- If you want an admin account go to your database then write this sql request : "INSERT INTO `user` (`id`, `username`, `email`, `password`, `image`, `token`, `created_at`, `is_active`, `roles`) VALUES (99, 'Admin', 'admin@gmail.com', '$2y$13$eEY38DakHa/VwoHNx/xlHu.PlViXkvnGEH0lLXtc2QmxFDhBBC6li', '5', NULL, NULL, 1, '[\"ROLE_ADMIN\"]')"
 
 ## Preview
 **[![Squad-free](https://bootstrapmade.com/wp-content/themefiles/Squadfree/800.png)](https://bootstrapmade.com)**
