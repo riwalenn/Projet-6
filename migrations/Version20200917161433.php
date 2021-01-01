@@ -20,7 +20,8 @@ final class Version20200917161433 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE user ADD image VARCHAR(255) NOT NULL, CHANGE token token VARCHAR(255) NULL');
+        $this->addSql('ALTER TABLE user ADD token varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL');
+        $this->addSql('ALTER TABLE user ADD image VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema) : void
