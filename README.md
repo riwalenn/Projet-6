@@ -15,7 +15,7 @@ EN - Projet n°6 created for OpenClassrooms and Backend path.
 You need a web development environment like WampServer (for Windows), MAMP (for Mac) or LAMP (for Linux).
 
 - Clone the project code : "git clone https://github.com/riwalenn/snowtricks.git"
-- Go to the console and write "composer update" where you want to have the project
+- Go to the console and write "composer install" where you want to have the project
 - Open the .env file and change the database connection values on line 32 like "DATABASE_URL=mysql://root:@127.0.0.1:3306/oc_projets_n6?serverVersion=5.7.19" for me.
 - Return to the console and write "php bin/console doctrine:database:create"
 - "php bin/console doctrine:migrations:migrate"
