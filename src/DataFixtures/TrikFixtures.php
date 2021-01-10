@@ -19,12 +19,12 @@ class TrikFixtures extends Fixture
         for ($i = 1; $i <= 5; $i++){
             $imgProfilArray = array_diff(scandir('src/DataFixtures/img/profils'), array('..', '.'));
             $imgProfil = array_rand(array_flip($imgProfilArray));
-            $imgProfil = rename($imgProfil, str_replace(".jpg", "", $imgProfil));
+            $imgString = str_replace(".jpg", "", $imgProfil);
             $user = new User();
             $user->setUsername($faker->userName)
                     ->setEmail($faker->email)
                     ->setPassword($faker->password(12, 18))
-                    ->setImage($imgProfil)
+                    ->setImage($imgString)
                     ->setToken(bin2hex(random_bytes(32)))
                     ->setCreatedAt(new \DateTime())
                     ->setRoles((array)'ROLE_USER')
