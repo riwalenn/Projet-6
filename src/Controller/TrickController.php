@@ -41,7 +41,6 @@ class TrickController extends AbstractController
      */
     public function trick_detail(Trick $trick, PaginatorInterface $paginator, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository, TrickLibraryRepository $libraryRepository, CommentRepository $commentRepository)
     {
-        $q = $request->query->get('q');
         $trick_history = $historyRepository->findAll();
         $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, 0);
         $allItems = $libraryRepository->findAll();
