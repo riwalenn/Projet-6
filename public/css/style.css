@@ -953,6 +953,11 @@ ul.list-group.list-group-flush {
     padding: 0 0 0 0;
 }
 
+#nav-pagination {
+    margin-top: 2%;
+    align-self: flex-end;
+}
+
 @media (max-width: 768px) {
     .tricks-details .tricks-description h2 {
         width: 100%;
