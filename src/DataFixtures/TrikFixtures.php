@@ -17,11 +17,13 @@ class TrikFixtures extends Fixture
     {
         $faker = \Faker\Factory::create('fr_FR');
         for ($i = 1; $i <= 5; $i++){
+            $imgProfilArray = array_diff(scandir('src/DataFixtures/img/profils'), array('..', '.'));
+            $imgProfil = array_rand(array_flip($imgProfilArray));
             $user = new User();
             $user->setUsername($faker->userName)
                     ->setEmail($faker->email)
                     ->setPassword($faker->password(12, 18))
-                    ->setImage($faker->imageUrl(30, 30, 'sports'))
+                    ->setImage($imgProfil)
                     ->setToken(bin2hex(random_bytes(32)))
                     ->setCreatedAt(new \DateTime())
                     ->setRoles((array)'ROLE_USER')
@@ -31,7 +33,7 @@ class TrikFixtures extends Fixture
             for ($j = 1; $j <= 2; $j++) {
                 $trick = new Trick();
                 //fakers array for snowboarding
-                $imageArray = array_diff(scandir('public/img/tricks'), array('..', '.'));
+                $imageArray = array_diff(scandir('src/DataFixtures/img/tricks'), array('..', '.'));
                 $arrayFakeTerms = array(
                                 ['regular', 'goofy'],
                                 ['mute', 'sad', 'indy', 'stalefish', 'tail grab', 'nose grab', 'japan', 'seat belt', 'truck driver'],
@@ -50,7 +52,7 @@ class TrikFixtures extends Fixture
 
                 $trick->setUser($user)
                         ->setTitle($title)
-                        ->setImage($image)
+                        ->setImage(str_replace(".jpg", "", $image))
                         ->setDescription($content)
                         ->setPosition($position)
                         ->setGrabs($grabs)
