@@ -23,7 +23,7 @@ class TrikFixtures extends Fixture
             $user->setUsername($faker->userName)
                     ->setEmail($faker->email)
                     ->setPassword($faker->password(12, 18))
-                    ->setImage($imgProfil)
+                    ->setImage(rename($imgProfil, str_replace(".jpg", "", $imgProfil)))
                     ->setToken(bin2hex(random_bytes(32)))
                     ->setCreatedAt(new \DateTime())
                     ->setRoles((array)'ROLE_USER')
@@ -52,7 +52,7 @@ class TrikFixtures extends Fixture
 
                 $trick->setUser($user)
                         ->setTitle($title)
-                        ->setImage(str_replace(".jpg", "", $image))
+                        ->setImage($image)
                         ->setDescription($content)
                         ->setPosition($position)
                         ->setGrabs($grabs)
