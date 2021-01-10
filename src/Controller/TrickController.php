@@ -7,11 +7,13 @@ use App\Entity\Comment;
 use App\Entity\TrickHistory;
 use App\Entity\TrickLibrary;
 use App\Form\TrickType;
+use App\Repository\CommentRepository;
 use App\Repository\TrickLibraryRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use App\Service\SendMail;
 use Doctrine\ORM\NonUniqueResultException;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,19 +31,28 @@ class TrickController extends AbstractController
      *
      * @Route("/trick_detail/{id}", name="trick_detail")
      * @param Trick $trick
+     * @param PaginatorInterface $paginator
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @param TrickHistoryRepository $historyRepository
      * @param TrickLibraryRepository $libraryRepository
+     * @param CommentRepository $commentRepository
      * @return RedirectResponse|Response
      */
-    public function trick_detail(Trick $trick, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository, TrickLibraryRepository $libraryRepository)
+    public function trick_detail(Trick $trick, PaginatorInterface $paginator, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository, TrickLibraryRepository $libraryRepository, CommentRepository $commentRepository)
     {
+        $q = $request->query->get('q');
         $trick_history = $historyRepository->findAll();
         $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, 0);
         $allItems = $libraryRepository->findAll();
         $itemsToCount = $libraryRepository->findBy(array('trick' => $trick->getId()));
+        $donnees = $commentRepository->findBy(array('Trick' => $trick->getId()), array('created_at' => 'DESC'));
         $count = count($itemsToCount);
+        $pagination = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1),
+            4
+        );
         $comment = new Comment();
         $form = $this->createFormBuilder($comment)
             ->add('title')
@@ -66,6 +77,7 @@ class TrickController extends AbstractController
             'allItems'          => $allItems,
             'trick_history'     => $trick_history,
             'count'             => $count,
+            'pagination'          => $pagination,
             'commentForm'       => $form->createView()
         ]);
     }

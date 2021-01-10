@@ -1,6 +1,11 @@
 //formulaires : modifie la div qui englobe les inputs
 $(".form-control").parent().addClass("form-div");
 
+$(".list-group>nav").attr('id', 'nav-pagination');
+
+var pagination = $(".pagination");
+pagination.addClass("pagination-sm");
+
 //si la page est tricks_detail alors la barre de menu devient bleu de base
 var urlcourante = document.location.pathname.split("/");
 if (urlcourante.indexOf("tricks_detail") === 1) {

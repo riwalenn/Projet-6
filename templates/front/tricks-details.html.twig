@@ -155,17 +155,18 @@
                     </div>
                 {% endfor %}
                 <div class="list-group">
-                    {% for comments in trick.comments|sort((a, b) => b.createdAt <=> a.createdAt) %}
+                    {% for comment in pagination|sort((a, b) => b.createdAt <=> a.createdAt) %}
                         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">{{ comments.title }}</h5>
-                                <small class="text-muted">{{ comments.createdAt | date('d/m/Y à H:i') }}
-                                    - {{ comments.user.username }} <img
-                                            src="{{ asset('/img/profils/' ~ comments.user.image ~ '-thumbail.jpg') }}"></small>
+                                <h5 class="mb-1">{{ comment.title }}</h5>
+                                <small class="text-muted">{{ comment.createdAt | date('d/m/Y à H:i') }}
+                                    - {{ comment.user.username }} <img
+                                            src="{{ asset('/img/profils/' ~ comment.user.image ~ '-thumbail.jpg') }}"></small>
                             </div>
-                            <p class="mb-1">{{ comments.content | raw }}</p>
+                            <p class="mb-1">{{ comment.content | raw }}</p>
                         </a>
                     {% endfor %}
+                    {{ knp_pagination_render(pagination) }}
                 </div>
             </div>
         </section>
