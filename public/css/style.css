@@ -1006,6 +1006,8 @@ ul.list-group.list-group-flush {
 .trick-link.col-2.trash,
 .trick-link.col-2.edit {
     cursor: pointer;
+    padding-left: 0px!important;
+    padding-right: 0px!important;
 }
 
 .form-div {

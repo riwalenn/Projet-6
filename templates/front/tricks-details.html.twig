@@ -9,7 +9,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex flex-column align-items-start">
                         <h2>{{ trick.title }} <a href="{{ path('edit_trick', {'id': trick.id}) }}"
-                                                 class="trick-link col-2"><i class="fa fa-edit"></i></a>
+                                                 class="trick-link col-2 edit"><i class="fa fa-edit"></i></a>
                             {% if app.user %}
                                 {% if app.user == trick.user %}
                                     <a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
