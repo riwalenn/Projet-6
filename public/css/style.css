@@ -566,7 +566,6 @@ ul.timeline.comments > li > p > a {
     position: relative;
     width: 36px;
     font-size: 24px;
-    top: 3px;
     line-height: 12px;
 }
 
@@ -577,6 +576,12 @@ ul.timeline.comments > li > p > a {
     right: 28px;
     font-family: sans-serif;
     top: -10px;
+}
+
+.fa-comments,
+.fa-edit,
+.fa-trash {
+    vertical-align: inherit;
 }
 
 .activity {
