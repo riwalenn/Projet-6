@@ -1010,6 +1010,21 @@ ul.list-group.list-group-flush {
     padding-right: 0px!important;
 }
 
+.modal-content.add-form {
+    background-color: #f8f9fa;
+}
+
+.modal-body.add-or-maj {
+    border: 2px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    background-color: #f8f9fa;
+}
+
+.form-group.links.form-div {
+    margin-bottom: 0!important;
+}
+
 .form-div {
     width: 85%;
 }
