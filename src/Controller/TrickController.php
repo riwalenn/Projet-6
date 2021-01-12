@@ -199,20 +199,21 @@ class TrickController extends AbstractController
         if (!empty($request->get('library_id'))) {
             $library = $repository->findOneBy(array("id" => $request->get("library_id")));
         }
-        if ($request->get('type') == 1) {
+        if ($request->get('type') == 1 || (empty($request->get('type')))) {
             $file = $request->files->get('file');
             $link = $this->uploader($file);
             $library->setLien($link);
+            $library->setType(1);
 
         } else if ($request->get('type') == 3 || $request->get('type') == 2) {
             $link = $request->get('lien');
             $library->setLien($link);
+            $library->setType($request->get('type'));
 
         } else {
             $this->addFlash('danger', "Aucune image n'a été entrée !");
         }
 
-        $library->setType($request->get('type'));
         $library->setTrick($trick);
         $manager->persist($library);
         $manager->flush();
