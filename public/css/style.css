@@ -1197,6 +1197,17 @@ form > .form-group .form-div label {
     #footer .footer-top .footer-info {
         margin: -20px 0 30px 0;
     }
+
+    .little-menu {
+        display: flex;
+        justify-content: space-around;
+        background-color: #f8f9fa;
+        color: #2f4d5a;
+    }
+
+    .header-scrolled .nav-menu a {
+        color: #2f4d5a;
+    }
 }
 
 @media (pointer: coarse) and (hover: none) {
