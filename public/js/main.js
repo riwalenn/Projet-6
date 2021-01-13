@@ -53,7 +53,7 @@
   });
 
   // Mobile Navigation
-  if ($('.nav-menu').length) {
+ /* if ($('.nav-menu').length) {
     var $mobile_nav = $('.nav-menu').clone().prop({
       class: 'mobile-nav d-lg-none'
     });
@@ -82,7 +82,7 @@
     });
   } else if ($(".mobile-nav, .mobile-nav-toggle").length) {
     $(".mobile-nav, .mobile-nav-toggle").hide();
-  }
+  }*/
 
   // Navigation active state on scroll
   var nav_sections = $('section');

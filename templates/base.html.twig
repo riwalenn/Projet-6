@@ -38,13 +38,12 @@
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top header-transparent">
     <div class="container d-flex align-items-center">
-
         <div class="logo mr-auto">
             {# <h1 class="text-light"><a href="/"><span>Squadfree</span></a></h1> #}
             <!-- Uncomment below if you prefer to use an image logo -->
             <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" alt="" class="img-fluid"></a>
         </div>
-        <nav class="nav-menu d-none d-lg-block">
+        <nav class="nav-menu d-none d-lg d-lg-block">
             <ul>
                 <li class="active"><a href="{{ path('home') }}">Accueil</a></li>
                 <li><a href="{{ path('home', {'_fragment': 'tricks'}) }}">Tricks</a></li>
@@ -71,6 +70,27 @@
                 </li>
             </ul>
         </nav><!-- .nav-menu -->
+        <nav class="nav-menu fixed-bottom d-lg-none little-menu">
+            <ul>
+                <li class="active"><a href="{{ path('home') }}"><i class="fa fa-home"></i></a></li>
+                <li><a href="{{ path('home', {'_fragment': 'tricks'}) }}"><i class="fa fa-bookmark"></i></a></li>
+                {% if app.user %}
+                    <li><a href="{{ path('add_trick') }}"><i class="fas fa-plus-square"></i></a></li>
+                {% endif %}
+                {% if not app.user %}
+                    <li><a href="{{ path('security_registration') }}"><i class="fas fa-user-plus"></i></a></li>
+                    <li><a href="{{ path('security_login') }}"><i class="fas fa-sign-in-alt"></i></a></li>
+                {% else %}
+                    {% for role in app.user.roles %}
+                        {% if role == 'ROLE_ADMIN' %}
+                            <li><a href="{{ path('admin') }}"><i class="fas fa-tools"></i></a> </li>
+                        {% endif %}
+                    {% endfor %}
+                    <li><a href="{{ path('profil', {'id': app.user.id}) }}"><i class="fa fa-user"></i></a></li>
+                    <li><a href="{{ path('security_logout') }}" onclick="return ConfirmDeconnexion()"><i class="fa fa-sign-out-alt"></i></a></li>
+                {% endif %}
+            </ul>
+        </nav>
 
     </div>
 </header><!-- End Header -->
@@ -106,6 +126,7 @@
 <script src="{{ asset('js/snowtricks.js') }}"></script>
 {% block javascripts %}
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="https://kit.fontawesome.com/81141be42c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 {% endblock %}
 </body>
