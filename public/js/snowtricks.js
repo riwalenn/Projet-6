@@ -23,6 +23,12 @@ function ConfirmDeconnexion() {
     }
 }
 
+function seeMedia() {
+    $("#seeMedias").on("click", function (){
+       $(".tricks_medias .container").removeClass("d-none d-lg d-lg-block");
+    });
+}
+
 function addMedia(id) {
     $("#add_trick_media"+id).modal();
 }

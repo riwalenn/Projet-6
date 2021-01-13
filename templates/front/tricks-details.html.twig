@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <section id="tricks" class="tricks_medias">
-                    <div class="container">
+                    <div class="container d-none d-lg d-lg-block">
                         <div class="row tricks-container" data-aos="fade-up">
                             {% for library in itemsLibrary %}
                                 <div class="col-lg-4 col-md-6 tricks-item">
@@ -99,6 +99,9 @@
                                 {% endif %}
                             </div>
                         </div>
+                    </div>
+                    <div class="col-12 text-center d-lg-none">
+                        <a onclick="seeMedia()"><button id="seeMedias" class="btn btn-primary">Voir les médias</button></a>
                     </div>
                 </section>
                 <div class="tricks-description">

@@ -1194,6 +1194,10 @@ form > .form-group .form-div label {
 }
 
 @media (max-width: 575px) {
+    body {
+        font-size: 0.8rem;
+    }
+
     #footer .footer-top .footer-info {
         margin: -20px 0 30px 0;
     }
@@ -1207,6 +1211,36 @@ form > .form-group .form-div label {
 
     .header-scrolled .nav-menu a {
         color: #2f4d5a;
+    }
+
+    .breadcrumbs h2,
+    .tricks-comments h3 {
+        font-size: 17px;
+    }
+
+    .blockquote-footer {
+        font-size: 60%;
+    }
+
+    .breadcrumbs ol {
+        font-size: 10px;
+    }
+
+    .tricks_medias {
+        padding: 40px;
+    }
+
+    .tricks-details .tricks-info {
+        padding: 15px;
+    }
+
+    .tricks-details .tricks-description h2,
+    h5 {
+        font-size: 15px;
+    }
+
+    .tricks_medias .tricks-wrap.shadow.first_media {
+        width: 100%;
     }
 }
 
