@@ -40,9 +40,9 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th class="d-none d-lg-block" scope="col">#</th>
                                         <th scope="col">username</th>
-                                        <th scope="col">email</th>
+                                        <th class="d-none d-lg-block" scope="col">email</th>
                                         <th scope="col">image</th>
                                         <th scope="col">actif</th>
                                         <th scope="col">role</th>
@@ -54,9 +54,9 @@
 
                                         <tr class="{% for role in user.roles %}{% if role == 'ROLE_ADMIN' %}role_admin{% endif %}{% endfor %}">
 
-                                            <th scope="row" class="id_user">{{ user.id }}</th>
+                                            <th class="d-none d-lg-block" scope="row" class="id_user">{{ user.id }}</th>
                                             <td class="username_user">{{ user.username }}</td>
-                                            <td class="email_user">{{ user.email }}</td>
+                                            <td class="email_user d-none d-lg-block">{{ user.email }}</td>
                                             <td class="img_user">
                                                 <img src="{{ asset('/img/profils/' ~ user.image ~ '-thumbail.jpg') }}"></td>
                                             <td class="activ_user">
@@ -79,7 +79,30 @@
                                 </table>
                             </div>
                             <div class="tab-pane fade" id="nav-tricks" role="tabpanel" aria-labelledby="nav-tricks-tab">
-                                <table class="table table-striped">
+                                <table class="table table-striped d-lg-none">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">auteur</th>
+                                            <th scope="col">titre</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for trick in tricks %}
+                                        <tr>
+                                            <th scope="row">
+                                                <a href="{{ path('edit_trick', {'id': trick.id}) }}"
+                                                   class="trick-link col-2">{{ trick.id }}</a>
+                                            </th>
+                                            <td>{{ trick.user }}</td>
+                                            <td>{{ trick.title | slice(0, 10) }}...</td>
+                                            <td><a href="{{ path('admin_delete_trick', {'id': trick.id}) }}" class="js-delete"><i class="fa fa-trash danger"></i></a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <table class="table table-striped d-none d-lg-block">
                                     <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -123,11 +146,11 @@
                                 <table class="table table-striped" id="table_users">
                                     <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th class="d-none d-lg-block" scope="col">#</th>
                                         <th scope="col">auteur</th>
-                                        <th scope="col">titre trick</th>
+                                        <th class="d-none d-lg-block" scope="col">titre trick</th>
                                         <th scope="col">titre</th>
-                                        <th scope="col">contenu</th>
+                                        <th class="d-none d-lg-block" scope="col">contenu</th>
                                         <th scope="col">créé le</th>
                                         <th scope="col"></th>
                                     </tr>
@@ -135,11 +158,11 @@
                                     <tbody>
                                     {% for comment in comments %}
                                         <tr>
-                                            <th scope="row">{{ comment.id }}</th>
+                                            <th class="d-none d-lg-block" scope="row">{{ comment.id }}</th>
                                             <td>{{ comment.user }}</td>
-                                            <td>{{ comment.trick.title }}</td>
+                                            <td class="d-none d-lg-block">{{ comment.trick.title }}</td>
                                             <td>{{ comment.title }}</td>
-                                            <td>{{ comment.content | raw }}</td>
+                                            <td class="d-none d-lg-block">{{ comment.content | raw }}</td>
                                             <td>{{ comment.createdAt | date('d/m/Y') }}</td>
                                             <td><a href="{{ path('admin_delete_comment', {'id': comment.id}) }}" class="js-delete"><i class="fa fa-trash danger"></i></a></td>
                                         </tr>
@@ -148,15 +171,15 @@
                                 </table>
                             </div>
                             <div class="tab-pane fade" id="nav-pictures" role="tabpanel" aria-labelledby="nav-pictures-tab">
-                                <div class="row justify-content-between no-gutters">
+                                <div class="row justify-content-between no-gutters" id="bibliotheque">
                                     {% for library in itemslibrary %}
-                                        <div class="col-lg-4 col-md-6" style="margin-bottom: 0.4rem; margin-left: 0.2rem; margin-right: 0; padding: 0 0; max-width: 32%!important;">
+                                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 0.4rem; margin-left: 0.2rem; margin-right: 0; padding: 0 0; max-width: 32%!important;">
                                             {% if library.type == 1 %}
                                                 <img src="{{ asset('/img/tricks/' ~ library.lien) }}" class="img-fluid" alt="snowtricks">
                                             {% elseif library.type == 3 %}
                                                 <img src="{{ library.lien }}" class="img-fluid" alt="snowtricks">
                                             {% else %}
-                                                <iframe width="307" height="229" src="{{ library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                <iframe width="307" height="229" src="{{ 'https://www.youtube.com/embed/'~library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                             {% endif %}
                                         </div>
                                     {% endfor %}

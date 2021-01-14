@@ -1235,12 +1235,29 @@ form > .form-group .form-div label {
     }
 
     .tricks-details .tricks-description h2,
+    .fa-comments,
+    .fa-edit,
+    .fa-trash,
+    .trick-link.col-6,
     h5 {
-        font-size: 15px;
+        font-size: 15px !important;
+    }
+
+    #comments-number {
+        padding-left: 2%;
     }
 
     .tricks_medias .tricks-wrap.shadow.first_media {
         width: 100%;
+    }
+
+    div#nav-tabContent {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    #bibliotheque {
+        flex-direction: column;
     }
 }
 
