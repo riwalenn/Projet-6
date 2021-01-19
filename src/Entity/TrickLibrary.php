@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TrickLibraryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrickLibraryRepository::class)
@@ -24,11 +25,13 @@ class TrickLibrary
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $lien;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Choice({1, 2, 3})
      */
     private $type;
 

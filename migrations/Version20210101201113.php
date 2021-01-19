@@ -21,7 +21,7 @@ final class Version20210101201113 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP INDEX title ON trick');
-        $this->addSql('ALTER TABLE trick CHANGE image image VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE trick CHANGE image image INT(11) NOT NULL');
         $this->addSql('ALTER TABLE user ADD created_at datetime DEFAULT NULL');
     }
 

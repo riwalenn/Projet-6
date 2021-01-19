@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
@@ -26,7 +27,13 @@ class Trick
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string")
+     * @Assert\Length(
+     *     min = 25,
+     *     max = 255,
+     *     minMessage="Votre titre doit comporter un minimum de 5 caractères",
+     *     maxMessage="Votre titre doit comporter au maximum 100 caractères"
+     * )
      */
     private $title;
 
@@ -43,31 +50,41 @@ class Trick
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices=Constantes::POSITION, message="Merci de choisir une position dans la liste")
+     * @Assert\NotBlank()
      */
     private $position;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices=Constantes::GRABS, message="Merci de choisir un grab dans la liste")
+     * @Assert\NotBlank()
      */
     private $grabs;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $rotation;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices=Constantes::FLIP, message="Merci de choisir un flip dans la liste")
+     * @Assert\NotBlank()
      */
     private $flip;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices=Constantes::SLIDE, message="Merci de choisir un slide dans la liste")
+     * @Assert\NotBlank()
      */
     private $slide;
 
