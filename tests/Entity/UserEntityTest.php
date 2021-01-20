@@ -36,7 +36,7 @@ class UserEntityTest extends KernelTestCase
 
     public function testValidEntity()
     {
-       $this->assertHasErrors($this->getEntity());
+        $this->assertHasErrors($this->getEntity());
     }
 
     public function testInvalidPasswordEntity()
