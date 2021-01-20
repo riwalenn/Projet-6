@@ -34,6 +34,11 @@ class UserRepository extends ServiceEntityRepository
         return $select->getQuery()->getOneOrNullResult();
     }
 
+    public function findOneByEmail(string $username): ?User
+    {
+        return $this->findOneBy(array("email" => $username));
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
