@@ -27,11 +27,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $email;
 
@@ -47,7 +49,8 @@ class User implements UserInterface
     public $confirm_password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer", length=255)
+     * @Assert\NotBlank()
      */
     private $image;
 

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -28,12 +29,22 @@ class Comment
     private $Trick;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string")
+     * @Assert\Length(
+     *     min = 10,
+     *     max = 255,
+     *     minMessage="Votre titre doit contenir au minimum 10 caractères",
+     *     maxMessage="Votre titre ne doit pas dépasser 255 caractères"
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *     min = 30,
+     *     minMessage="Votre message doit contenir au minimum 40 caractères"
+     * )
      */
     private $content;
 
