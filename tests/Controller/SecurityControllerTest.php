@@ -15,8 +15,7 @@ class SecurityControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $userRepository = static::$container->get(UserRepository::class);
-        //Email non valide si AppFixturesTest lancé juste avant
-        $testUser = $userRepository->findOneByEmail("daniel.goncalves@perrier.com");
+        $testUser = $userRepository->findOneByEmail("nfernandes@laposte.net");
         $client->loginUser($testUser);
 
         $client->request('GET', '/profil/' . $testUser->getId());

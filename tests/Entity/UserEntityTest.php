@@ -54,7 +54,6 @@ class UserEntityTest extends KernelTestCase
 
     public function testUniqueEmail()
     {
-        //Email non valide si AppFixturesTest lancé juste avant
-        $this->assertHasErrors($this->getEntity()->setEmail('daniel.goncalves@perrier.com'), 1);
+        $this->assertHasErrors($this->getEntity()->setEmail('nfernandes@laposte.net'), 1);
     }
 }
