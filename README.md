@@ -9,7 +9,7 @@ EN - Projet n°6 created for OpenClassrooms and Backend path.
 * [PHP 7.4.9]
 * [Symfony 5.1]
 * [Bootstrap 4.5.2]
-* [Squadfree](https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/) - template
+* [Squadfree](https://bootstrapmade.com/demo/Squadfree/) - template
 
 ## Download and Installation
 You need a web development environment like WampServer (for Windows), MAMP (for Mac) or LAMP (for Linux).
@@ -27,7 +27,7 @@ You need a web development environment like WampServer (for Windows), MAMP (for 
     - testtest (as password)
 
 ## Preview
-**[![Squad-free](https://bootstrapmade.com/wp-content/themefiles/Squadfree/800.png)](https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/)**
+**[![Squad-free](https://bootstrapmade.com/wp-content/themefiles/Squadfree/800.png)](https://bootstrapmade.com/demo/Squadfree/)**
 
 ## Status
 [BootstrapMade license](https://bootstrapmade.com/license/)
