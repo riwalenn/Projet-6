@@ -22,8 +22,10 @@
         </div>
     </div>
 {% endfor %}
-<div class="col-lg-4 col-md-6 tricks-item more">
-    <div class="tricks-wrap shadow">
-        <a onclick="addMedia('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>
+{% if app.user %}
+    <div class="col-lg-4 col-md-6 tricks-item more">
+        <div class="tricks-wrap shadow">
+            <a onclick="addMedia('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>
+        </div>
     </div>
-</div>
+{% endif %}
