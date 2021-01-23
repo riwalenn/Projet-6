@@ -144,6 +144,7 @@ class TrickController extends AbstractController
                     $this->addFlash('danger', "Le trick existe déjà !");
                     return $this->redirectToRoute('add_trick');
                 }
+                $this->addFlash('success', "Le trick a été créé avec succès !");
             }
             if ($trick->getId()) {
                 $trick->setTitle($title);
@@ -157,6 +158,7 @@ class TrickController extends AbstractController
                     $serviceMail = new SendMail();
                     $serviceMail->alertAuthor($author, $trick);
                 }
+                $this->addFlash('light', "Le trick a été modifié avec succès !");
             }
 
             $files = $form->get('image')->getData();
@@ -166,8 +168,6 @@ class TrickController extends AbstractController
 
             $manager->persist($trick);
             $manager->flush();
-
-            $this->addFlash('light', "Le trick a été modifié avec succès !");
 
             return $this->redirectToRoute('home');
         }
