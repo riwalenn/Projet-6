@@ -27,7 +27,15 @@
                 </div>
             </div>
         </section><!-- Breadcrumbs Section -->
-
+        {% for label, messages in app.flashes %}
+            <div class="container">
+                <div class="alert alert-{{ label }} mb-0">
+                    {% for message in messages %}
+                        {{ message | raw }}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
         <!-- ======= Trick Details Section ======= -->
         <section class="tricks-details">
             <div class="container">
@@ -150,15 +158,6 @@
                         {{ form_end(commentForm) }}
                     </div>
                 {% endif %}
-                {% for label, messages in app.flashes %}
-                    <div class="container">
-                        <div class="alert alert-{{ label }} mb-0">
-                            {% for message in messages %}
-                                {{ message | raw }}
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endfor %}
                 <div class="list-group">
                     {% for comment in pagination|sort((a, b) => b.createdAt <=> a.createdAt) %}
                         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
