@@ -145,8 +145,7 @@ class TrickController extends AbstractController
                     return $this->redirectToRoute('add_trick');
                 }
                 $this->addFlash('success', "Le trick a été créé avec succès !");
-            }
-            if ($trick->getId()) {
+            } else {
                 $trick->setTitle($title);
                 $author = $repo->findOneByCriteria("username", $trick->getUser());
                 if ($user->getId() !== $author->getId()) {
@@ -157,8 +156,12 @@ class TrickController extends AbstractController
                     $manager->persist($trickHistory);
                     $serviceMail = new SendMail();
                     $serviceMail->alertAuthor($author, $trick);
+                    if (!empty($result)) {
+                        $this->addFlash('danger', "Le trick existe déjà !");
+                        return $this->redirectToRoute('edit_trick', array('id'=> $trick->getId()));
+                    }
                 }
-                $this->addFlash('light', "Le trick a été modifié avec succès !");
+                $this->addFlash('success', "Le trick a été modifié avec succès !");
             }
 
             $files = $form->get('image')->getData();
@@ -169,7 +172,7 @@ class TrickController extends AbstractController
             $manager->persist($trick);
             $manager->flush();
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('trick_detail', array('id' => $trick->getId()));
         }
 
         return $this->render('front/tricks-form.html.twig', [
@@ -217,6 +220,7 @@ class TrickController extends AbstractController
         $library->setTrick($trick);
         $manager->persist($library);
         $manager->flush();
+        $this->addFlash('success', 'Le média a bien été ajouté !');
         return $this->redirectToRoute('trick_detail', array('id' => $trick->getId()));
     }
 
