@@ -148,6 +148,10 @@ class TrickController extends AbstractController
             } else {
                 $trick->setTitle($title);
                 $author = $repo->findOneByCriteria("username", $trick->getUser());
+                if (!empty($result)) {
+                    $this->addFlash('danger', "Le trick existe déjà !");
+                    return $this->redirectToRoute('edit_trick', array('id'=> $trick->getId()));
+                }
                 if ($user->getId() !== $author->getId()) {
                     $trickHistory = new TrickHistory();
                     $trickHistory->setUser($user)
@@ -156,10 +160,6 @@ class TrickController extends AbstractController
                     $manager->persist($trickHistory);
                     $serviceMail = new SendMail();
                     $serviceMail->alertAuthor($author, $trick);
-                    if (!empty($result)) {
-                        $this->addFlash('danger', "Le trick existe déjà !");
-                        return $this->redirectToRoute('edit_trick', array('id'=> $trick->getId()));
-                    }
                 }
                 $this->addFlash('success', "Le trick a été modifié avec succès !");
             }
