@@ -7,7 +7,7 @@ EN - Projet n°6 created for OpenClassrooms and Backend path.
 ## Built With
 
 * [PHP 7.4.9]
-* [Symfony 5.1]
+* [Symfony 5.1.11], [Symfony 5.2.3 - release]
 * [Bootstrap 4.5.2]
 * [Squadfree](https://bootstrapmade.com/demo/Squadfree/) - template
 
