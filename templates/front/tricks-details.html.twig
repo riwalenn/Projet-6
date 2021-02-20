@@ -40,7 +40,23 @@
         <section class="tricks-details">
             <div class="container">
                 <div class="tricks-details-container tricks_medias">
+
                     <div class="tricks-wrap shadow first_media">
+                    {% if(trick.image) %}
+                        <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
+                        <div class="tricks-links">
+                            {% if app.user %}
+                                {% if app.user == trick.user %}
+                                    <a onclick="confirmFirstMediaDelete('{{ trick.id }}')"
+                                       class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid" alt="">
+                    {% endif %}
+                    </div>
+                    {#<div class="tricks-wrap shadow first_media">
                         {% if(trick.image) %}
                             <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
                         {% else %}
@@ -54,7 +70,9 @@
                                 {% endif %}
                             {% endif %}
                         </div>
-                    </div>
+                    </div>#}
+
+
                     <div class="tricks-info">
                         <h3>Snow tricks informations</h3>
                         <ul>
