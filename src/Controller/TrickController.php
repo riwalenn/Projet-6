@@ -144,7 +144,7 @@ class TrickController extends AbstractController
                     $this->addFlash('danger', "Le trick existe déjà !");
                     return $this->redirectToRoute('add_trick');
                 }
-                $this->addFlash('success', "Le trick a été créé avec succès !");
+                $this->addFlash('light', "Le trick a été créé avec succès !");
             } else {
                 $trick->setTitle($title);
                 $author = $repo->findOneByCriteria("username", $trick->getUser());
@@ -161,7 +161,7 @@ class TrickController extends AbstractController
                     $serviceMail = new SendMail();
                     $serviceMail->alertAuthor($author, $trick);
                 }
-                $this->addFlash('success', "Le trick a été modifié avec succès !");
+                $this->addFlash('light', "Le trick a été modifié avec succès !");
             }
 
             $files = $form->get('image')->getData();
@@ -220,7 +220,7 @@ class TrickController extends AbstractController
         $library->setTrick($trick);
         $manager->persist($library);
         $manager->flush();
-        $this->addFlash('success', 'Le média a bien été ajouté !');
+        $this->addFlash('light', 'Le média a bien été ajouté !');
         return $this->redirectToRoute('trick_detail', array('id' => $trick->getId()));
     }
 
@@ -258,9 +258,10 @@ class TrickController extends AbstractController
         if (!$library){
             $this->addFlash('danger', "Aucune image n'a été séléctionnée.");
         }
+        $id_trick = $library->getTrick()->getId();
         $manager->remove($library);
         $manager->flush();
-        return $this->redirectToRoute('trick_detail', array('id' => $library->getTrick()));
+        return $this->redirectToRoute('trick_detail', array('id' => $id_trick));
     }
 
     /**
