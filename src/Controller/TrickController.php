@@ -133,14 +133,13 @@ class TrickController extends AbstractController
         $slide = $trick->getSlide();
         $title = $position. ' ' . $grabs . ' à ' . $rotation . '° ' . $flip . ' ' . $slide;
 
-        $result = $repository->findOneBy(['title' => $title]);
-
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$trick->getId()) {
                 $trick->setTitle($title);
                 $trick->setCreatedAt(new \DateTime());
                 $trick->setUser($user);
-                if (!empty($result)) {
+                $result = $repository->findOneBy(['title' => $title]);
+                if (!empty($result) && $trick->getId() !== $result->getId()) {
                     $this->addFlash('danger', "Le trick existe déjà !");
                     return $this->redirectToRoute('add_trick');
                 }
@@ -148,7 +147,8 @@ class TrickController extends AbstractController
             } else {
                 $trick->setTitle($title);
                 $author = $repo->findOneByCriteria("username", $trick->getUser());
-                if (!empty($result)) {
+                $result = $repository->findOneBy(['title' => $title]);
+                if (!empty($result) && $trick->getId() !== $result->getId()) {
                     $this->addFlash('danger', "Le trick existe déjà !");
                     return $this->redirectToRoute('edit_trick', array('id'=> $trick->getId()));
                 }
