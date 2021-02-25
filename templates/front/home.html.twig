@@ -131,7 +131,7 @@
             e.preventDefault();
             counter++;
             var offset = 3 * counter;
-            const url = "{{ path('more_tricks') }}" + offset;
+            const url = "{{ path('load_more') }}" + offset;
             axios.get(url).then(function (response) {
                 $(".tricks-container").append(response.data);
             });

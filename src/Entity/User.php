@@ -50,7 +50,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="integer", length=255)
-     * @Assert\NotBlank()
      */
     private $image;
 

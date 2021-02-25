@@ -27,9 +27,7 @@ use Symfony\Component\HttpFoundation\Request;
 class TrickController extends AbstractController
 {
     /**
-     * Trick details : trick, histories, libraries, comments
-     *
-     * @Route("/trick_detail/{id}", name="trick_detail")
+     * @Route("/trick/{id}", name="trick_detail")
      * @param Trick $trick
      * @param PaginatorInterface $paginator
      * @param Request $request
@@ -39,7 +37,7 @@ class TrickController extends AbstractController
      * @param CommentRepository $commentRepository
      * @return RedirectResponse|Response
      */
-    public function trick_detail(Trick $trick, PaginatorInterface $paginator, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository, TrickLibraryRepository $libraryRepository, CommentRepository $commentRepository)
+    public function show(Trick $trick, PaginatorInterface $paginator, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository, TrickLibraryRepository $libraryRepository, CommentRepository $commentRepository)
     {
         $trick_history = $historyRepository->findAll();
         $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, 0);
@@ -76,7 +74,7 @@ class TrickController extends AbstractController
             'allItems'          => $allItems,
             'trick_history'     => $trick_history,
             'count'             => $count,
-            'pagination'          => $pagination,
+            'pagination'        => $pagination,
             'commentForm'       => $form->createView()
         ]);
     }
@@ -84,13 +82,13 @@ class TrickController extends AbstractController
     /**
      * More medias on trick
      *
-     * @Route("/trick_detail/{id}/{offset}", name="more_medias", requirements={"offset": "\d+"})
+     * @Route("/trick/{id}/{offset}", name="load_medias", requirements={"offset": "\d+"})
      * @param Trick $trick
      * @param TrickLibraryRepository $libraryRepository
      * @param int $offset
      * @return Response
      */
-    public function more_medias(Trick $trick, TrickLibraryRepository $libraryRepository, $offset = 6)
+    public function loadMoreMedias(Trick $trick, TrickLibraryRepository $libraryRepository, $offset = 6)
     {
         $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, $offset);
         $itemsToCount = $libraryRepository->findBy(array('trick' => $trick->getId()));
@@ -104,8 +102,8 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/front/new_trick", name="add_trick")
-     * @Route("/front/{id}/edit", name="edit_trick")
+     * @Route("/front/new", name="add_trick")
+     * @Route("/trick/{id}/edit", name="edit_trick")
      *
      * @param Trick|null $trick
      * @param TrickRepository $repository
@@ -115,7 +113,7 @@ class TrickController extends AbstractController
      * @return string
      * @throws NonUniqueResultException
      */
-    public function form_trick(Trick $trick = null, TrickRepository $repository, UserRepository $repo, Request $request, EntityManagerInterface $manager)
+    public function formTrick(Trick $trick = null, TrickRepository $repository, UserRepository $repo, Request $request, EntityManagerInterface $manager)
     {
         if (!$trick) {
             $trick = new Trick();
@@ -172,7 +170,7 @@ class TrickController extends AbstractController
             $manager->persist($trick);
             $manager->flush();
 
-            return $this->redirectToRoute('trick_detail', array('id' => $trick->getId()));
+            return $this->redirectToRoute('home', array('id' => $trick->getId()));
         }
 
         return $this->render('front/tricks-form.html.twig', [
@@ -183,15 +181,15 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick_detail/{id}/add_media/", name="add_media")
-     * @Route("/trick_detail/{id}/edit_media/{id_media}", name="edit_media")
+     * @Route("/trick/{id}/add/media/", name="add_media")
+     * @Route("/trick/{id}/edit/media/{id_media}", name="edit_media")
      * @param Request $request
      * @param TrickLibraryRepository $repository
      * @param Trick $trick
      * @param EntityManagerInterface $manager
      * @return RedirectResponse
      */
-    public function add_trick_media(Request $request, TrickLibraryRepository $repository, Trick $trick, EntityManagerInterface $manager)
+    public function addMedia(Request $request, TrickLibraryRepository $repository, Trick $trick, EntityManagerInterface $manager)
     {
         if (!$trick) {
             $this->addFlash('danger', "Vous n'avez pas sélectionné de trick !");
@@ -248,12 +246,12 @@ class TrickController extends AbstractController
     /**
      * Delete media picture on library trick
      *
-     * @Route("/delete_media/{id}", name="delete_media")
+     * @Route("/delete/media/{id}", name="delete_media")
      * @param TrickLibrary $library
      * @param EntityManagerInterface $manager
      * @return RedirectResponse
      */
-    public function delete_media(TrickLibrary $library, EntityManagerInterface $manager)
+    public function deleteMedia(TrickLibrary $library, EntityManagerInterface $manager)
     {
         if (!$library){
             $this->addFlash('danger', "Aucune image n'a été séléctionnée.");
@@ -267,12 +265,12 @@ class TrickController extends AbstractController
     /**
      * Delete picture trick
      *
-     * @Route("/trick_detail/{id}/delete_first_media", name="delete_first_media")
+     * @Route("/trick/{id}/delete/media", name="delete_first_media")
      * @param Trick $trick
      * @param EntityManagerInterface $manager
      * @return RedirectResponse
      */
-    public function delete_first_media(Trick $trick, EntityManagerInterface $manager)
+    public function deleteFirstMedia(Trick $trick, EntityManagerInterface $manager)
     {
         if (!$trick){
             $this->addFlash('danger', "Aucun article ne correspond.");
@@ -283,54 +281,17 @@ class TrickController extends AbstractController
     }
 
     /**
-     * Delete one trick => libraries, histories and comments
-     *
-     * @param Trick $trick
-     * @param EntityManagerInterface $manager
-     * @return RedirectResponse
-     */
-    protected function deleteAction(Trick $trick, EntityManagerInterface $manager)
-    {
-        foreach ($trick->getTrickLibraries() as $library) {
-            $trick->removeTrickLibrary($library);
-            $manager->remove($library);
-        }
-        foreach ($trick->getComments() as $comment) {
-            $trick->removeComment($comment);
-            $manager->remove($comment);
-        }
-        foreach ($trick->getTrickHistories() as $trickHistory) {
-            $trick->removeTrickHistory($trickHistory);
-            $manager->remove($trickHistory);
-        }
-
-        $manager->remove($trick);
-        $manager->flush();
-        $this->addFlash('success', 'Le trick a bien été supprimé !');
-        return $this->redirectToRoute('home');
-    }
-
-    /**
-     * @Route("/delete_trick/{id}", name="delete_trick")
-     * @param Trick $trick
-     * @param EntityManagerInterface $manager
-     * @return RedirectResponse
-     */
-    public function delete_trick(Trick $trick, EntityManagerInterface $manager)
-    {
-        $this->deleteAction($trick, $manager);
-        return $this->redirectToRoute('home');
-    }
-
-    /**
+     * @Route("/delete/trick/{id}", name="delete_trick")
      * @Route("/admin/{id}/delete_trick", name="admin_delete_trick")
      * @param Trick $trick
      * @param EntityManagerInterface $manager
      * @return RedirectResponse
      */
-    public function delete_admin_trick(Trick $trick, EntityManagerInterface $manager)
+    public function deleteTrick(Trick $trick, EntityManagerInterface $manager)
     {
-        $this->deleteAction($trick, $manager);
-        return $this->redirectToRoute('admin');
+        $manager->remove($trick);
+        $manager->flush();
+        $this->addFlash('success', 'Le trick a bien été supprimé !');
+        return $this->redirectToRoute('home');
     }
 }
