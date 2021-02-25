@@ -8,7 +8,7 @@
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex flex-column align-items-start">
-                        <h2>{{ trick.title }} {% if app.user %}<a href="{{ path('edit_trick', {'id': trick.id}) }}"
+                        <h2>{{ trick.title }} {% if app.user %}<a href="{{ path('edit_trick', {'slug': trick.slug}) }}"
                                                  class="trick-link col-2 edit"><i class="fa fa-edit"></i></a>
 
                                 {% if app.user == trick.user %}
@@ -56,23 +56,6 @@
                         <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid" alt="">
                     {% endif %}
                     </div>
-                    {#<div class="tricks-wrap shadow first_media">
-                        {% if(trick.image) %}
-                            <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
-                        {% else %}
-                            <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid" alt="">
-                        {% endif %}
-                        <div class="tricks-links">
-                            {% if app.user %}
-                                {% if app.user == trick.user %}
-                                    <a onclick="confirmFirstMediaDelete('{{ trick.id }}')"
-                                       class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
-                                {% endif %}
-                            {% endif %}
-                        </div>
-                    </div>#}
-
-
                     <div class="tricks-info">
                         <h3>Snow tricks informations</h3>
                         <ul>

@@ -42,29 +42,29 @@
                                 {% endif %}
                                 <div class="tricks-links">
                                     {% if not app.user %}
-                                        <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details"
+                                        <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
                                            class="trick-link col-10">{{ trick.title | slice(0, 24) }}...</a>
-                                        <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details"
+                                        <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
                                            class="trick-link col-2" id="comments-number"><i
                                                     class="fa fa-comments">{{ trick.comments | length }}</i></a>
                                     {% else %}
                                         {% if app.user == trick.user %}
-                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details"
+                                            <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
                                                class="trick-link col-6">{{ trick.title | slice(0, 14) }}...</a>
-                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details"
+                                            <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
                                                class="trick-link col-2" id="comments-number"><i
                                                         class="fa fa-comments">{{ trick.comments | length }}</i></a>
-                                            <a href="{{ path('edit_trick', {'id': trick.id}) }}"
+                                            <a href="{{ path('edit_trick', {'slug': trick.slug}) }}"
                                                class="trick-link col-2"><i class="fa fa-edit"></i></a>
                                             <a onclick="confirmTrickDelete('{{ trick.id }}')"
                                                class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
                                         {% else %}
-                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details"
+                                            <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
                                                class="trick-link col-8">{{ trick.title | slice(0, 10) }}...</a>
-                                            <a href="{{ path('trick_detail', {'id': trick.id}) }}" title="More Details"
+                                            <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
                                                class="trick-link col-2" id="comments-number"><i
                                                         class="fa fa-comments">{{ trick.comments | length }}</i></a>
-                                            <a href="{{ path('edit_trick', {'id': trick.id}) }}"
+                                            <a href="{{ path('edit_trick', {'slug': trick.slug}) }}"
                                                class="trick-link col-2"><i class="fa fa-edit"></i></a>
                                         {% endif %}
                                     {% endif %}
