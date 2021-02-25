@@ -12,6 +12,7 @@ use App\Repository\TrickLibraryRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use App\Service\SendMail;
+use App\Service\Slugify;
 use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/trick/{id}", name="trick_detail")
+     * @Route("/trick/{slug}", name="trick_detail")
      * @param Trick $trick
      * @param PaginatorInterface $paginator
      * @param Request $request
@@ -64,7 +65,7 @@ class TrickController extends AbstractController
             $manager->persist($comment);
             $manager->flush();
 
-            return $this->redirectToRoute('trick_detail', ['id' => $trick->getId()]);
+            return $this->redirectToRoute('trick_detail', ['slug' => $trick->getSlug()]);
         }
 
         return $this->render('front/tricks-details.html.twig', [
@@ -103,7 +104,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/front/new", name="add_trick")
-     * @Route("/trick/{id}/edit", name="edit_trick")
+     * @Route("/trick/{slug}/edit", name="edit_trick")
      *
      * @param Trick|null $trick
      * @param TrickRepository $repository
@@ -122,18 +123,21 @@ class TrickController extends AbstractController
         $user = $this->getUser();
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
-
-
-        $position = $trick->getPosition();
-        $grabs = $trick->getGrabs();
-        $rotation = $trick->getRotation();
-        $flip = $trick->getFlip();
-        $slide = $trick->getSlide();
-        $title = $position. ' ' . $grabs . ' à ' . $rotation . '° ' . $flip . ' ' . $slide;
+        $options = [
+            "position" => $trick->getPosition(),
+            "grabs" => $trick->getGrabs(),
+            "rotation" => $trick->getRotation(),
+            "flip" =>  $trick->getFlip(),
+            "slide" =>  $trick->getSlide()
+        ];
+        $serviceSlug = new Slugify();
+        $title = $serviceSlug->generateTitle($options);
+        $slug = $serviceSlug->generateSlug($title);
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$trick->getId()) {
                 $trick->setTitle($title);
+                $trick->setSlug($slug);
                 $trick->setCreatedAt(new \DateTime());
                 $trick->setUser($user);
                 $result = $repository->findOneBy(['title' => $title]);
@@ -144,11 +148,12 @@ class TrickController extends AbstractController
                 $this->addFlash('light', "Le trick a été créé avec succès !");
             } else {
                 $trick->setTitle($title);
+                $trick->setSlug($slug);
                 $author = $repo->findOneByCriteria("username", $trick->getUser());
-                $result = $repository->findOneBy(['title' => $title]);
+                $result = $repository->findOneBy(['slug' => $slug]);
                 if (!empty($result) && $trick->getId() !== $result->getId()) {
                     $this->addFlash('danger', "Le trick existe déjà !");
-                    return $this->redirectToRoute('edit_trick', array('id'=> $trick->getId()));
+                    return $this->redirectToRoute('edit_trick', array('slug'=> $trick->getSlug()));
                 }
                 if ($user->getId() !== $author->getId()) {
                     $trickHistory = new TrickHistory();
@@ -161,7 +166,6 @@ class TrickController extends AbstractController
                 }
                 $this->addFlash('light', "Le trick a été modifié avec succès !");
             }
-
             $files = $form->get('image')->getData();
             if ($files) {
                 $trick->setImage($this->uploader($files));
@@ -170,7 +174,8 @@ class TrickController extends AbstractController
             $manager->persist($trick);
             $manager->flush();
 
-            return $this->redirectToRoute('home', array('id' => $trick->getId()));
+            return $this->redirectToRoute('home');
+
         }
 
         return $this->render('front/tricks-form.html.twig', [
