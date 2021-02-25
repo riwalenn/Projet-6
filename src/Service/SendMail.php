@@ -20,9 +20,9 @@ class SendMail
         $sujet = "Confirmation de votre inscription sur le site communautaire Snow Tricks";
 
         if ($typeMessage == "inscription") :
-            $message = "Bonjour $pseudo. Pour confirmer votre inscription, veuillez cliquer sur le lien ci-dessous :\n\n" . "https://127.0.0.1:8000/confirmation?token=$token";
+            $message = "Bonjour $pseudo. Pour confirmer votre inscription, veuillez cliquer sur le lien ci-dessous :\n\n" . "https://127.0.0.1:8000/inscription/confirmation?token=$token";
         elseif ($typeMessage == "oubli") :
-            $message = "Bonjour $pseudo. Pour modifier votre mot de passe, veuillez cliquer sur le lien ci-dessous :\n\n" . "https://127.0.0.1:8000/iForgotMyPassword?token=$token";
+            $message = "Bonjour $pseudo. Pour modifier votre mot de passe, veuillez cliquer sur le lien ci-dessous :\n\n" . "https://127.0.0.1:8000/oubli?token=$token";
         endif;
         $to = $email;
         $email_subject = "$sujet";

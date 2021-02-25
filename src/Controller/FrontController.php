@@ -28,12 +28,12 @@ class FrontController extends AbstractController
     /**
      * More medias on home
      *
-     * @Route("/{offset}", name="more_tricks", requirements={"offset": "\d+"})
+     * @Route("/{offset}", name="load_more", requirements={"offset": "\d+"})
      * @param TrickRepository $repository
      * @param int $offset
      * @return Response
      */
-    public function more_tricks(TrickRepository $repository, $offset = 3)
+    public function loadMore(TrickRepository $repository, $offset = 3)
     {
         $tricks = $repository->findBy(array(), array('created_at' => 'DESC'), 3, $offset);
 
@@ -48,7 +48,7 @@ class FrontController extends AbstractController
      * @param CommentRepository $commentRepository
      * @return Response
      */
-    public function show_profil(TrickRepository $repo, CommentRepository $commentRepository)
+    public function profil(TrickRepository $repo, CommentRepository $commentRepository)
     {
         $user = $this->getUser();
         $tricks = $repo->findBy(array("User" => $user), array('id' => 'DESC'));

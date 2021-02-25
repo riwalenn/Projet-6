@@ -435,7 +435,7 @@
             e.preventDefault();
             counter++;
             var offset = 3 * counter;
-            const url = "{{ path('more_medias', {'id': trick.id}) }}/" + offset;
+            const url = "{{ path('load_medias', {'id': trick.id}) }}/" + offset;
             console.log(url);
             axios.get(url).then(function (response) {
                 $(".tricks-container").append(response.data);

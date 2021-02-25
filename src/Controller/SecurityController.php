@@ -59,14 +59,14 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/iForgotMyPassword", name="change_password")
+     * @Route("/oubli", name="change_password")
      * @param UserRepository $userRepository
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @param EntityManagerInterface $manager
      * @return RedirectResponse|Response
      */
-    public function change_password(UserRepository $userRepository, Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager)
+    public function changePassword(UserRepository $userRepository, Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager)
     {
         $token = $request->query->get('token');
         $user = $userRepository->findOneBy(array("token" => $token));
@@ -105,7 +105,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/confirmation", name="confirmation_registration")
+     * @Route("/inscription/confirmation", name="confirmation_registration")
      * @param UserRepository $userRepository
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -140,14 +140,14 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/emailForm", name="email_form")
+     * @Route("/oubli/email", name="email_form")
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @param UserRepository $userRepository
      * @return RedirectResponse|Response
      * @throws Exception
      */
-    public function forgot_password(Request $request, EntityManagerInterface $manager, UserRepository $userRepository)
+    public function forgotPassword(Request $request, EntityManagerInterface $manager, UserRepository $userRepository)
     {
         $form = $this->createForm(PasswordRecoveryType::class);
         $form->handleRequest($request);
