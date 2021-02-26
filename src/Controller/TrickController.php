@@ -13,6 +13,7 @@ use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use App\Service\SendMail;
 use App\Service\Slugify;
+use Doctrine\DBAL\Driver\SQLSrv\LastInsertId;
 use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -122,18 +123,12 @@ class TrickController extends AbstractController
             $trick = new Trick();
         }
 
+        $library = new TrickLibrary();
         $user = $this->getUser();
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
-        $options = [
-            "position" => $trick->getPosition(),
-            "grabs" => $trick->getGrabs(),
-            "rotation" => $trick->getRotation(),
-            "flip" =>  $trick->getFlip(),
-            "slide" =>  $trick->getSlide()
-        ];
         $serviceSlug = new Slugify();
-        $title = $serviceSlug->generateTitle($options);
+        $title = $form->get('title')->getData();
         $slug = $serviceSlug->generateSlug($title);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -151,6 +146,8 @@ class TrickController extends AbstractController
             } else {
                 $trick->setTitle($title);
                 $trick->setSlug($slug);
+                $id_trick = $repository->find($trick->getId());
+                $library->setTrick($id_trick);
                 $author = $repo->findOneByCriteria("username", $trick->getUser());
                 $result = $repository->findOneBy(['slug' => $slug]);
                 if (!empty($result) && $trick->getId() !== $result->getId()) {
@@ -170,10 +167,19 @@ class TrickController extends AbstractController
             }
             $files = $form->get('image')->getData();
             if ($files) {
-                $trick->setImage($this->uploader($files));
+                $library->setLien($this->uploader($files));
+                $library->setType(1);
+            } else {
+                $library->setType(2);
             }
 
             $manager->persist($trick);
+            $manager->flush();
+
+            $id_trick = $repository->find($trick->getId());
+            $library->setTrick($id_trick);
+
+            $manager->persist($library);
             $manager->flush();
 
             return $this->redirectToRoute('home');
