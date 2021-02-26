@@ -36,6 +36,11 @@ h6 {
     font-family: "Raleway", sans-serif;
 }
 
+iframe {
+    width: 307px !important;
+    height: 229px !important;
+}
+
 /* Back to top button */
 
 .back-to-top {
