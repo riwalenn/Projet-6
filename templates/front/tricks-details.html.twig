@@ -2,14 +2,13 @@
 
 {% block body %}
     <main id="main">
-
         <!-- ======= Breadcrumbs Section ======= -->
         <section class="breadcrumbs">
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex flex-column align-items-start">
                         <h2>{{ trick.title }} {% if app.user %}<a href="{{ path('edit_trick', {'slug': trick.slug}) }}"
-                                                 class="trick-link col-2 edit"><i class="fa fa-edit"></i></a>
+                                                 class="trick-link col-2 edit"><i class="fas fa-pencil-alt"></i></a>
 
                                 {% if app.user == trick.user %}
                                     <a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
@@ -42,8 +41,9 @@
                 <div class="tricks-details-container tricks_medias">
 
                     <div class="tricks-wrap shadow first_media">
-                    {% if(trick.image) %}
-                        <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid" alt="">
+                    {% if(firstMedia) %}
+                        {% for img in firstMedia %}
+                        <img src="{{ asset('/img/tricks/' ~ img.lien) }}" class="img-fluid" alt="">
                         <div class="tricks-links">
                             {% if app.user %}
                                 {% if app.user == trick.user %}
@@ -52,6 +52,7 @@
                                 {% endif %}
                             {% endif %}
                         </div>
+                        {% endfor %}
                     {% else %}
                         <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid" alt="">
                     {% endif %}
@@ -78,7 +79,7 @@
                                         {% elseif library.type == 3 %}
                                             <img src="{{ library.lien }}" class="img-fluid" alt="snowtricks">
                                         {% else %}
-                                            <iframe width="307" height="229" src="{{ 'https://www.youtube.com/embed/'~library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            {{ library.lien | raw }}
                                         {% endif %}
                                         <div class="tricks-links">
                                             {% if app.user %}
@@ -87,7 +88,7 @@
                                                        class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
                                                 {% endif %}
                                                 <a onclick="editMedia('{{ library.id }}')" class="trick-link col-2 edit"><i
-                                                            class="fa fa-edit"></i></a>
+                                                            class="fas fa-pencil-alt"></i></a>
                                             {% endif %}
                                         </div>
                                     </div>

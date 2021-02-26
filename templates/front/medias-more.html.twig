@@ -7,7 +7,7 @@
             {% elseif library.type == 3 %}
                 <img src="{{ library.lien }}" class="img-fluid" alt="snowtricks">
             {% else %}
-                <iframe width="307" height="229" src="{{ library.lien }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                {{ library.lien | raw }}
             {% endif %}
             <div class="tricks-links">
                 {% if app.user %}
@@ -16,7 +16,7 @@
                            class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
                     {% endif %}
                     <a onclick="editMedia('{{ library.id }}')" class="trick-link col-2 edit"><i
-                                class="fa fa-edit"></i></a>
+                                class="fas fa-pencil-alt"></i></a>
                 {% endif %}
             </div>
         </div>

@@ -42,6 +42,7 @@ class TrickController extends AbstractController
     {
         $trick_history = $historyRepository->findAll();
         $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, 0);
+        $firstMedia = $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => 1), array('id'=> 'ASC'), 1, 0);
         $allItems = $libraryRepository->findAll();
         $itemsToCount = $libraryRepository->findBy(array('trick' => $trick->getId()));
         $donnees = $commentRepository->findBy(array('Trick' => $trick->getId()), array('created_at' => 'DESC'));
@@ -70,6 +71,7 @@ class TrickController extends AbstractController
 
         return $this->render('front/tricks-details.html.twig', [
             'title'             => $trick->getTitle(),
+            'firstMedia'        => $firstMedia,
             'trick'             => $trick,
             'itemsLibrary'      => $itemsLibrary,
             'allItems'          => $allItems,
