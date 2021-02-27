@@ -309,7 +309,6 @@ class Trick
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TrickLibrary", inversedBy="trick")
      * @return Collection|TrickLibrary[]
      */
     public function getTrickLibraries(): Collection
