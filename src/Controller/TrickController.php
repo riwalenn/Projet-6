@@ -111,13 +111,13 @@ class TrickController extends AbstractController
      * @Route("/front/new", name="add_trick")
      *
      * @param TrickRepository $repository
-     * @param UserRepository $repo
+     * @param UserRepository $userRepository
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return string
      * @throws NonUniqueResultException
      */
-    public function newTrick(TrickRepository $repository, UserRepository $repo, Request $request, EntityManagerInterface $manager)
+    public function newTrick(TrickRepository $repository, UserRepository $userRepository, Request $request, EntityManagerInterface $manager)
     {
         $trick = new Trick();
         $library = new TrickLibrary();
