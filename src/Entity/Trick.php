@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -310,6 +309,7 @@ class Trick
     }
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TrickLibrary", inversedBy="trick")
      * @return Collection|TrickLibrary[]
      */
     public function getTrickLibraries(): Collection

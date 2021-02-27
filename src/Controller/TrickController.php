@@ -14,7 +14,6 @@ use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use App\Service\SendMail;
 use App\Service\Slugify;
-use Doctrine\DBAL\Driver\SQLSrv\LastInsertId;
 use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,6 +66,8 @@ class TrickController extends AbstractController
 
             $manager->persist($comment);
             $manager->flush();
+
+
 
             return $this->redirectToRoute('trick_detail', ['slug' => $trick->getSlug()]);
         }
@@ -130,7 +131,6 @@ class TrickController extends AbstractController
         $slug = $serviceSlug->generateSlug($title);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($request);
             $trick->setTitle($title);
             $trick->setSlug($slug);
             $trick->setCreatedAt(new \DateTime());

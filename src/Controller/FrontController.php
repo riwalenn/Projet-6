@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Repository\CommentRepository;
-use App\Repository\TrickLibraryRepository;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +17,7 @@ class FrontController extends AbstractController
      */
     public function home(TrickRepository $repository)
     {
-        $tricks = $repository->findBy(array(), array('created_at' => 'DESC'), 3, 0);
+        $tricks = $repository->findAllWithLibraries(0,3);
 
         return $this->render('front/home.html.twig', [
             'controller_name'   => 'FrontController',
@@ -29,14 +28,14 @@ class FrontController extends AbstractController
     /**
      * More medias on home
      *
-     * @Route("/{offset}", name="load_more", requirements={"offset": "\d+"})
+     * @Route("/{limit}", name="load_more", requirements={"limit": "\d+"})
      * @param TrickRepository $repository
      * @param int $offset
      * @return Response
      */
-    public function loadMore(TrickRepository $repository, $offset = 3)
+    public function loadMore(TrickRepository $repository, $limit = 3)
     {
-        $tricks = $repository->findBy(array(), array('created_at' => 'DESC'), 3, $offset);
+        $tricks = $repository->findAllWithLibraries($limit,3);
 
         return $this->render('front/tricks-more.html.twig', ['tricks' => $tricks]);
     }
