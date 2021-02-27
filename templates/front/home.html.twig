@@ -33,8 +33,8 @@
                     {% for trick in tricks %}
                         <div class="col-lg-4 col-md-6 tricks-item">
                             <div class="tricks-wrap shadow">
-                                {% if(trick.image) %}
-                                    <img src="{{ asset('/img/tricks/' ~ trick.image) }}" class="img-fluid"
+                                {% if(trick.lien) %}
+                                    <img src="{{ asset('/img/tricks/' ~ trick.lien) }}" class="img-fluid"
                                          alt="{{ trick.title }}">
                                 {% else %}
                                     <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid"
@@ -43,20 +43,14 @@
                                 <div class="tricks-links">
                                     {% if not app.user %}
                                         <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
-                                           class="trick-link col-10">{{ trick.title | slice(0, 24) }}...</a>
-                                        <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
-                                           class="trick-link col-2" id="comments-number"><i
-                                                    class="fa fa-comments">{{ trick.comments | length }}</i></a>
+                                           class="trick-link col-12">{{ trick.title | slice(0, 24) }}...</a>
                                     {% else %}
                                         <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
-                                           class="trick-link col-6">{{ trick.title | slice(0, 14) }}...</a>
-                                        <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
-                                           class="trick-link col-2" id="comments-number"><i
-                                                    class="fa fa-comments">{{ trick.comments | length }}</i></a>
-                                        <a href="{{ path('edit_trick', {'slug': trick.slug}) }}"
-                                           class="trick-link col-2"><i class="fas fa-pencil-alt"></i></a>
-                                        <a onclick="confirmTrickDelete('{{ trick.id }}')"
-                                           class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                                           class="trick-link col-8">{{ trick.title | slice(0, 14) }}...</a>
+                                        <a href="{{ path('edit_trick', {'slug': trick.slug}) }}" class="trick-link col-2"><i
+                                                    class="fas fa-pencil-alt"></i></a>
+                                        <a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i
+                                                    class="fa fa-trash"></i></a>
                                     {% endif %}
                                 </div>
                             </div>
@@ -65,7 +59,9 @@
                 </div>
                 <div class="row">
                     <div class="col-12 text-center">
-                        <button id="moreTricks" class="btn btn-primary">Voir plus de tricks</button>
+                        {% if tricks|length > 0 %}
+                            <button id="moreTricks" class="btn btn-primary">Voir plus de tricks</button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -120,10 +116,13 @@
         function moreTricks(e) {
             e.preventDefault();
             counter++;
-            var offset = 3 * counter;
-            const url = "{{ path('load_more') }}" + offset;
+            var limit = 3 * counter;
+            const url = "{{ path('load_more') }}" + limit;
             axios.get(url).then(function (response) {
                 $(".tricks-container").append(response.data);
+                if (response.data.length == 0) {
+                    $("#moreTricks").hide();
+                }
             });
         }
 

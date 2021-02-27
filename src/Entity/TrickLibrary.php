@@ -19,7 +19,7 @@ class TrickLibrary
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="trickLibraries")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="trickLibraries")
      */
     private $trick;
 
