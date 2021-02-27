@@ -6,6 +6,7 @@ use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Entity\TrickHistory;
 use App\Entity\TrickLibrary;
+use App\Form\TrickLibraryType;
 use App\Form\TrickType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickLibraryRepository;
@@ -107,6 +108,69 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/front/new", name="add_trick")
+     *
+     * @param TrickRepository $repository
+     * @param UserRepository $repo
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return string
+     * @throws NonUniqueResultException
+     */
+    public function newTrick(TrickRepository $repository, UserRepository $repo, Request $request, EntityManagerInterface $manager)
+    {
+        $trick = new Trick();
+        $library = new TrickLibrary();
+        $user = $this->getUser();
+        $form = $this->createForm(TrickType::class, $trick);
+        $formTrick = $this->createForm(TrickLibraryType::class);
+        $formTrick->handleRequest($request);
+        $form->handleRequest($request);
+        $serviceSlug = new Slugify();
+        $title = $form->get('title')->getData();
+        $slug = $serviceSlug->generateSlug($title);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($request);
+            $trick->setTitle($title);
+            $trick->setSlug($slug);
+            $trick->setCreatedAt(new \DateTime());
+            $trick->setUser($user);
+            $result = $repository->findOneBy(['title' => $title]);
+            if (!empty($result) && $trick->getId() !== $result->getId()) {
+                $this->addFlash('danger', "Le trick existe déjà !");
+                return $this->redirectToRoute('add_trick');
+            }
+            $this->addFlash('light', "Le trick a été créé avec succès !");
+            $files = $form->get('image')->getData();
+            if ($files) {
+                $library->setLien($this->uploader($files));
+                $library->setType(1);
+            } else {
+                $library->setType(2);
+            }
+
+            $manager->persist($trick);
+            $manager->flush();
+
+            $id_trick = $repository->find($trick->getId());
+            $library->setTrick($id_trick);
+
+            $manager->persist($library);
+            $manager->flush();
+
+            return $this->redirectToRoute('home');
+
+        }
+
+        return $this->render('front/tricks-form.html.twig', [
+            'title'         => $trick->getTitle() ?? "Ajouter un trick.",
+            'formTrick'     => $form->createView(),
+            'formLibrary'     => $formTrick->createView(),
+            'editMode'      => $trick->getId() !== null
+        ]);
+    }
+
+    /**
      * @Route("/trick/{slug}/edit", name="edit_trick")
      *
      * @param Trick|null $trick
@@ -117,12 +181,8 @@ class TrickController extends AbstractController
      * @return string
      * @throws NonUniqueResultException
      */
-    public function formTrick(Trick $trick = null, TrickRepository $repository, UserRepository $repo, Request $request, EntityManagerInterface $manager)
+    public function editTrick(Trick $trick, TrickRepository $repository, UserRepository $repo, Request $request, EntityManagerInterface $manager)
     {
-        if (!$trick) {
-            $trick = new Trick();
-        }
-
         $library = new TrickLibrary();
         $user = $this->getUser();
         $form = $this->createForm(TrickType::class, $trick);
@@ -132,39 +192,27 @@ class TrickController extends AbstractController
         $slug = $serviceSlug->generateSlug($title);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!$trick->getId()) {
-                $trick->setTitle($title);
-                $trick->setSlug($slug);
-                $trick->setCreatedAt(new \DateTime());
-                $trick->setUser($user);
-                $result = $repository->findOneBy(['title' => $title]);
-                if (!empty($result) && $trick->getId() !== $result->getId()) {
-                    $this->addFlash('danger', "Le trick existe déjà !");
-                    return $this->redirectToRoute('add_trick');
-                }
-                $this->addFlash('light', "Le trick a été créé avec succès !");
-            } else {
-                $trick->setTitle($title);
-                $trick->setSlug($slug);
-                $id_trick = $repository->find($trick->getId());
-                $library->setTrick($id_trick);
-                $author = $repo->findOneByCriteria("username", $trick->getUser());
-                $result = $repository->findOneBy(['slug' => $slug]);
-                if (!empty($result) && $trick->getId() !== $result->getId()) {
-                    $this->addFlash('danger', "Le trick existe déjà !");
-                    return $this->redirectToRoute('edit_trick', array('slug'=> $trick->getSlug()));
-                }
-                if ($user->getId() !== $author->getId()) {
-                    $trickHistory = new TrickHistory();
-                    $trickHistory->setUser($user)
-                        ->setTrick($trick)
-                        ->setModifiedAt(new \DateTime());
-                    $manager->persist($trickHistory);
-                    $serviceMail = new SendMail();
-                    $serviceMail->alertAuthor($author, $trick);
-                }
-                $this->addFlash('light', "Le trick a été modifié avec succès !");
+            $trick->setTitle($title);
+            $trick->setSlug($slug);
+            $id_trick = $repository->find($trick->getId());
+            $library->setTrick($id_trick);
+            $author = $repo->findOneByCriteria("username", $trick->getUser());
+            $result = $repository->findOneBy(['slug' => $slug]);
+            if (!empty($result) && $trick->getId() !== $result->getId()) {
+                $this->addFlash('danger', "Le trick existe déjà !");
+                return $this->redirectToRoute('edit_trick', array('slug'=> $trick->getSlug()));
             }
+            if ($user->getId() !== $author->getId()) {
+                $trickHistory = new TrickHistory();
+                $trickHistory->setUser($user)
+                    ->setTrick($trick)
+                    ->setModifiedAt(new \DateTime());
+                $manager->persist($trickHistory);
+                $serviceMail = new SendMail();
+                $serviceMail->alertAuthor($author, $trick);
+            }
+            $this->addFlash('light', "Le trick a été modifié avec succès !");
+
             $files = $form->get('image')->getData();
             if ($files) {
                 $library->setLien($this->uploader($files));
