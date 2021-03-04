@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Trick;
+use App\Entity\TrickLibrary;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\DBAL\ParameterType;
+use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,18 +22,22 @@ class TrickRepository extends ServiceEntityRepository
         parent::__construct($registry, Trick::class);
     }
 
-    public function findAllWithLibraries($limit, $offset)
+    public function findTricksAndFirstMedia($limit, $offset)
     {
-        $em = $this->getEntityManager();
-        $stmt = $em->getConnection()->prepare("SELECT trick.*, trick_library.lien from trick 
-                                                    LEFT JOIN trick_library ON trick.id = trick_library.trick_id 
-                                                    and trick_library.id = (SELECT MIN(id) FROM trick_library 
-                                                    WHERE type = 1 AND trick_library.trick_id = trick.id)
-                                                    ORDER BY created_at DESC LIMIT :limit, :offset");
-        $stmt->bindValue('limit', $limit, ParameterType::INTEGER);
-        $stmt->bindValue('offset', $offset, ParameterType::INTEGER);
-        $stmt->execute();
-        return $stmt->fetchAllAssociative();
+        $rsm = new ResultSetMapping();
+        $rsm->addEntityResult(Trick::class, 't');
+        $rsm->addFieldResult('t', 'id', 'id');
+        $rsm->addFieldResult('t', 'title', 'title');
+        $rsm->addFieldResult('t', 'slug', 'slug');
+        $rsm->addFieldResult('t', 'created_at', 'created_at');
+        $rsm->addJoinedEntityResult(TrickLibrary::class, 'tl', 't','trickLibraries');
+        $rsm->addMetaResult('tl', 'lien', 'lien');
+
+        $sql = 'SELECT trick.id, trick.title, trick.slug, trick.created_at, trick_library.lien from trick LEFT JOIN trick_library ON trick.id = trick_library.trick_id and trick_library.id = (SELECT MIN(id) FROM trick_library WHERE type = 1 AND trick_library.trick_id = trick.id) ORDER BY created_at DESC LIMIT ?, ?';
+        $query = $this->_em->createNativeQuery($sql, $rsm);
+        $query->setParameter(1, $limit);
+        $query->setParameter(2, $offset);
+        return $query->getResult(AbstractQuery::HYDRATE_SCALAR);
     }
 
     // /**

@@ -11,12 +11,8 @@
             {% endif %}
             <div class="tricks-links">
                 {% if app.user %}
-                    {% if app.user == trick.user %}
-                        <a onclick="confirmMediaDelete('{{ library.id }}')"
-                           class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
-                    {% endif %}
-                    <a onclick="editMedia('{{ library.id }}')" class="trick-link col-2 edit"><i
-                                class="fas fa-pencil-alt"></i></a>
+                    <a onclick="confirmMediaDelete('{{ library.id }}')" class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                    <a onclick="editMedia('{{ library.id }}')" class="trick-link col-2 edit"><i class="fas fa-pencil-alt"></i></a>
                 {% endif %}
             </div>
         </div>

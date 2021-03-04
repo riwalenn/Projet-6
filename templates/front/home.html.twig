@@ -33,23 +33,23 @@
                     {% for trick in tricks %}
                         <div class="col-lg-4 col-md-6 tricks-item">
                             <div class="tricks-wrap shadow">
-                                {% if(trick.lien) %}
-                                    <img src="{{ asset('/img/tricks/' ~ trick.lien) }}" class="img-fluid"
-                                         alt="{{ trick.title }}">
+                                {% if(trick.tl_lien) %}
+                                    <img src="{{ asset('/img/tricks/' ~ trick.tl_lien) }}" class="img-fluid"
+                                         alt="{{ trick.t_title }}">
                                 {% else %}
                                     <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid"
                                          alt="snowtrick">
                                 {% endif %}
                                 <div class="tricks-links">
                                     {% if not app.user %}
-                                        <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
-                                           class="trick-link col-12">{{ trick.title | slice(0, 24) }}...</a>
+                                        <a href="{{ path('trick_detail', {'slug': trick.t_slug}) }}" title="More Details"
+                                           class="trick-link col-12">{{ trick.t_title | slice(0, 24) }}...</a>
                                     {% else %}
-                                        <a href="{{ path('trick_detail', {'slug': trick.slug}) }}" title="More Details"
-                                           class="trick-link col-8">{{ trick.title | slice(0, 14) }}...</a>
-                                        <a href="{{ path('edit_trick', {'slug': trick.slug}) }}" class="trick-link col-2"><i
+                                        <a href="{{ path('trick_detail', {'slug': trick.t_slug}) }}" title="More Details"
+                                           class="trick-link col-8">{{ trick.t_title | slice(0, 14) }}...</a>
+                                        <a href="{{ path('edit_trick', {'slug': trick.t_slug}) }}" class="trick-link col-2"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                        <a onclick="confirmTrickDelete('{{ trick.id }}')" class="trick-link col-2 trash"><i
+                                        <a onclick="confirmTrickDelete('{{ trick.t_id }}')" class="trick-link col-2 trash"><i
                                                     class="fa fa-trash"></i></a>
                                     {% endif %}
                                 </div>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12 text-center">
-                        {% if tricks|length > 0 %}
+                        {% if tricks %}
                             <button id="moreTricks" class="btn btn-primary">Voir plus de tricks</button>
                         {% endif %}
                     </div>
@@ -70,7 +70,7 @@
     <a href="#tricks" class="back-to-top"><i class="icofont-simple-up"></i></a>
     {% if app.user %}
         {% for trick in tricks %}
-            <div class="portfolio-modal modal fade" id="delete_trick_modal{{ trick.id }}" tabindex="-1" role="dialog"
+            <div class="portfolio-modal modal fade" id="delete_trick_modal{{ trick.t_id }}" tabindex="-1" role="dialog"
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -83,11 +83,11 @@
                             <div class="row">
                                 <div class="col-lg-8 mx-auto">
                                     <div class="modal-body">
-                                        <p>Souhaitez-vous vraiment supprimer le trick ayant le titre : {{ trick.title }}
+                                        <p>Souhaitez-vous vraiment supprimer le trick ayant le titre : {{ trick.t_title }}
                                             ?</p>
-                                        <form action="{{ path('delete_trick', {'id': trick.id}) }}" method="post">
+                                        <form action="{{ path('delete_trick', {'id': trick.t_id}) }}" method="post">
                                             <input type="hidden" id="inputId" name="deleteTrick[id]"
-                                                   value="{{ trick.id }}">
+                                                   value="{{ trick.t_id }}">
                                             <div class="buttons">
                                                 <button type="submit" class="btn btn-outline-danger" value="delete"
                                                         onclick="">Supprimer
@@ -116,11 +116,12 @@
         function moreTricks(e) {
             e.preventDefault();
             counter++;
+            var total = {{ totalTricks }};
             var limit = 3 * counter;
             const url = "{{ path('load_more') }}" + limit;
             axios.get(url).then(function (response) {
                 $(".tricks-container").append(response.data);
-                if (response.data.length == 0) {
+                if ((limit+3) >= total) {
                     $("#moreTricks").hide();
                 }
             });
