@@ -20,7 +20,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\TrickHistoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FilesystemIterator;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -34,22 +33,16 @@ class TrickController extends AbstractController
      * @param PaginatorInterface $paginator
      * @param Request $request
      * @param EntityManagerInterface $manager
-     * @param TrickHistoryRepository $historyRepository
      * @param TrickLibraryRepository $libraryRepository
      * @param CommentRepository $commentRepository
      * @return RedirectResponse|Response
      */
-    public function show(Trick $trick, PaginatorInterface $paginator, Request $request, EntityManagerInterface $manager, TrickHistoryRepository $historyRepository, TrickLibraryRepository $libraryRepository, CommentRepository $commentRepository)
+    public function show(Trick $trick, PaginatorInterface $paginator, Request $request, EntityManagerInterface $manager, TrickLibraryRepository $libraryRepository, CommentRepository $commentRepository)
     {
-        $trick_history = $historyRepository->findAll();
-        $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, 0);
         $firstMedia = $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => 1), array('id'=> 'ASC'), 1, 0);
-        $allItems = $libraryRepository->findAll();
-        $itemsToCount = $libraryRepository->findBy(array('trick' => $trick->getId()));
-        $donnees = $commentRepository->findBy(array('Trick' => $trick->getId()), array('created_at' => 'DESC'));
-        $count = count($itemsToCount);
+        $comments = $commentRepository->findBy(array('Trick' => $trick->getId()), array('created_at' => 'DESC'));
         $pagination = $paginator->paginate(
-            $donnees,
+            $comments,
             $request->query->getInt('page', 1),
             4
         );
@@ -76,10 +69,6 @@ class TrickController extends AbstractController
             'title'             => $trick->getTitle(),
             'firstMedia'        => $firstMedia,
             'trick'             => $trick,
-            'itemsLibrary'      => $itemsLibrary,
-            'allItems'          => $allItems,
-            'trick_history'     => $trick_history,
-            'count'             => $count,
             'pagination'        => $pagination,
             'commentForm'       => $form->createView()
         ]);
@@ -97,13 +86,10 @@ class TrickController extends AbstractController
     public function loadMoreMedias(Trick $trick, TrickLibraryRepository $libraryRepository, $offset = 6)
     {
         $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, $offset);
-        $itemsToCount = $libraryRepository->findBy(array('trick' => $trick->getId()));
-        $count = count($itemsToCount)-3;
 
         return $this->render('front/medias-more.html.twig', [
             'itemsLibrary' => $itemsLibrary,
-            'trick' => $trick,
-            'count' => $count
+            'trick' => $trick
         ]);
     }
 
@@ -141,29 +127,25 @@ class TrickController extends AbstractController
                 return $this->redirectToRoute('add_trick');
             }
             $this->addFlash('light', "Le trick a été créé avec succès !");
-            $files = $form->get('image')->getData();
-            if ($files) {
-                $library->setLien($this->uploader($files));
-                $library->setType(1);
-            } else {
-                $library->setType(2);
-            }
 
             $manager->persist($trick);
             $manager->flush();
 
-            $id_trick = $repository->find($trick->getId());
-            $library->setTrick($id_trick);
+            $files = $form->get('image')->getData();
+            if (!empty($files)) {
+                $library->setLien($this->uploader($files));
+                $library->setType(1);$id_trick = $repository->find($trick->getId());
+                $library->setTrick($id_trick);
 
-            $manager->persist($library);
-            $manager->flush();
+                $manager->persist($library);
+                $manager->flush();
+            }
 
             return $this->redirectToRoute('home');
-
         }
 
         return $this->render('front/tricks-form.html.twig', [
-            'title'         => $trick->getTitle() ?? "Ajouter un trick.",
+            'title'         => "Ajouter un trick.",
             'formTrick'     => $form->createView(),
             'formLibrary'     => $formTrick->createView(),
             'editMode'      => $trick->getId() !== null
@@ -213,29 +195,25 @@ class TrickController extends AbstractController
             }
             $this->addFlash('light', "Le trick a été modifié avec succès !");
 
-            $files = $form->get('image')->getData();
-            if ($files) {
-                $library->setLien($this->uploader($files));
-                $library->setType(1);
-            } else {
-                $library->setType(2);
-            }
-
             $manager->persist($trick);
             $manager->flush();
 
-            $id_trick = $repository->find($trick->getId());
-            $library->setTrick($id_trick);
+            $files = $form->get('image')->getData();
+            if (!empty($files)) {
+                $library->setLien($this->uploader($files));
+                $library->setType(1);$id_trick = $repository->find($trick->getId());
+                $library->setTrick($id_trick);
 
-            $manager->persist($library);
-            $manager->flush();
+                $manager->persist($library);
+                $manager->flush();
+            }
 
             return $this->redirectToRoute('home');
 
         }
 
         return $this->render('front/tricks-form.html.twig', [
-            'title'         => $trick->getTitle() ?? "Ajouter un trick.",
+            'title'         => $trick->getTitle(),
             'formTrick'     => $form->createView(),
             'editMode'      => $trick->getId() !== null
         ]);
@@ -267,7 +245,7 @@ class TrickController extends AbstractController
             $library->setLien($link);
             $library->setType(1);
 
-        } else if ($request->get('type') == 3 || $request->get('type') == 2) {
+        } else if ($request->get('type') == 2) {
             $link = $request->get('lien');
             $library->setLien($link);
             $library->setType($request->get('type'));
@@ -280,7 +258,7 @@ class TrickController extends AbstractController
         $manager->persist($library);
         $manager->flush();
         $this->addFlash('light', 'Le média a bien été ajouté !');
-        return $this->redirectToRoute('trick_detail', array('id' => $trick->getId()));
+        return $this->redirectToRoute('trick_detail', array('slug' => $trick->getSlug()));
     }
 
     /**
@@ -317,28 +295,10 @@ class TrickController extends AbstractController
         if (!$library){
             $this->addFlash('danger', "Aucune image n'a été séléctionnée.");
         }
-        $id_trick = $library->getTrick()->getId();
+        $slug = $library->getTrick()->getSlug();
         $manager->remove($library);
         $manager->flush();
-        return $this->redirectToRoute('trick_detail', array('id' => $id_trick));
-    }
-
-    /**
-     * Delete picture trick
-     *
-     * @Route("/trick/{id}/delete/media", name="delete_first_media")
-     * @param Trick $trick
-     * @param EntityManagerInterface $manager
-     * @return RedirectResponse
-     */
-    public function deleteFirstMedia(Trick $trick, EntityManagerInterface $manager)
-    {
-        if (!$trick){
-            $this->addFlash('danger', "Aucun article ne correspond.");
-        }
-        $trick->setImage("");
-        $manager->flush();
-        return $this->redirectToRoute('trick_detail', array('id' => $trick->getId()));
+        return $this->redirectToRoute('trick_detail', array('slug' => $slug));
     }
 
     /**

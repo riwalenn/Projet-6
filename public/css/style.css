@@ -938,6 +938,12 @@ h2.col-2 {
     margin-top: 10px;
 }
 
+.tricks-details .trick-info {
+    display: flex;
+    font-size: 80%;
+    color: #6c757d;
+}
+
 .tricks-details .tricks-description {
     margin: 10px;
     padding-bottom: 10px;
