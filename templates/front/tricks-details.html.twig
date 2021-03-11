@@ -65,6 +65,15 @@
                 <section id="tricks" class="tricks_medias">
                     <div class="container d-none d-lg d-lg-block">
                         <div class="row tricks-container" data-aos="fade-up">
+                            {% if app.user %}
+                                {% if trick.trickLibraries|length <= 3 %}
+                                    <div class="col-lg-4 col-md-6 tricks-item more">
+                                        <div class="tricks-wrap shadow">
+                                            <a onclick="addMedia('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
                             {% for library in trick.trickLibraries %}
                                 <div class="col-lg-4 col-md-6 tricks-item">
                                     <div class="tricks-wrap shadow">
@@ -76,7 +85,7 @@
                                         <div class="tricks-links">
                                             {% if app.user %}
                                                 <a onclick="confirmMediaDelete('{{ library.id }}')"
-                                                       class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
+                                                   class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
                                                 <a onclick="editMedia('{{ library.id }}')" class="trick-link col-2 edit"><i
                                                             class="fas fa-pencil-alt"></i></a>
                                             {% endif %}
@@ -84,15 +93,6 @@
                                     </div>
                                 </div>
                             {% endfor %}
-                            {% if app.user %}
-                                {% if trick.trickLibraries|length <= 3 %}
-                                    <div class="col-lg-4 col-md-6 tricks-item more">
-                                        <div class="tricks-wrap shadow">
-                                            <a onclick="addMedia('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            {% endif %}
                         </div>
                     </div>
                     <div class="col-12 text-center d-lg-none">
@@ -114,7 +114,7 @@
                 </div>
                 <!-- ======= Trick history Section ======= -->
                 <div class="tricks-description">
-                    <blockquote class="blockquote-footer">Historique des contributeurs de l'article :
+                    <blockquote class="blockquote-footer">Historique des modifications de l'article :
                         {% for trickHistory in trick.trickHistories %}
                             <ul class="list-group list-group-flush">
                                 <li>{{ trickHistory.modifiedAt | date('d/m/Y à H:i')~" (contributeur : "~trickHistory.user.username }}
@@ -256,7 +256,7 @@
                         <div class="col-lg-12 mx-auto">
                             <div class="modal-body add-or-maj">
                                 <h5>Ajouter une image ou une vidéo</h5>
-                                <form action="{{ path('add_media', {'id': trick.id}) }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ path('add_media', {'slug': trick.slug}) }}" method="post" enctype="multipart/form-data">
                                     <input type="hidden" id="inputId" name="trick_id"
                                            value="{{ trick.id }}">
                                     <fieldset class="form-group upload">
@@ -311,7 +311,7 @@
                             <div class="col-lg-12 mx-auto">
                                 <div class="modal-body">
                                     <h5>Modifier une image ou une vidéo</h5>
-                                    <form action="{{ path('add_media', {'id': trick.id}) }}" method="post" enctype="multipart/form-data">
+                                    <form action="{{ path('add_media', {'slug': trick.slug}) }}" method="post" enctype="multipart/form-data">
                                         <input type="hidden" id="library_id" name="library_id"
                                                value="{{ library.id }}">
                                         <fieldset class="form-group upload">

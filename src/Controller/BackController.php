@@ -13,6 +13,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,7 +27,7 @@ class BackController extends AbstractController
      * @param CommentRepository $commentRepo
      * @param Request $request
      * @param EntityManagerInterface $manager
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function show(UserRepository $userRepo, TrickRepository $trickRepo, TrickLibraryRepository $libraryRepository, CommentRepository $commentRepo, Request $request, EntityManagerInterface $manager)
     {
@@ -67,7 +68,7 @@ class BackController extends AbstractController
      * @Route("/admin/user/{id}/change/role", name="change_role")
      * @param User $user
      * @param EntityManagerInterface $manager
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function changeRole(User $user, EntityManagerInterface $manager)
     {
@@ -87,7 +88,7 @@ class BackController extends AbstractController
      * @Route("/admin/{id}/delete/comment", name="admin_delete_comment")
      * @param Comment $comment
      * @param EntityManagerInterface $manager
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteComment(Comment $comment, EntityManagerInterface $manager)
     {
@@ -102,7 +103,7 @@ class BackController extends AbstractController
      * @Route("/admin/{id}/delete/user", name="admin_delete_user")
      * @param User $user
      * @param EntityManagerInterface $manager
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteUser(User $user, EntityManagerInterface $manager)
     {
