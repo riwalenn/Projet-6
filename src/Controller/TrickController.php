@@ -3,12 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
-use App\Entity\Comment;
 use App\Entity\TrickHistory;
 use App\Entity\TrickLibrary;
 use App\Form\TrickLibraryType;
 use App\Form\TrickType;
-use App\Repository\CommentRepository;
 use App\Repository\TrickLibraryRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
@@ -30,66 +28,25 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/{slug}", name="trick_detail")
      * @param Trick $trick
-     * @param PaginatorInterface $paginator
+     * @param CommentController $commentController
      * @param Request $request
+     * @param PaginatorInterface $paginator
      * @param EntityManagerInterface $manager
      * @param TrickLibraryRepository $libraryRepository
-     * @param CommentRepository $commentRepository
      * @return RedirectResponse|Response
      */
-    public function show(Trick $trick, PaginatorInterface $paginator, Request $request, EntityManagerInterface $manager, TrickLibraryRepository $libraryRepository, CommentRepository $commentRepository)
+    public function show(Trick $trick, CommentController $commentController, Request $request, PaginatorInterface $paginator, EntityManagerInterface $manager, TrickLibraryRepository $libraryRepository)
     {
         $firstMedia = $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => 1), array('id'=> 'ASC'), 1, 0);
-        $comments = $commentRepository->findBy(array('Trick' => $trick->getId()), array('created_at' => 'DESC'));
-        $pagination = $paginator->paginate(
-            $comments,
-            $request->query->getInt('page', 1),
-            4
-        );
-        $comment = new Comment();
-        $form = $this->createFormBuilder($comment)
-            ->add('title')
-            ->add('content')
-            ->getForm();
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setCreatedAt(new \DateTime())
-                ->setTrick($trick)
-                ->setUser($this->getUser());
-
-            $manager->persist($comment);
-            $manager->flush();
-
-
-
-            return $this->redirectToRoute('trick_detail', ['slug' => $trick->getSlug()]);
-        }
+        $pagination = $paginator->paginate($trick->getComments(), $request->query->getInt('page', 1), 4);
+        $form = $commentController->newComment($trick, $request, $manager);
 
         return $this->render('front/tricks-details.html.twig', [
             'title'             => $trick->getTitle(),
             'firstMedia'        => $firstMedia,
+            'commentForm'       => $form,
             'trick'             => $trick,
-            'pagination'        => $pagination,
-            'commentForm'       => $form->createView()
-        ]);
-    }
-
-    /**
-     * More medias on trick
-     *
-     * @Route("/trick/{id}/{offset}", name="load_medias", requirements={"offset": "\d+"})
-     * @param Trick $trick
-     * @param TrickLibraryRepository $libraryRepository
-     * @param int $offset
-     * @return Response
-     */
-    public function loadMoreMedias(Trick $trick, TrickLibraryRepository $libraryRepository, $offset = 6)
-    {
-        $itemsLibrary = $libraryRepository->findBy(array('trick' => $trick->getId()), array(), 3, $offset);
-
-        return $this->render('front/medias-more.html.twig', [
-            'itemsLibrary' => $itemsLibrary,
-            'trick' => $trick
+            'pagination'        => $pagination
         ]);
     }
 
@@ -97,13 +54,12 @@ class TrickController extends AbstractController
      * @Route("/front/new", name="add_trick")
      *
      * @param TrickRepository $repository
-     * @param UserRepository $userRepository
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return string
      * @throws NonUniqueResultException
      */
-    public function newTrick(TrickRepository $repository, UserRepository $userRepository, Request $request, EntityManagerInterface $manager)
+    public function newTrick(TrickRepository $repository, Request $request, EntityManagerInterface $manager)
     {
         $trick = new Trick();
         $library = new TrickLibrary();
@@ -184,12 +140,12 @@ class TrickController extends AbstractController
                 $this->addFlash('danger', "Le trick existe déjà !");
                 return $this->redirectToRoute('edit_trick', array('slug'=> $trick->getSlug()));
             }
+            $trickHistory = new TrickHistory();
+            $trickHistory->setUser($user)
+                ->setTrick($trick)
+                ->setModifiedAt(new \DateTime());
+            $manager->persist($trickHistory);
             if ($user->getId() !== $author->getId()) {
-                $trickHistory = new TrickHistory();
-                $trickHistory->setUser($user)
-                    ->setTrick($trick)
-                    ->setModifiedAt(new \DateTime());
-                $manager->persist($trickHistory);
                 $serviceMail = new SendMail();
                 $serviceMail->alertAuthor($author, $trick);
             }
@@ -220,8 +176,8 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{id}/add/media/", name="add_media")
-     * @Route("/trick/{id}/edit/media/{id_media}", name="edit_media")
+     * @Route("/trick/{slug}/add/media/", name="add_media")
+     * @Route("/trick/{slug}/edit/media/{id_media}", name="edit_media")
      * @param Request $request
      * @param TrickLibraryRepository $repository
      * @param Trick $trick

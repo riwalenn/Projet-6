@@ -51,10 +51,9 @@ class SecurityController extends AbstractController
 
             return $this->redirectToRoute('security_login');
         }
-
         return $this->render('security/registration.html.twig', [
-            'form'      => $form->createView(),
-            'title'     => "S'inscrire sur SnowTricks"
+            'form'  => $form->createView(),
+            'title' => "S'inscrire sur SnowTricks"
         ]);
     }
 
@@ -94,13 +93,10 @@ class SecurityController extends AbstractController
                     return $this->redirectToRoute('email_form');
                 }
             }
-
-
         }
-
         return $this->render('security/password-change.html.twig', [
-            'form'      => $form->createView(),
-            'title'     => "J'ai oublié mon mot de passe !"
+            'form'  => $form->createView(),
+            'title' => "J'ai oublié mon mot de passe !"
         ]);
     }
 
@@ -171,8 +167,8 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/password-forgotten.html.twig', [
-            'form'      => $form->createView(),
-            'title'     => "J'ai oublié mon mot de passe !"
+            'form'  => $form->createView(),
+            'title' => "J'ai oublié mon mot de passe !"
         ]);
     }
 
@@ -182,14 +178,12 @@ class SecurityController extends AbstractController
     public function login()
     {
         return $this->render('security/login.html.twig', [
-            'title'     => "Connectez-vous !"
+            'title' => "Connectez-vous !"
         ]);
     }
 
     /**
      * @Route("/deconnexion", name="security_logout")
      */
-    public function logout()
-    {
-    }
+    public function logout() {}
 }
