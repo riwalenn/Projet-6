@@ -33,6 +33,7 @@ class TrikFixtures extends Fixture
 
             for ($j = 1; $j <= 2; $j++) {
                 $trick = new Trick();
+                $trick_library = new TrickLibrary();
                 //fakers array for snowboarding
                 $imageArray = array_diff(scandir('src/DataFixtures/img/tricks'), array('..', '.'));
                 $arrayFakeTerms = array(
@@ -50,10 +51,11 @@ class TrikFixtures extends Fixture
                 $slide = array_rand(array_flip($arrayFakeTerms[4]));
                 $content = '<p>' . join($faker->paragraphs(2), '</p><p>') . '</p>';
                 $title = $position. ' ' . $grabs . ' à ' . $rotation . '° ' . $flip . ' ' . $slide;
+                $slug = $position.'-'.$grabs.'-'.$rotation.'-'.$flip.'-'.$slide;
 
                 $trick->setUser($user)
                         ->setTitle($title)
-                        ->setImage($image)
+                        ->setSlug($slug)
                         ->setDescription($content)
                         ->setPosition($position)
                         ->setGrabs($grabs)
@@ -63,7 +65,7 @@ class TrikFixtures extends Fixture
                         ->setCreatedAt($faker->dateTimeBetween('-9 months'));
                 $manager->persist($trick);
 
-                for ($k = 1; $k <= 2; $k++) {
+                for ($k = 1; $k <= 1; $k++) {
                     $comment = new Comment();
                     $comment->setUser($user)
                             ->setTrick($trick)
@@ -73,7 +75,7 @@ class TrikFixtures extends Fixture
                     $manager->persist($comment);
                 }
 
-                for ($k = 1; $k <= 2; $k++) {
+                for ($k = 1; $k <= 1; $k++) {
                     $trick_history = new TrickHistory();
                     $trick_history->setTrick($trick)
                                     ->setUser($user)
@@ -81,11 +83,11 @@ class TrikFixtures extends Fixture
                     $manager->persist($trick_history);
                 }
 
-                for ($k = 1; $k <= 3; $k++) {
+                for ($k = 1; $k <= 1; $k++) {
                     $trick_library = new TrickLibrary();
                     $trick_library->setTrick($trick)
-                                    ->setLien($faker->imageUrl(800, 600))
-                                    ->setType(3);
+                                    ->setLien($image)
+                                    ->setType(1);
                     $manager->persist($trick_library);
                 }
             }
