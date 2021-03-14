@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,20 +45,12 @@ class FrontController extends AbstractController
      * User profil
      *
      * @Route("/profil/{id}", name="profil")
-     * @param TrickRepository $repo
-     * @param CommentRepository $commentRepository
      * @return Response
      */
-    public function profil(TrickRepository $repo, CommentRepository $commentRepository)
+    public function profil()
     {
-        $user = $this->getUser();
-        $tricks = $repo->findBy(array("User" => $user), array('id' => 'DESC'));
-        $comments = $commentRepository->findBy(array("User" => $user), array('id' => 'DESC'));
-
         return $this->render('front/profil.html.twig', [
-            'title'         => "Bienvenue ".$user->getUsername()." sur le site de SnowTricks !",
-            'tricks'        => $tricks,
-            'comments'      => $comments
+            'title'         => "Bienvenue sur le site de SnowTricks !"
         ]);
     }
 }

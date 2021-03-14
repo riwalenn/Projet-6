@@ -31,7 +31,7 @@ class TrickLibrary
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\Choice({1, 2, 3})
+     * @Assert\Choice({1, 2})
      */
     private $type;
 

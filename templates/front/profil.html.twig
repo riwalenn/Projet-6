@@ -25,12 +25,12 @@
                                                 {% if(role == 'ROLE_ADMIN') %}
                                                     Admin et
                                                 {% else %}
-                                                    {% if( tricks | length > 0) %}
+                                                    {% if( app.user.users | length > 0) %}
                                                         Auteur
                                                     {% else %}
                                                         Utilisateur
                                                     {% endif %}
-                                                    {% if comments | length > 0 %}
+                                                    {% if app.user.comments | length > 0 %}
                                                         - contributeur
                                                     {% endif %}
                                                 {% endif %}
@@ -50,7 +50,7 @@
                                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
                                                role="tab" aria-controls="home" aria-selected="true">
                                                 <i class="fa fa-file">
-                                                    <span class="badge badge-info">{{ tricks | length }}</span>
+                                                    <span class="badge badge-info">{{ app.user.users | length }}</span>
                                                 </i>
                                             </a>
                                         </li>
@@ -58,7 +58,7 @@
                                             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile"
                                                role="tab" aria-controls="profile" aria-selected="false">
                                                 <i class="fa fa-comments">
-                                                    <span class="badge badge-info">{{ comments | length }}</span>
+                                                    <span class="badge badge-info">{{ app.user.comments | length }}</span>
                                                 </i>
                                             </a>
                                         </li>
@@ -73,9 +73,9 @@
                                                     <div class="col-md-12 offset-md-3">
                                                         <h4>Mes articles</h4>
                                                         <ul class="timeline posts">
-                                                            {% for trick in tricks %}
+                                                            {% for trick in app.user.users %}
                                                                 <li>
-                                                                    <a href="{{ path('trick_detail', {'id': trick.id}) }}">{{ trick.title | slice(0, 26) }}
+                                                                    <a href="{{ path('trick_detail', {'slug': trick.slug}) }}">{{ trick.title | slice(0, 26) }}
                                                                         ...</a>
                                                                     <p>
                                                                         <a href="#" class="float-right">{{ trick.createdAt | date('d/m/Y') }}</a><br>
@@ -94,7 +94,7 @@
                                                     <div class="col-md-12 offset-md-3">
                                                         <h4>Mes commentaires</h4>
                                                         <ul class="timeline comments">
-                                                            {% for comment in comments %}
+                                                            {% for comment in app.user.comments %}
                                                                 <li>
                                                                     <a href="#">{{ comment.title | slice(0,24) }}...</a>
                                                                     <p>

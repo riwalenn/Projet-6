@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=TrickRepository::class)
  * @UniqueEntity(
  *     fields={"title"},
- *     message="Le titre que vous avez indiqué est déjà utilisé !"
+ *     message="Le titre {{ value }} est déjà utilisé !"
  * )
  */
 class Trick
@@ -36,14 +36,14 @@ class Trick
      * @Assert\Length(
      *     min = 25,
      *     max = 255,
-     *     minMessage="Votre titre doit comporter un minimum de 5 caractères",
-     *     maxMessage="Votre titre doit comporter au maximum 100 caractères"
+     *     minMessage="Votre titre doit comporter un minimum de {{ limit }} caractères",
+     *     maxMessage="Votre titre doit comporter au maximum {{ limit }} caractères"
      * )
      */
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
     private $User;
