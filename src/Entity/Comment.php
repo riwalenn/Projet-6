@@ -33,8 +33,8 @@ class Comment
      * @Assert\Length(
      *     min = 10,
      *     max = 255,
-     *     minMessage="Votre titre doit contenir au minimum 10 caractères",
-     *     maxMessage="Votre titre ne doit pas dépasser 255 caractères"
+     *     minMessage="Votre titre doit contenir au minimum {{ limit }} caractères",
+     *     maxMessage="Votre titre ne doit pas dépasser {{ limit }} caractères"
      * )
      */
     private $title;
@@ -43,7 +43,7 @@ class Comment
      * @ORM\Column(type="text")
      * @Assert\Length(
      *     min = 30,
-     *     minMessage="Votre message doit contenir au minimum 40 caractères"
+     *     minMessage="Votre message doit contenir au minimum {{ limit }} caractères"
      * )
      */
     private $content;
