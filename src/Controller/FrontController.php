@@ -16,14 +16,11 @@ class FrontController extends AbstractController
      */
     public function home(TrickRepository $repository)
     {
-        $tricks = $repository->findTricksAndFirstMedia(0,3);
-        $totalTricks = count($repository->findAll());
-
         return $this->render('front/home.html.twig', [
-            'controller_name'   => 'FrontController',
             'title'             => "Bienvenue sur le site communautaire de SnowTricks !",
-            'totalTricks'       => $totalTricks,
-            'tricks'            => $tricks]);
+            'totalTricks'       => count($repository->findAll()),
+            'tricks'            => $repository->findTricksAndFirstMedia(0,3)
+        ]);
     }
 
     /**
@@ -36,9 +33,9 @@ class FrontController extends AbstractController
      */
     public function loadMore(TrickRepository $repository, int $limit = 3)
     {
-        $tricks = $repository->findTricksAndFirstMedia($limit,3);
-
-        return $this->render('front/tricks-more.html.twig', ['tricks' => $tricks]);
+        return $this->render('front/tricks-more.html.twig', [
+            'tricks' => $repository->findTricksAndFirstMedia($limit,3)
+        ]);
     }
 
     /**

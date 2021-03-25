@@ -37,16 +37,12 @@ class TrickController extends AbstractController
      */
     public function show(Trick $trick, CommentController $commentController, Request $request, PaginatorInterface $paginator, EntityManagerInterface $manager, TrickLibraryRepository $libraryRepository)
     {
-        $firstMedia = $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => 1), array('id'=> 'ASC'), 1, 0);
-        $pagination = $paginator->paginate($trick->getComments(), $request->query->getInt('page', 1), 4);
-        $form = $commentController->newComment($trick, $request, $manager);
-
         return $this->render('front/tricks-details.html.twig', [
             'title'             => $trick->getTitle(),
-            'firstMedia'        => $firstMedia,
-            'commentForm'       => $form,
+            'firstMedia'        => $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => 1), array('id'=> 'ASC'), 1, 0),
+            'commentForm'       => $commentController->newComment($trick, $request, $manager),
             'trick'             => $trick,
-            'pagination'        => $pagination
+            'pagination'        => $paginator->paginate($trick->getComments(), $request->query->getInt('page', 1), 4)
         ]);
     }
 

@@ -31,10 +31,6 @@ class BackController extends AbstractController
      */
     public function show(UserRepository $userRepo, TrickRepository $trickRepo, TrickLibraryRepository $libraryRepository, CommentRepository $commentRepo, Request $request, EntityManagerInterface $manager)
     {
-        $tricks = $trickRepo->findAll();
-        $users = $userRepo->findAll();
-        $comments = $commentRepo->findAll();
-        $itemslibrary = $libraryRepository->findAll();
         $user = new User();
         $form = $this->createForm(ChangeRoleType::class, $user);
         $form->handleRequest($request);
@@ -45,12 +41,11 @@ class BackController extends AbstractController
         }
 
         return $this->render('back/index.html.twig', [
-            'controller_name' => 'BackController',
             'userForm'        => $form->createView(),
-            'tricks'          => $tricks,
-            'users'           => $users,
-            'itemslibrary'    => $itemslibrary,
-            'comments'        => $comments,
+            'tricks'          => $trickRepo->findAll(),
+            'users'           => $userRepo->findAll(),
+            'itemslibrary'    => $libraryRepository->findAll(),
+            'comments'        => $commentRepo->findAll(),
             'lastMigration'   => $this->getLastMigrationVersion()]);
     }
 
