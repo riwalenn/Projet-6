@@ -39,7 +39,7 @@ function addNewFormVideo() {
     var cardBody = $("<div class='card-body alert alert-secondary row'></div>").append(newForm);
 
     card.append(cardBody);
-    addRemoveVideoBtn(card);
+    addRemoveVideoBtn(cardBody);
     addNewVideoBtn.before(card);
 
     var ids = $("[id^='trick_videos_']");
