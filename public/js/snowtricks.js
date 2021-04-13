@@ -24,35 +24,20 @@ function ConfirmDeconnexion() {
 }
 
 function seeMedia() {
-    $("#seeMedias").on("click", function (){
-       $(".tricks_medias .container").removeClass("d-none d-lg d-lg-block");
+    $("#seeMedias").on("click", function () {
+        $(".tricks_medias .container").removeClass("d-none d-lg d-lg-block");
     });
 }
 
-function addMedia(id) {
-    $("#add_trick_media"+id).modal();
+function confirmTrickDelete(id) {
+    $("#delete_trick_modal" + id).modal();
 }
 
-function editMedia(id) {
-    $("#edit_trick_media"+id).modal();
+function modifyRoleUser(id) {
+    $("#change_role_user" + id).modal();
 }
 
-function confirmMediaDelete(id){
-    $("#delete_media_modal"+id).modal();
-}
-
-function confirmFirstMediaDelete(id){
-    $("#delete_first_media"+id).modal();
-}
-
-function confirmTrickDelete(id){
-    $("#delete_trick_modal"+id).modal();
-}
-
-function modifyRoleUser(id){
-    $("#change_role_user"+id).modal();
-}
-function toggleInput() {
+/*function toggleInput() {
     var fieldLinks = $("fieldset.form-group.links");
     var fieldUpload = $("fieldset.form-group.upload");
     var checkImg = $("#typeImage");
@@ -73,4 +58,4 @@ function toggleInput() {
         checkLink.prop("checked", true);
         checkImg.prop("checked", false);
     }
-}
+}*/

@@ -44,4 +44,7 @@ class Constantes
         'nose slide' => 'nose slide',
         'tail slide' => 'tail slide'
     ];
+
+    const LIBRARY_IMAGE = 1;
+    const LIBRARY_VIDEO = 2;
 }

@@ -49,11 +49,6 @@ class Trick
     private $User;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
-
-    /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
@@ -104,12 +99,12 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity=TrickLibrary::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=TrickLibrary::class, mappedBy="trick", cascade={"persist"})
      */
     private $trickLibraries;
 
     /**
-     * @ORM\OneToMany(targetEntity=TrickHistory::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=TrickHistory::class, mappedBy="trick", cascade={"persist"})
      */
     private $trickHistories;
 
@@ -162,18 +157,6 @@ class Trick
     public function setUser(?User $User): self
     {
         $this->User = $User;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }

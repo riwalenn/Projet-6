@@ -25,39 +25,71 @@
                                 {% endfor %}
                                 {{ form_start(formTrick) }}
                                 <div class="form-group">
-                                    {{ form_row(formTrick.title, {'label': 'Titre', 'attr': {'placeholder': 'titre du trick...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'text', 'id': 'inputTitle'}) }}
+                                    {{ form_row(formTrick.title, {'type': 'text', 'id': 'inputTitle'}) }}
                                 </div>
                                 <div class="form-group">
-                                    {{ form_row(formTrick.description, {'label': 'Description', 'attr': {'placeholder': 'Description du trick...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'textarea', 'id': 'inputDescription'}) }}
+                                    {{ form_row(formTrick.description, {'type': 'textarea', 'id': 'inputDescription'}) }}
                                 </div>
                                 <div class="form-group">
-                                    {{ form_row(formTrick.position, {'label': 'Position', 'attr': {'placeholder': 'Position...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'text', 'id': 'inputPosition'}) }}
+                                    {{ form_row(formTrick.position, {'type': 'text', 'id': 'inputPosition'}) }}
                                 </div>
                                 <div class="form-group">
-                                    {{ form_row(formTrick.grabs, {'label': 'Grab', 'attr': {'placeholder': 'Grab...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'text', 'id': 'inputGrabs'}) }}
+                                    {{ form_row(formTrick.grabs, {'type': 'text', 'id': 'inputGrabs'}) }}
                                 </div>
                                 <div class="form-group">
-                                    {{ form_row(formTrick.rotation, {'label': 'Rotation', 'attr': {'placeholder': 'Rotation...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'text', 'id': 'inputRotation'}) }}
+                                    {{ form_row(formTrick.rotation, {'type': 'text', 'id': 'inputRotation'}) }}
                                 </div>
                                 <div class="form-group">
-                                    {{ form_row(formTrick.flip, {'label': 'Flip', 'attr': {'placeholder': 'Flip...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'text', 'id': 'inputFlip'}) }}
+                                    {{ form_row(formTrick.flip, {'type': 'text', 'id': 'inputFlip'}) }}
                                 </div>
                                 <div class="form-group">
-                                    {{ form_row(formTrick.slide, {'label': 'Slide', 'attr': {'placeholder': 'Slide...', 'aria-describedby': 'basic-addon3', 'class': 'form-control'}, 'type': 'text', 'id': 'inputSlide'}) }}
+                                    {{ form_row(formTrick.slide, {'type': 'text', 'id': 'inputSlide'}) }}
                                 </div>
-                                <div class="form-group">
-                                    <input type="hidden" name="MAX_FILES_SIZE" value="200000">
-                                    {{ form_row(formTrick.image, {'label': 'Image', 'attr': {'placeholder': 'Image...', 'aria-describedby': 'imageDownload', 'class': 'form-control'}, 'type': 'file', 'id': 'inputImage'}) }}
-                                    <small id="imageDownload" class="form-text text-muted">L'image doit être au format
-                                        800x600 et au format jpeg.</small>
+                                <div class="container">
+                                    <div class="accordion-option" id="title_videos_list">
+                                        <h4 class="title"><i class="fas fa-photo-video"></i> {{ mediasFormTitle }}</h4>
+                                        <a href="javascript:void(0)" class="toggle-accordion active" accordion-id="#accordion"></a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                        <i class="fas fa-caret-down"></i> {{ videosFormTitle }}
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="panel-body">
+                                                    <div class="form-group" id="videos_list" data-prototype="{{ form_widget(formTrick.videos.vars.prototype)|e }}">
+                                                        {% for video in formTrick.videos %}
+                                                            <div class="card border-light">
+                                                                <div class="card-body alert alert-secondary row">
+                                                                    {{ form_widget(video) }}
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingTwo">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                        <i class="fas fa-caret-down"></i> {{ imgFormTitle }}
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                                <div class="panel-body">
+                                                    <div class="form-group" id="images_list"><!-- code pour les images --></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary" style="margin-top: 1rem">
-                                    {% if editMode %}
-                                        Enregistrer les modifications
-                                    {% else %}
-                                        Ajouter l'article
-                                    {% endif %}
-                                </button>
                                 {{ form_end(formTrick) }}
                             </div>
                         </div>
