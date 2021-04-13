@@ -32,19 +32,18 @@ function addNewFormVideo() {
     var prototype = videosHolder.data("prototype");
     var index = videosHolder.data("index");
     var newForm = prototype;
+    var card = $("<div class='card border-light'></div>");
 
     newForm = newForm.replace(/__name__/g, index);
-
     videosHolder.data("index", index++);
-
-    var card = $("<div class='card border-light'></div>");
     var cardBody = $("<div class='card-body alert alert-secondary row'></div>").append(newForm);
 
     card.append(cardBody);
-
     addRemoveVideoBtn(card);
-
     addNewVideoBtn.before(card);
+
+    var ids = $("[id^='trick_videos_']");
+    ids.addClass("col-auto mr-auto");
 }
 
 addNewVideoBtn.click(function (e) {
@@ -53,25 +52,5 @@ addNewVideoBtn.click(function (e) {
 });
 
 /*      GESTION DES IMAGES DANS LA COLLECTION     */
-var imgHolder = $("#images_list");
 
-//ajouter une image
-var addNewImg = $("<a href='#images_list' class='btn btn-info'>Ajouter une image</a>");
-
-//supprimer une image
-function addRemoveImgButton(card) {
-    var removeButton = $("<a href='#images_list' class='btn btn-danger'><i class='fas fa-trash'></i></a>");
-    var removeDiv = $("<div class='col-1'></div>").append(removeButton);
-
-    removeButton.click(function (e) {
-
-    });
-
-    card.append(removeDiv);
-}
-
-imgHolder.find(".card-body").each(function () {
-    $("[id^='trick_images_']").addClass("col-10");
-    addRemoveImgButton($(this));
-});
 
