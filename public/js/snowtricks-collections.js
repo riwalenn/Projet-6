@@ -1,21 +1,31 @@
 /*      GESTION DES VIDEOS DANS LA COLLECTION     */
 var videosHolder = $("#videos_list");
-videosHolder.data('index', videosHolder.find('.card').length);
+videosHolder.data('index', videosHolder.find(".card").length);
 
 //ajouter une vidéo
-var addNewVideoBtn = $('<a href="#videos_list" class="btn btn-info" style="margin-top:1rem;">Ajouter une vidéo</a>');
+var addNewVideoBtn = $("<a href='#videos_list' class='btn btn-info' style='margin-top:1rem;'>Ajouter une vidéo</a>");
 videosHolder.append(addNewVideoBtn);
 
 //supprimer une vidéo
-videosHolder.find('.card-body').each(function () {
-    var ids = $("[id^='trick_videos_']");
-    ids.addClass('col-auto mr-auto');
-    addRemoveVideoBtn($(this));
-});
+function addRemoveVideoBtn(card) {
+    var removeBtn = $("<a href='#videos_list' class='btn btn-danger'><i class='fas fa-trash'></i></a>");
 
-addNewVideoBtn.click(function (e) {
-    e.preventDefault();
-    addNewFormVideo();
+    var removeDiv = $("<div class='col-auto'></div>").append(removeBtn);
+
+    removeBtn.click(function (e) {
+        $(e.target).parents(".card.border-light").slideUp(1000, function () {
+            e.preventDefault();
+            $(this).remove();
+        });
+    });
+
+    card.append(removeDiv);
+}
+
+videosHolder.find(".card-body").each(function () {
+    var ids = $("[id^='trick_videos_']");
+    ids.addClass("col-auto mr-auto");
+    addRemoveVideoBtn($(this));
 });
 
 function addNewFormVideo() {
@@ -37,37 +47,21 @@ function addNewFormVideo() {
     addNewVideoBtn.before(card);
 }
 
-function addRemoveVideoBtn(card) {
-    var removeBtn = $('<a href="#videos_list" class="btn btn-danger"><i class="fas fa-trash"></i></a>');
-
-    var removeDiv = $('<div class="col-auto"></div>').append(removeBtn);
-
-    removeBtn.click(function (e) {
-        $(e.target).parents('.card.border-light').slideUp(1000, function () {
-            e.preventDefault();
-            $(this).remove();
-        });
-    });
-
-    card.append(removeDiv);
-}
+addNewVideoBtn.click(function (e) {
+    e.preventDefault();
+    addNewFormVideo();
+});
 
 /*      GESTION DES IMAGES DANS LA COLLECTION     */
 var imgHolder = $("#images_list");
 
 //ajouter une image
-var addNewImg = $('<a href="#images_list" class="btn btn-info">Ajouter une image</a>');
+var addNewImg = $("<a href='#images_list' class='btn btn-info'>Ajouter une image</a>");
 
 //supprimer une image
-imgHolder.find('.card-body').each(function () {
-    $("[id^='trick_images_']").addClass('col-10');
-    addRemoveImgButton($(this));
-});
-
 function addRemoveImgButton(card) {
-    var removeButton = $('<a href="#images_list" class="btn btn-danger"><i class="fas fa-trash"></i></a>');
-
-    var removeDiv = $('<div class="col-1"></div>').append(removeButton);
+    var removeButton = $("<a href='#images_list' class='btn btn-danger'><i class='fas fa-trash'></i></a>");
+    var removeDiv = $("<div class='col-1'></div>").append(removeButton);
 
     removeButton.click(function (e) {
 
@@ -75,3 +69,9 @@ function addRemoveImgButton(card) {
 
     card.append(removeDiv);
 }
+
+imgHolder.find(".card-body").each(function () {
+    $("[id^='trick_images_']").addClass("col-10");
+    addRemoveImgButton($(this));
+});
+
