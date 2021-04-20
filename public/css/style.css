@@ -1066,6 +1066,10 @@ form > div label {
     opacity: 80%;
 }
 
+.card.border-light {
+    border: 0 transparent;
+}
+
 .form-label-group > input,
 .form-label-group > label {
     padding: var(--input-padding-y) var(--input-padding-x);

@@ -24,8 +24,7 @@ class VideoLibraryType extends AbstractType
                 ],
                 'label' => false
             ])
-            ->add('type', HiddenType::class, ['data' => Constantes::LIBRARY_VIDEO])
-        ;
+            ->add('type', HiddenType::class, ['data' => Constantes::LIBRARY_VIDEO]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

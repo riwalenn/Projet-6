@@ -48,7 +48,7 @@
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <img src="{{ asset('/img/default/snowtricks.jpg') }}" class="img-fluid" alt="">
+                            <img src="{{ asset('/img/default/default.jpg') }}" class="img-fluid" alt="">
                         {% endif %}
                     </div>
                     <div class="tricks-info">
@@ -69,7 +69,7 @@
                                 {% if trick.trickLibraries|length <= 3 %}
                                     <div class="col-lg-4 col-md-6 tricks-item more">
                                         <div class="tricks-wrap shadow">
-                                            <a onclick="addMedia('{{ trick.id }}')" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>
+                                            <a onclick="/*addMedia('{{ trick.id }}')*/" class="trick-link col-2 trash"><i class="fa fa-plus tricks-details"></i></a>
                                         </div>
                                     </div>
                                 {% endif %}
@@ -84,10 +84,10 @@
                                         {% endif %}
                                         <div class="tricks-links">
                                             {% if app.user %}
-                                                <a onclick="confirmMediaDelete('{{ library.id }}')"
+                                                {#<a onclick="confirmMediaDelete('{{ library.id }}')"
                                                    class="trick-link col-2 trash"><i class="fa fa-trash"></i></a>
                                                 <a onclick="editMedia('{{ library.id }}')" class="trick-link col-2 edit"><i
-                                                            class="fas fa-pencil-alt"></i></a>
+                                                            class="fas fa-pencil-alt"></i></a>#}
                                             {% endif %}
                                         </div>
                                     </div>
@@ -205,7 +205,8 @@
                 </div>
             </div>
         </div>
-        {% for library in trick.trickLibraries %}
+    {% endif %}
+        {#{% for library in trick.trickLibraries %}
             <div class="portfolio-modal modal fade" id="delete_media_modal{{ library.id }}" tabindex="-1" role="dialog"
                  aria-hidden="true">
                 <div class="modal-dialog">
@@ -241,8 +242,8 @@
                 </div>
             </div>
         {% endfor %}
-    {% endif %}
-    <div class="portfolio-modal modal fade" id="add_trick_media{{ trick.id }}" tabindex="-1" role="dialog"
+    {% endif %}#}
+    {#<div class="portfolio-modal modal fade" id="add_trick_media{{ trick.id }}" tabindex="-1" role="dialog"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content add-form">
@@ -295,8 +296,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    {% for library in trick.trickLibraries %}
+    </div>#}
+    {#{% for library in trick.trickLibraries %}
         <div class="portfolio-modal modal fade" id="edit_trick_media{{ library.id }}" tabindex="-1" role="dialog"
              aria-hidden="true">
             <div class="modal-dialog">
@@ -356,5 +357,5 @@
                 </div>
             </div>
         </div>
-    {% endfor %}
+    {% endfor %}#}
 {% endblock %}

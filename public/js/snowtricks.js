@@ -36,26 +36,3 @@ function confirmTrickDelete(id) {
 function modifyRoleUser(id) {
     $("#change_role_user" + id).modal();
 }
-
-/*function toggleInput() {
-    var fieldLinks = $("fieldset.form-group.links");
-    var fieldUpload = $("fieldset.form-group.upload");
-    var checkImg = $("#typeImage");
-    var checkLink = $("#typeImageUpload");
-
-    if (fieldLinks.attr("disabled")) {
-        fieldUpload.css("opacity", ".5");
-        fieldLinks.css("opacity", "1");
-        fieldLinks.prop("disabled", false);
-        fieldUpload.prop("disabled", true);
-        checkLink.prop("checked", false);
-        checkImg.prop("checked", true);
-    } else {
-        fieldLinks.css("opacity", ".5");
-        fieldUpload.css("opacity", "1");
-        fieldLinks.prop("disabled", true);
-        fieldUpload.prop("disabled", false);
-        checkLink.prop("checked", true);
-        checkImg.prop("checked", false);
-    }
-}*/

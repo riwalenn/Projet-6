@@ -94,29 +94,22 @@ class TrickType extends AbstractType
                 'required' => false,
                 'mapped' => false,
             ])
+            ->add('images', CollectionType::class, [
+                'entry_type' => ImageLibraryType::class,
+                'label' => false,
+                'attr' => ['class' => 'form-control'],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'delete_empty' => true,
+                'required' => false,
+                'mapped' => false,
+                ])
             ->add('Enregistrer', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary',
                     'style' => 'margin-top: 1rem'
                 ]
-            ])
-            /*->add('image', FileType::class, [
-                'label' => 'snowtricks-',
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/jpg',
-                            'image/jpeg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'Merci d\'upload un fichier jpg, jpeg ou png',
-                    ])
-                ],
-            ])*/
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
