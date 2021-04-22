@@ -1036,17 +1036,38 @@ ul.list-group.list-group-flush {
     margin-bottom: 0 !important;
 }
 
-.form-div {
-    width: 85%;
-}
-
-form > .form-group .form-div label {
+form > .form-group .form-div label,
+form > .form-div label,
+form > div label {
     font-weight: 600;
 }
 
 .form-label-group {
     position: relative;
     margin-bottom: 1rem;
+}
+
+#videos_list .card .card-body {
+    margin-bottom: 0;
+}
+
+#videos_list .card .card-body .form-div input {
+    margin-bottom: 0 !important;
+}
+
+#title_videos_list {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+#title_videos_list h4 {
+    color: rgb(103 176 209);
+    opacity: 80%;
+}
+
+.card.border-light {
+    border: 0 transparent;
 }
 
 .form-label-group > input,

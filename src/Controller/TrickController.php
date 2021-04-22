@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
-use App\Entity\TrickHistory;
-use App\Entity\TrickLibrary;
-use App\Form\TrickLibraryType;
 use App\Form\TrickType;
+use App\Framework\Constantes;
 use App\Repository\TrickLibraryRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
-use App\Service\SendMail;
+use App\Service\FileUploader;
+use App\Service\ImagesHelper;
 use App\Service\Slugify;
+use App\Service\TrickHelper;
+use App\Service\VideoHelper;
 use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,8 +20,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
-use FilesystemIterator;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 
 class TrickController extends AbstractController
@@ -33,13 +32,13 @@ class TrickController extends AbstractController
      * @param PaginatorInterface $paginator
      * @param EntityManagerInterface $manager
      * @param TrickLibraryRepository $libraryRepository
-     * @return RedirectResponse|Response
+     * @return Response
      */
     public function show(Trick $trick, CommentController $commentController, Request $request, PaginatorInterface $paginator, EntityManagerInterface $manager, TrickLibraryRepository $libraryRepository)
     {
         return $this->render('front/tricks-details.html.twig', [
             'title'             => $trick->getTitle(),
-            'firstMedia'        => $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => 1), array('id'=> 'ASC'), 1, 0),
+            'firstMedia'        => $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => Constantes::LIBRARY_IMAGE), array('id'=> 'ASC'), 1, 0),
             'commentForm'       => $commentController->newComment($trick, $request, $manager),
             'trick'             => $trick,
             'pagination'        => $paginator->paginate($trick->getComments(), $request->query->getInt('page', 1), 4)
@@ -55,15 +54,13 @@ class TrickController extends AbstractController
      * @return string
      * @throws NonUniqueResultException
      */
-    public function newTrick(TrickRepository $repository, Request $request, EntityManagerInterface $manager)
+    public function newTrick(TrickRepository $repository, Request $request, EntityManagerInterface $manager, FileUploader $fileUploader)
     {
         $trick = new Trick();
-        $library = new TrickLibrary();
         $user = $this->getUser();
         $form = $this->createForm(TrickType::class, $trick);
-        $formTrick = $this->createForm(TrickLibraryType::class);
-        $formTrick->handleRequest($request);
         $form->handleRequest($request);
+
         $serviceSlug = new Slugify();
         $title = $form->get('title')->getData();
         $slug = $serviceSlug->generateSlug($title);
@@ -79,178 +76,108 @@ class TrickController extends AbstractController
                 return $this->redirectToRoute('add_trick');
             }
             $this->addFlash('light', "Le trick a été créé avec succès !");
-
             $manager->persist($trick);
             $manager->flush();
 
-            $files = $form->get('image')->getData();
-            if (!empty($files)) {
-                $library->setLien($this->uploader($files));
-                $library->setType(1);$id_trick = $repository->find($trick->getId());
-                $library->setTrick($id_trick);
-
-                $manager->persist($library);
-                $manager->flush();
+            //ajout des vidéos à la collection
+            $videoHelper = new VideoHelper($trick, $manager);
+            $newVideos = $form->get('videos')->getData();
+            foreach ($newVideos as $video) {
+                $videoHelper->addVideos($video);
             }
 
+            //ajout d'images à la collection
+            $imageHelper = new ImagesHelper($trick, $manager);
+            $newImages = $form->get('images')->getData();
+            foreach ($newImages as $image) {
+                $imageHelper->addImages($image, $fileUploader);
+            }
             return $this->redirectToRoute('home');
         }
 
         return $this->render('front/tricks-form.html.twig', [
-            'title'         => "Ajouter un trick.",
-            'formTrick'     => $form->createView(),
-            'formLibrary'     => $formTrick->createView(),
-            'editMode'      => $trick->getId() !== null
+            'title'             => "Ajouter un trick.",
+            'formTrick'         => $form->createView(),
+            'mediasFormTitle'   => 'Ajouter / modifier / supprimer un média',
+            'videosFormTitle'   => 'Vidéos',
+            'imgFormTitle'      => 'Images',
+            'editMode'          => $trick->getId() !== null
         ]);
     }
 
     /**
      * @Route("/trick/{slug}/edit", name="edit_trick")
      *
-     * @param Trick|null $trick
+     * @param Trick $trick
      * @param TrickRepository $repository
+     * @param TrickLibraryRepository $libraryRepository
      * @param UserRepository $repo
      * @param Request $request
      * @param EntityManagerInterface $manager
-     * @return string
-     * @throws NonUniqueResultException
+     * @return RedirectResponse|Response
+     * @throws \Exception
      */
-    public function editTrick(Trick $trick, TrickRepository $repository, UserRepository $repo, Request $request, EntityManagerInterface $manager)
+    public function editTrick(Trick $trick, TrickRepository $repository, TrickLibraryRepository $libraryRepository, UserRepository $repo, Request $request, EntityManagerInterface $manager, FileUploader $fileUploader)
     {
-        $library = new TrickLibrary();
-        $user = $this->getUser();
         $form = $this->createForm(TrickType::class, $trick);
+        $videos = $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => Constantes::LIBRARY_VIDEO), array('id'=> 'ASC'));
+        $form->get('videos')->setData($videos);
+        $images = $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => Constantes::LIBRARY_IMAGE), array('id'=> 'ASC'));
+        $form->get('images')->setData($images);
         $form->handleRequest($request);
-        $serviceSlug = new Slugify();
-        $title = $form->get('title')->getData();
-        $slug = $serviceSlug->generateSlug($title);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $trick->setTitle($title);
-            $trick->setSlug($slug);
-            $id_trick = $repository->find($trick->getId());
-            $library->setTrick($id_trick);
-            $author = $repo->findOneByCriteria("username", $trick->getUser());
+            $serviceSlug = new Slugify();
+            $title = $form->get('title')->getData();
+            $slug = $serviceSlug->generateSlug($title);
+            $trick->setTitle($title)
+                  ->setSlug($slug);
+
+            //vérification de l'unicité
             $result = $repository->findOneBy(['slug' => $slug]);
             if (!empty($result) && $trick->getId() !== $result->getId()) {
                 $this->addFlash('danger', "Le trick existe déjà !");
                 return $this->redirectToRoute('edit_trick', array('slug'=> $trick->getSlug()));
             }
-            $trickHistory = new TrickHistory();
-            $trickHistory->setUser($user)
-                ->setTrick($trick)
-                ->setModifiedAt(new \DateTime());
-            $manager->persist($trickHistory);
-            if ($user->getId() !== $author->getId()) {
-                $serviceMail = new SendMail();
-                $serviceMail->alertAuthor($author, $trick);
+
+            //reset et ajout des vidéos à la collection
+            $videoHelper = new VideoHelper($trick, $manager);
+            $newVideos = $form->get('videos')->getData();
+            $videoHelper->deleteVideos($videos);
+            foreach ($newVideos as $video) {
+                $videoHelper->addVideos($video);
             }
+
+            //reset et ajout des images à la collection
+            $imageHelper = new ImagesHelper($trick, $manager);
+            $newImages = $form->get('images')->getData();
+            $imageHelper->deleteImages($images);
+            foreach ($newImages as $image) {
+                $imageHelper->addImages($image, $fileUploader);
+            }
+
+            //ajout date de modification => envoi email si contributeur != auteur
+            $user = $this->getUser();
+            $trickHelper = new TrickHelper($trick, $repo, $manager);
+            $trickHelper->addModifiedBy($user);
+
             $this->addFlash('light', "Le trick a été modifié avec succès !");
 
             $manager->persist($trick);
             $manager->flush();
-
-            $files = $form->get('image')->getData();
-            if (!empty($files)) {
-                $library->setLien($this->uploader($files));
-                $library->setType(1);$id_trick = $repository->find($trick->getId());
-                $library->setTrick($id_trick);
-
-                $manager->persist($library);
-                $manager->flush();
-            }
 
             return $this->redirectToRoute('home');
 
         }
 
         return $this->render('front/tricks-form.html.twig', [
-            'title'         => $trick->getTitle(),
-            'formTrick'     => $form->createView(),
-            'editMode'      => $trick->getId() !== null
+            'title'             => $trick->getTitle(),
+            'formTrick'         => $form->createView(),
+            'mediasFormTitle'   => 'Ajouter / modifier / supprimer un média',
+            'videosFormTitle'   => 'Vidéos',
+            'imgFormTitle'      => 'Images',
+            'editMode'          => $trick->getId() !== null
         ]);
-    }
-
-    /**
-     * @Route("/trick/{slug}/add/media/", name="add_media")
-     * @Route("/trick/{slug}/edit/media/{id_media}", name="edit_media")
-     * @param Request $request
-     * @param TrickLibraryRepository $repository
-     * @param Trick $trick
-     * @param EntityManagerInterface $manager
-     * @return RedirectResponse
-     */
-    public function addMedia(Request $request, TrickLibraryRepository $repository, Trick $trick, EntityManagerInterface $manager)
-    {
-        if (!$trick) {
-            $this->addFlash('danger', "Vous n'avez pas sélectionné de trick !");
-        }
-
-        $link = null;
-        $library = new TrickLibrary();
-        if (!empty($request->get('library_id'))) {
-            $library = $repository->findOneBy(array("id" => $request->get("library_id")));
-        }
-        if ($request->get('type') == 1 || (empty($request->get('type')))) {
-            $file = $request->files->get('file');
-            $link = $this->uploader($file);
-            $library->setLien($link);
-            $library->setType(1);
-
-        } else if ($request->get('type') == 2) {
-            $link = $request->get('lien');
-            $library->setLien($link);
-            $library->setType($request->get('type'));
-
-        } else {
-            $this->addFlash('danger', "Aucune image n'a été entrée !");
-        }
-
-        $library->setTrick($trick);
-        $manager->persist($library);
-        $manager->flush();
-        $this->addFlash('light', 'Le média a bien été ajouté !');
-        return $this->redirectToRoute('trick_detail', array('slug' => $trick->getSlug()));
-    }
-
-    /**
-     * Upload picture
-     *
-     * @param $file
-     * @return string
-     */
-    protected function uploader($file)
-    {
-        $listFiles = new FilesystemIterator('img/tricks', FilesystemIterator::SKIP_DOTS);
-        $count = iterator_count($listFiles);
-        $newFileId = $count + 1;
-        $newFileName = 'snowtricks-' . $newFileId . '.' . $file->guessExtension();
-
-        try {
-            $file->move($this->getParameter('imgTricks_directory'), $newFileName);
-        } catch (FileException $e) {
-            $this->addFlash('danger', "Un problème est survenu lors du téléchargement de l'image.");
-        }
-        return $newFileName;
-    }
-
-    /**
-     * Delete media picture on library trick
-     *
-     * @Route("/delete/media/{id}", name="delete_media")
-     * @param TrickLibrary $library
-     * @param EntityManagerInterface $manager
-     * @return RedirectResponse
-     */
-    public function deleteMedia(TrickLibrary $library, EntityManagerInterface $manager)
-    {
-        if (!$library){
-            $this->addFlash('danger', "Aucune image n'a été séléctionnée.");
-        }
-        $slug = $library->getTrick()->getSlug();
-        $manager->remove($library);
-        $manager->flush();
-        return $this->redirectToRoute('trick_detail', array('slug' => $slug));
     }
 
     /**

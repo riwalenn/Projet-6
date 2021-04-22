@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TrickLibraryRepository;
+use App\Framework\Constantes;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,7 +32,7 @@ class TrickLibrary
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\Choice({1, 2})
+     * @Assert\Choice({Constantes::LIBRARY_IMAGE, Constantes::LIBRARY_VIDEO})
      */
     private $type;
 
