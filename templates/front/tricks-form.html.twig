@@ -1,110 +1,133 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="container-fluid">
-        <div class="row no-gutter">
-            <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
-            <div class="col-md-8 col-lg-6">
-                <div class="login d-flex align-items-center py-5">
-                    <!-- REGISTRATION -->
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-9 col-lg-8 mx-auto">
-                                {% if editMode %}
-                                    <h3 class="login-heading mb-4">Modifier un trick</h3>
-                                {% else %}
-                                    <h3 class="login-heading mb-4">Ajouter un trick</h3>
-                                {% endif %}
-                                {% for label, messages in app.flashes %}
+    {% if app.user %}
+        <div class="container-fluid">
+            <div class="row no-gutter">
+                <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+                <div class="col-md-8 col-lg-6">
+                    <div class="login d-flex align-items-center py-5">
+                        <!-- REGISTRATION -->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-9 col-lg-8 mx-auto">
+                                    {% if editMode %}
+                                        <h3 class="login-heading mb-4">Modifier un trick</h3>
+                                    {% else %}
+                                        <h3 class="login-heading mb-4">Ajouter un trick</h3>
+                                    {% endif %}
+                                    {% for label, messages in app.flashes %}
+                                        <div class="container">
+                                            <div class="alert alert-{{ label }} mb-0">
+                                                {% for message in messages %}
+                                                    {{ message | raw }}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    {{ form_start(formTrick) }}
+                                    <div class="form-group">
+                                        {{ form_row(formTrick.title, {'type': 'text', 'id': 'inputTitle'}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(formTrick.description, {'type': 'textarea', 'id': 'inputDescription'}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(formTrick.position, {'type': 'text', 'id': 'inputPosition'}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(formTrick.grabs, {'type': 'text', 'id': 'inputGrabs'}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(formTrick.rotation, {'type': 'text', 'id': 'inputRotation'}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(formTrick.flip, {'type': 'text', 'id': 'inputFlip'}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(formTrick.slide, {'type': 'text', 'id': 'inputSlide'}) }}
+                                    </div>
                                     <div class="container">
-                                        <div class="alert alert-{{ label }} mb-0">
-                                            {% for message in messages %}
-                                                {{ message | raw }}
-                                            {% endfor %}
+                                        <div class="accordion-option" id="title_videos_list">
+                                            <h4 class="title"><i class="fas fa-photo-video"></i> {{ mediasFormTitle }}</h4>
+                                            <a href="javascript:void(0)" class="toggle-accordion active" accordion-id="#accordion"></a>
                                         </div>
-                                    </div>
-                                {% endfor %}
-                                {{ form_start(formTrick) }}
-                                <div class="form-group">
-                                    {{ form_row(formTrick.title, {'type': 'text', 'id': 'inputTitle'}) }}
-                                </div>
-                                <div class="form-group">
-                                    {{ form_row(formTrick.description, {'type': 'textarea', 'id': 'inputDescription'}) }}
-                                </div>
-                                <div class="form-group">
-                                    {{ form_row(formTrick.position, {'type': 'text', 'id': 'inputPosition'}) }}
-                                </div>
-                                <div class="form-group">
-                                    {{ form_row(formTrick.grabs, {'type': 'text', 'id': 'inputGrabs'}) }}
-                                </div>
-                                <div class="form-group">
-                                    {{ form_row(formTrick.rotation, {'type': 'text', 'id': 'inputRotation'}) }}
-                                </div>
-                                <div class="form-group">
-                                    {{ form_row(formTrick.flip, {'type': 'text', 'id': 'inputFlip'}) }}
-                                </div>
-                                <div class="form-group">
-                                    {{ form_row(formTrick.slide, {'type': 'text', 'id': 'inputSlide'}) }}
-                                </div>
-                                <div class="container">
-                                    <div class="accordion-option" id="title_videos_list">
-                                        <h4 class="title"><i class="fas fa-photo-video"></i> {{ mediasFormTitle }}</h4>
-                                        <a href="javascript:void(0)" class="toggle-accordion active" accordion-id="#accordion"></a>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingOne">
-                                                <h4 class="panel-title">
-                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                        <i class="fas fa-caret-down"></i> {{ videosFormTitle }}
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                                <div class="panel-body">
-                                                    <div class="form-group" id="videos_list" data-prototype="{{ form_widget(formTrick.videos.vars.prototype)|e }}">
-                                                        {% for video in formTrick.videos %}
-                                                            <div class="card border-light">
-                                                                <div class="card-body alert alert-secondary row">
-                                                                    {{ form_widget(video) }}
+                                        <div class="clearfix"></div>
+                                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingOne">
+                                                    <h4 class="panel-title">
+                                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                            <i class="fas fa-caret-down"></i> {{ videosFormTitle }}
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                    <div class="panel-body">
+                                                        <div class="form-group" id="videos_list" data-prototype="{{ form_widget(formTrick.videos.vars.prototype)|e }}">
+                                                            {% for video in formTrick.videos %}
+                                                                <div class="card border-light">
+                                                                    <div class="card-body alert alert-secondary row">
+                                                                        {{ form_widget(video) }}
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        {% endfor %}
+                                                            {% endfor %}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingTwo">
-                                                <h4 class="panel-title">
-                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                                        <i class="fas fa-caret-down"></i> {{ imgFormTitle }}
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
-                                                <div class="panel-body">
-                                                    <div class="form-group" id="images_list" data-prototype="{{ form_widget(formTrick.images.vars.prototype)|e }}">
-                                                        {% for image in formTrick.images %}
-                                                            <div class="card border-light">
-                                                                <div class="card-body alert alert-secondary row">
-                                                                    {{ form_widget(image) }}
-                                                                    <input type="hidden" class="inputHiddenImgLabel" value="{{ image.vars.value.lien }}">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingTwo">
+                                                    <h4 class="panel-title">
+                                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                            <i class="fas fa-caret-down"></i> {{ imgFormTitle }}
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                                    <div class="panel-body">
+                                                        <div class="form-group" id="images_list" data-prototype="{{ form_widget(formTrick.images.vars.prototype)|e }}">
+                                                            {% for image in formTrick.images %}
+                                                                <div class="card border-light">
+                                                                    <div class="card-body alert alert-secondary row">
+                                                                        {{ form_widget(image) }}
+                                                                        <input type="hidden" class="inputHiddenImgLabel" value="{{ image.vars.value.lien }}">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        {% endfor %}
+                                                            {% endfor %}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    {{ form_end(formTrick) }}
                                 </div>
-                                {{ form_end(formTrick) }}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="container-fluid">
+            <div class="row no-gutter">
+                <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+                <div class="col-md-8 col-lg-6">
+                    <div class="login d-flex align-items-center py-5">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-9 col-lg-8 mx-auto">
+                                    {% if editMode %}
+                                        <p>Vous devez être connecté pour modifier un trick.</p>
+                                    {% else %}
+                                        <p>Vous devez être connecté pour créer un nouveau trick.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
