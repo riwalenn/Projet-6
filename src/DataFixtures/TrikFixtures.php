@@ -7,7 +7,6 @@ use App\Entity\Trick;
 use App\Entity\TrickHistory;
 use App\Entity\TrickLibrary;
 use App\Entity\User;
-use Composer\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

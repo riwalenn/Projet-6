@@ -7,14 +7,11 @@ use App\Framework\Constantes;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 
 class TrickType extends AbstractType
 {
@@ -87,7 +84,6 @@ class TrickType extends AbstractType
             ->add('videos', CollectionType::class, [
                 'entry_type' => VideoLibraryType::class,
                 'label' => false,
-                'attr' => ['class' => 'form-control'],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'delete_empty' => true,
@@ -97,7 +93,6 @@ class TrickType extends AbstractType
             ->add('images', CollectionType::class, [
                 'entry_type' => ImageLibraryType::class,
                 'label' => false,
-                'attr' => ['class' => 'form-control'],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'delete_empty' => true,

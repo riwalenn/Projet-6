@@ -8,6 +8,7 @@ use App\Framework\Constantes;
 use App\Repository\TrickLibraryRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
 use App\Service\ImagesHelper;
 use App\Service\Slugify;
 use App\Service\TrickHelper;
@@ -53,7 +54,7 @@ class TrickController extends AbstractController
      * @return string
      * @throws NonUniqueResultException
      */
-    public function newTrick(TrickRepository $repository, Request $request, EntityManagerInterface $manager)
+    public function newTrick(TrickRepository $repository, Request $request, EntityManagerInterface $manager, FileUploader $fileUploader)
     {
         $trick = new Trick();
         $user = $this->getUser();
@@ -75,7 +76,6 @@ class TrickController extends AbstractController
                 return $this->redirectToRoute('add_trick');
             }
             $this->addFlash('light', "Le trick a été créé avec succès !");
-
             $manager->persist($trick);
             $manager->flush();
 
@@ -87,8 +87,11 @@ class TrickController extends AbstractController
             }
 
             //ajout d'images à la collection
-            //TODO::ajout images
-
+            $imageHelper = new ImagesHelper($trick, $manager);
+            $newImages = $form->get('images')->getData();
+            foreach ($newImages as $image) {
+                $imageHelper->addImages($image, $fileUploader);
+            }
             return $this->redirectToRoute('home');
         }
 
@@ -114,7 +117,7 @@ class TrickController extends AbstractController
      * @return RedirectResponse|Response
      * @throws \Exception
      */
-    public function editTrick(Trick $trick, TrickRepository $repository, TrickLibraryRepository $libraryRepository, UserRepository $repo, Request $request, EntityManagerInterface $manager)
+    public function editTrick(Trick $trick, TrickRepository $repository, TrickLibraryRepository $libraryRepository, UserRepository $repo, Request $request, EntityManagerInterface $manager, FileUploader $fileUploader)
     {
         $form = $this->createForm(TrickType::class, $trick);
         $videos = $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => Constantes::LIBRARY_VIDEO), array('id'=> 'ASC'));
@@ -150,7 +153,7 @@ class TrickController extends AbstractController
             $newImages = $form->get('images')->getData();
             $imageHelper->deleteImages($images);
             foreach ($newImages as $image) {
-                $imageHelper->addImages($image);
+                $imageHelper->addImages($image, $fileUploader);
             }
 
             //ajout date de modification => envoi email si contributeur != auteur

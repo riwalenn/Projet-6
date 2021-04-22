@@ -1,9 +1,8 @@
 <?php
 
-
 namespace App\Service;
 
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use App\Entity\TrickLibrary;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImagesHelper
@@ -18,35 +17,16 @@ class ImagesHelper
     }
 
     /**
-     * @param UploadedFile $file
-     * @return string
+     * @param $image
      */
-    function uploader($file)
-    {
-        $fileName = 'snowtricks-'.uniqid().'.'.$file->guessExtension();
-
-        try {
-            $file->move($this->getParameter('imgTricks_directory'), $fileName);
-        } catch (FileException $e) {
-            // ... handle exception if something happens during file upload
-        }
-
-        return $fileName;
-    }
-
-    /**
-     * @param $file
-     * @param $library
-     * @param $trick
-     * @param $manager
-     * @throws \Exception
-     */
-    function addImages($image)
+    function addImages(TrickLibrary $image, $fileUploader)
     {
         if ($image->getLien())
         {
-            $image->setLien($this->uploader($image));
             $image->setTrick($this->trick);
+            $fileName = 'snowtricks-'.uniqid().'.jpeg';
+            $uploadedFile = new UploadedFile($image->getLien(), $fileName);
+            $image->setLien($fileUploader->upload($uploadedFile));
             $this->manager->persist($image);
             $this->manager->flush();
         }
@@ -54,13 +34,15 @@ class ImagesHelper
 
     /**
      * @param $images
-     * @param $manager
      */
     function deleteImages($images)
     {
         foreach ($images as $image)
         {
             $this->manager->remove($image);
+            if ($image->getLien() !== null) {
+                unlink('../public/img/tricks/'.$image->getLien());
+            }
             $this->manager->flush();
         }
     }

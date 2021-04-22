@@ -3,6 +3,7 @@ exclude_paths:
   - '_UML/**/*'
   - 'bin/*'
   - 'config/**/*'
+  - 'config/preload.php'
   - 'migrations/*'
   - 'public/index.php'
   - 'public/.htaccess'

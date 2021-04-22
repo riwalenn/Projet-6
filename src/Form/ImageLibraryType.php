@@ -17,10 +17,9 @@ class ImageLibraryType extends AbstractType
     {
         $builder
             ->add('lien', FileType::class, [
-                'label' => 'Image : ',
-                'mapped' => false,
-                'required' => false, 'attr' => [
-                    'placeholder' => 'Image : ',
+                'label' => false,
+                'data_class' => null,
+                'attr' => [
                     'aria-describedby' => 'basic-addon3',
                     'class' => 'form-control',
                     'style' => 'margin-bottom: 1rem',
