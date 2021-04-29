@@ -58,7 +58,7 @@ class TrickLibrary
         return $this->lien;
     }
 
-    public function setLien(string $lien): self
+    public function setLien(?string $lien): self
     {
         $this->lien = $lien;
 

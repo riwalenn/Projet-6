@@ -89,8 +89,8 @@
                                                             {% for image in formTrick.images %}
                                                                 <div class="card border-light">
                                                                     <div class="card-body alert alert-secondary row">
+                                                                        <p><b>{{ image.vars.value.lien | slice(0, 24) }}...</b></p>
                                                                         {{ form_widget(image) }}
-                                                                        <input type="hidden" class="inputHiddenImgLabel" value="{{ image.vars.value.lien }}">
                                                                     </div>
                                                                 </div>
                                                             {% endfor %}

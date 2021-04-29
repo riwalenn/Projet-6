@@ -33,16 +33,16 @@ class ImagesHelper
     }
 
     /**
-     * @param $images
+     * @param $image
      */
     function deleteImages($images)
     {
-        foreach ($images as $image)
-        {
+        foreach ($images as $image) {
             $this->manager->remove($image);
-            if ($image->getLien() !== null) {
-                unlink('../public/img/tricks/'.$image->getLien());
+            if(file_exists('../public/img/tricks/' . $image->getLien())) {
+                unlink('../public/img/tricks/' . $image->getLien());
             }
+
             $this->manager->flush();
         }
     }

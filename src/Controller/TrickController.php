@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Entity\TrickLibrary;
 use App\Form\TrickType;
 use App\Framework\Constantes;
 use App\Repository\TrickLibraryRepository;
@@ -13,7 +14,6 @@ use App\Service\ImagesHelper;
 use App\Service\Slugify;
 use App\Service\TrickHelper;
 use App\Service\VideoHelper;
-use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -51,8 +51,8 @@ class TrickController extends AbstractController
      * @param TrickRepository $repository
      * @param Request $request
      * @param EntityManagerInterface $manager
-     * @return string
-     * @throws NonUniqueResultException
+     * @param FileUploader $fileUploader
+     * @return RedirectResponse|Response
      */
     public function newTrick(TrickRepository $repository, Request $request, EntityManagerInterface $manager, FileUploader $fileUploader)
     {
@@ -114,8 +114,8 @@ class TrickController extends AbstractController
      * @param UserRepository $repo
      * @param Request $request
      * @param EntityManagerInterface $manager
+     * @param FileUploader $fileUploader
      * @return RedirectResponse|Response
-     * @throws \Exception
      */
     public function editTrick(Trick $trick, TrickRepository $repository, TrickLibraryRepository $libraryRepository, UserRepository $repo, Request $request, EntityManagerInterface $manager, FileUploader $fileUploader)
     {
@@ -124,20 +124,22 @@ class TrickController extends AbstractController
         $form->get('videos')->setData($videos);
         $images = $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => Constantes::LIBRARY_IMAGE), array('id'=> 'ASC'));
         $form->get('images')->setData($images);
+        dump($form->get('images'));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($form);
             $serviceSlug = new Slugify();
             $title = $form->get('title')->getData();
             $slug = $serviceSlug->generateSlug($title);
             $trick->setTitle($title)
-                  ->setSlug($slug);
+                ->setSlug($slug);
 
             //vérification de l'unicité
             $result = $repository->findOneBy(['slug' => $slug]);
             if (!empty($result) && $trick->getId() !== $result->getId()) {
                 $this->addFlash('danger', "Le trick existe déjà !");
-                return $this->redirectToRoute('edit_trick', array('slug'=> $trick->getSlug()));
+                return $this->redirectToRoute('edit_trick', array('slug' => $trick->getSlug()));
             }
 
             //reset et ajout des vidéos à la collection
@@ -151,9 +153,13 @@ class TrickController extends AbstractController
             //reset et ajout des images à la collection
             $imageHelper = new ImagesHelper($trick, $manager);
             $newImages = $form->get('images')->getData();
-            $imageHelper->deleteImages($images);
+            dump($newImages);
+            //$imageHelper->deleteImages($images);
             foreach ($newImages as $image) {
-                $imageHelper->addImages($image, $fileUploader);
+                if ($image->getLien()) {
+                    dump($image);
+                    $imageHelper->addImages($image, $fileUploader);
+                }
             }
 
             //ajout date de modification => envoi email si contributeur != auteur
@@ -162,10 +168,8 @@ class TrickController extends AbstractController
             $trickHelper->addModifiedBy($user);
 
             $this->addFlash('light', "Le trick a été modifié avec succès !");
-
             $manager->persist($trick);
             $manager->flush();
-
             return $this->redirectToRoute('home');
 
         }
@@ -193,5 +197,20 @@ class TrickController extends AbstractController
         $manager->flush();
         $this->addFlash('success', 'Le trick a bien été supprimé !');
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("delete/media/{id}", name="delete_media")
+     *
+     * @param TrickLibrary $library
+     * @param EntityManagerInterface $manager
+     */
+    public function deleteMedia(TrickLibrary $library, TrickRepository $repository, EntityManagerInterface $manager)
+    {
+        $trick = $repository->findOneBy(array('id' => $library->getTrick()));
+        $manager->remove($library);
+        $manager->flush();
+        $this->addFlash('success', 'Le média a bien été supprimé !');
+        return $this->redirectToRoute('trick_detail', array('slug'=> $trick->getSlug()));
     }
 }
