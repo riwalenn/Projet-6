@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Entity\TrickLibrary;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImagesHelper
 {
@@ -21,12 +20,11 @@ class ImagesHelper
      */
     function addImages(TrickLibrary $image, $fileUploader)
     {
-        if ($image->getLien())
+        if ($image->getFile())
         {
             $image->setTrick($this->trick);
             $fileName = 'snowtricks-'.uniqid().'.jpeg';
-            $uploadedFile = new UploadedFile($image->getLien(), $fileName);
-            $image->setLien($fileUploader->upload($uploadedFile));
+            $image->setLien($fileUploader->upload($image->getFile(), $fileName));
             $this->manager->persist($image);
             $this->manager->flush();
         }
@@ -35,15 +33,29 @@ class ImagesHelper
     /**
      * @param $image
      */
-    function deleteImages($images)
+    function deleteImages($images, $newImages)
     {
         foreach ($images as $image) {
-            $this->manager->remove($image);
-            if(file_exists('../public/img/tricks/' . $image->getLien())) {
-                unlink('../public/img/tricks/' . $image->getLien());
+            $currentImageName = $image->getLien();
+
+            $keepImage = false;
+            // On recherche dans la liste des nouvelles images si les anciennes y sont.
+            foreach ($newImages as $currentNewImage) {
+                // Si c'est le cas, on sait qu'il ne faut pas les supprimer.
+                if ($currentImageName == $currentNewImage->getLien()) {
+                    $keepImage = true;
+                    break;
+                }
             }
 
-            $this->manager->flush();
+            // Sinon, on peut supprimer l'ancienne image.
+            if ($keepImage == false) {
+                $this->manager->remove($image);
+                if(file_exists('../public/img/tricks/' . $image->getLien())) {
+                    unlink('../public/img/tricks/' . $image->getLien());
+                }
+            }
         }
+        $this->manager->flush();
     }
 }

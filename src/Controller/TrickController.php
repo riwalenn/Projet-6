@@ -124,11 +124,9 @@ class TrickController extends AbstractController
         $form->get('videos')->setData($videos);
         $images = $libraryRepository->findBy(array('trick' => $trick->getId(), 'type' => Constantes::LIBRARY_IMAGE), array('id'=> 'ASC'));
         $form->get('images')->setData($images);
-        dump($form->get('images'));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form);
             $serviceSlug = new Slugify();
             $title = $form->get('title')->getData();
             $slug = $serviceSlug->generateSlug($title);
@@ -153,11 +151,9 @@ class TrickController extends AbstractController
             //reset et ajout des images à la collection
             $imageHelper = new ImagesHelper($trick, $manager);
             $newImages = $form->get('images')->getData();
-            dump($newImages);
-            //$imageHelper->deleteImages($images);
+            $imageHelper->deleteImages($images, $newImages);
             foreach ($newImages as $image) {
-                if ($image->getLien()) {
-                    dump($image);
+                if ($image->getFile()) {
                     $imageHelper->addImages($image, $fileUploader);
                 }
             }
