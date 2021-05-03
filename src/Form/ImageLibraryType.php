@@ -16,7 +16,7 @@ class ImageLibraryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lien', FileType::class, [
+            ->add('file', FileType::class, [
                 'label' => false,
                 'data_class' => null,
                 'attr' => [

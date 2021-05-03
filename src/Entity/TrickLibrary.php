@@ -36,6 +36,11 @@ class TrickLibrary
      */
     private $type;
 
+    /**
+     * @Assert\Image(mimeTypes={"image/jpeg", "image/jpg", "image/png"}, mimeTypesMessage="Format invalide")
+     */
+    private $file;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +79,17 @@ class TrickLibrary
     {
         $this->type = $type;
 
+        return $this;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($file): self
+    {
+        $this->file = $file;
         return $this;
     }
 }
