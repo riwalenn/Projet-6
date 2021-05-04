@@ -98,7 +98,7 @@ class TrickController extends AbstractController
         return $this->render('front/tricks-form.html.twig', [
             'title'             => "Ajouter un trick.",
             'formTrick'         => $form->createView(),
-            'mediasFormTitle'   => 'Ajouter / modifier / supprimer un média',
+            'mediasFormTitle'   => 'Gestion des médias',
             'videosFormTitle'   => 'Vidéos',
             'imgFormTitle'      => 'Images',
             'editMode'          => $trick->getId() !== null
@@ -173,7 +173,7 @@ class TrickController extends AbstractController
         return $this->render('front/tricks-form.html.twig', [
             'title'             => $trick->getTitle(),
             'formTrick'         => $form->createView(),
-            'mediasFormTitle'   => 'Ajouter / modifier / supprimer un média',
+            'mediasFormTitle'   => 'Gestion des médias',
             'videosFormTitle'   => 'Vidéos',
             'imgFormTitle'      => 'Images',
             'editMode'          => $trick->getId() !== null

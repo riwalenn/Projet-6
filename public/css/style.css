@@ -248,6 +248,29 @@ iframe {
     right: 15px;
 }
 
+.group-options {
+    padding-left: 0 !important;
+}
+
+.create-options {
+    padding-right: 5px;
+}
+
+#videos_list .card .card-body,
+#images_list .card .card-body {
+    margin-left: 2px;
+}
+
+#videos_list .card .card-body,
+#images_list .card .card-body.alert.alert-secondary.row {
+    margin-bottom: 0 !important;
+}
+
+#videos_list .card .card-body .form-div input,
+#images_list .card .card-body .form-div input{
+    margin-bottom: 0 !important;
+}
+
 @media (max-width: 1366px) {
     .nav-menu .drop-down .drop-down ul {
         left: -90%;
@@ -1247,7 +1270,25 @@ form > div label {
 
     .breadcrumbs h2,
     .tricks-comments h3 {
-        font-size: 17px;
+        font-size: 16px;
+    }
+
+    iframe {
+        width: 180px !important;
+        height: 135px !important;
+    }
+
+    i.fa.fa-plus.tricks-details {
+        font-size: 80px;
+        padding-bottom: 0;
+    }
+
+    .tricks_medias .tricks-item.more .tricks-wrap {
+        height: 135px;
+    }
+
+    h4 {
+        font-size: 1.2rem !important;
     }
 
     .blockquote-footer {

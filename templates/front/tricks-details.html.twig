@@ -80,7 +80,7 @@
                                         {% if library.type == 1 %}
                                             <img src="{{ asset('/img/tricks/' ~ library.lien) }}" class="img-fluid" alt="snowtricks">
                                         {% else %}
-                                            <iframe width="560" height="315" src="{{ library.lien }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            <iframe width="560" height="315" src="{{ library.lien }}" class="img-fluid" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                         {% endif %}
                                         <div class="tricks-links">
                                             {% if app.user %}
@@ -100,17 +100,20 @@
                     </div>
                 </section>
                 <div class="tricks-description">
-                    <h2>{{ trick.title }}</h2>
-                    {{ trick.description | raw }}
-                    <span class="trick-info">
-                        {{ "créé le " ~trick.createdAt|date('d/m/Y à H:i')~ " - groupes : " }}<ul class="list-inline">
-                            <li class="list-inline-item">position : {{ trick.position }} </li>
-                            <li class="list-inline-item">grabs : {{ trick.grabs }} </li>
-                            <li class="list-inline-item">rotation : {{ trick.rotation }} </li>
-                            <li class="list-inline-item">flip : {{ trick.flip }} </li>
-                            <li class="list-inline-item">slide : {{ trick.slide }}</li>
-                        </ul>
-                    </span>
+                    <div class="trick-info row">
+                        <h2>{{ trick.title }}</h2>
+                        <div class="col-12">{{ trick.description | raw }}</div>
+                        <div class="col-12 col-sm-6 col-lg-auto create-options">{{ "créé le " ~trick.createdAt|date('d/m/Y à H:i')~ " - groupes : " }}</div>
+                        <div class="col-12 col-sm-auto col-lg-auto group-options">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">position : {{ trick.position }} </li>
+                                <li class="list-inline-item">grabs : {{ trick.grabs }} </li>
+                                <li class="list-inline-item">rotation : {{ trick.rotation }} </li>
+                                <li class="list-inline-item">flip : {{ trick.flip }} </li>
+                                <li class="list-inline-item">slide : {{ trick.slide }}</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <!-- ======= Trick history Section ======= -->
                 <div class="tricks-description">

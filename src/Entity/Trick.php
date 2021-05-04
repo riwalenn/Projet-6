@@ -94,7 +94,7 @@ class Trick
     private $created_at;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="Trick")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="Trick", cascade={"persist"})
      */
     private $comments;
 
