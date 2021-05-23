@@ -30,17 +30,11 @@ class TrickHelper
     function addModifiedBy($user)
     {
         $trickHistory = new TrickHistory();
-        $author = $this->repository->findOneByCriteria("username", $this->trick->getUser());
         $trickHistory->setUser($user)
             ->setModifiedAt(new \DateTime())
             ->setTrick($this->trick);
 
         $this->manager->persist($trickHistory);
         $this->manager->flush();
-
-        if ($user->getId() !== $author->getId()) {
-            $serviceMail = new SendMail();
-            $serviceMail->alertAuthor($author, $this->trick);
-        }
     }
 }
