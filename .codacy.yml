@@ -8,6 +8,7 @@ exclude_paths:
   - 'public/index.php'
   - 'public/.htaccess'
   - 'public/js/aos.js'
+  - 'public/js/bootstrap-accordion.js'
   - 'public/js/bootstrap.bundle.js'
   - 'public/js/bootstrap.bundle.min.js'
   - 'public/js/bootstrap.js'
