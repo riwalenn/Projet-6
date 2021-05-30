@@ -1,115 +1,120 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <!-- ======= Hero Section ======= -->
-    <section id="hero">
-        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-            {# <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4"> #}
-            <source src="{{ asset('video/snowboarding.mp4') }}" type="video/mp4">
-        </video>
-        <div class="container h-100 hero-container" data-aos="fade-up">
-            <div class="d-flex h-100 text-center align-items-center">
-                <div class="w-100 text-white">
-                    <h1>Partagez vos tricks avec les autres !</h1>
-                    <a href="#tricks" class="btn-get-started scrollto"><i class="bx bx-chevrons-down"></i></a>
-                </div>
-            </div>
-            {% for label, messages in app.flashes %}
-                <div class="container">
-                    <div class="alert alert-{{ label }} mb-0" style="opacity: 0.7">
-                        {% for message in messages %}
-                            {{ message | raw }}
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </section><!-- End Hero -->
-    <main id="main">
-        <!-- ======= Tricks Section ======= -->
-        <section id="tricks" class="tricks">
-            <div class="container">
-                <div class="row tricks-container" data-aos="fade-up">
-                    {% for trick in tricks %}
-                        <div class="col-lg-4 col-md-6 tricks-item">
-                            <div class="tricks-wrap shadow">
-                                {% if(trick.tl_lien) %}
-                                    <img src="{{ asset('/img/tricks/' ~ trick.tl_lien) }}" class="img-fluid"
-                                         alt="{{ trick.t_title }}">
-                                {% else %}
-                                    <img src="{{ asset('/img/default/default.jpg') }}" class="img-fluid"
-                                         alt="snowtrick">
-                                {% endif %}
-                                <div class="tricks-links">
-                                    {% if not app.user %}
-                                        <a href="{{ path('trick_detail', {'slug': trick.t_slug}) }}" title="More Details"
-                                           class="trick-link col-12">{{ trick.t_title | slice(0, 24) }}...</a>
-                                    {% else %}
-                                        <a href="{{ path('trick_detail', {'slug': trick.t_slug}) }}" title="More Details"
-                                           class="trick-link col-8">{{ trick.t_title | slice(0, 14) }}...</a>
-                                        <a href="{{ path('edit_trick', {'slug': trick.t_slug}) }}" class="trick-link col-2"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                        <a onclick="confirmTrickDelete('{{ trick.t_id }}')" class="trick-link col-2 trash"><i
-                                                    class="fa fa-trash"></i></a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="row">
-                    <div class="col-12 text-center">
-                        {% if tricks %}
-                            <button id="moreTricks" class="btn btn-primary">Voir plus de tricks</button>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </section><!-- End Tricks Section -->
-    </main><!-- End #main -->
-    <a href="#tricks" class="back-to-top"><i class="icofont-simple-up"></i></a>
-    {% if app.user %}
-        {% for trick in tricks %}
-            <div class="portfolio-modal modal fade" id="delete_trick_modal{{ trick.t_id }}" tabindex="-1" role="dialog"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="close-modal" data-dismiss="modal">
-                            <div class="lr">
-                                <div class="rl"></div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-8 mx-auto">
-                                    <div class="modal-body">
-                                        <p>Souhaitez-vous vraiment supprimer le trick ayant le titre : {{ trick.t_title }}
-                                            ?</p>
-                                        <form action="{{ path('delete_trick', {'id': trick.t_id}) }}" method="post">
-                                            <input type="hidden" id="inputId" name="deleteTrick[id]"
-                                                   value="{{ trick.t_id }}">
-                                            <div class="buttons">
-                                                <button type="submit" class="btn btn-outline-danger" value="delete"
-                                                        onclick="">Supprimer
-                                                </button>
-                                                <button class="btn btn-outline-primary" data-dismiss="modal"
-                                                        type="button"><i class="fa fa-times"></i>Annuler
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
+   <div id="luxy">
+       <!-- ======= Hero Section ======= -->
+       <section id="hero">
+           <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+               {# <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4"> #}
+               <source src="{{ asset('video/snowboarding.mp4') }}" type="video/mp4">
+           </video>
+           <div class="container h-100 hero-container" data-aos="fade-up">
+               <div class="d-flex h-100 text-center align-items-center">
+                   <div class="w-100 text-white">
+                       <h1>Partagez vos tricks avec les autres !</h1>
+                       <a href="#tricks" class="btn-get-started scrollto"><i class="bx bx-chevrons-down"></i></a>
+                   </div>
+               </div>
+               {% for label, messages in app.flashes %}
+                   <div class="container">
+                       <div class="alert alert-{{ label }} mb-0" style="opacity: 0.7">
+                           {% for message in messages %}
+                               {{ message | raw }}
+                           {% endfor %}
+                       </div>
+                   </div>
+               {% endfor %}
+           </div>
+       </section><!-- End Hero -->
+       <main id="main">
+           <!-- ======= Tricks Section ======= -->
+           <section id="tricks" class="tricks">
+               <div class="container">
+                   <div class="row tricks-container" data-aos="fade-up">
+                       {% for trick in tricks %}
+                           <div class="col-lg-4 col-md-6 tricks-item">
+                               <div class="tricks-wrap shadow">
+                                   {% if(trick.tl_lien) %}
+                                       <img src="{{ asset('/img/tricks/' ~ trick.tl_lien) }}" class="img-fluid"
+                                            alt="{{ trick.t_title }}">
+                                   {% else %}
+                                       <img src="{{ asset('/img/default/default.jpg') }}" class="img-fluid"
+                                            alt="snowtrick">
+                                   {% endif %}
+                                   <div class="tricks-links">
+                                       {% if not app.user %}
+                                           <a href="{{ path('trick_detail', {'slug': trick.t_slug}) }}" title="More Details"
+                                              class="trick-link col-12">{{ trick.t_title | slice(0, 24) }}...</a>
+                                       {% else %}
+                                           <a href="{{ path('trick_detail', {'slug': trick.t_slug}) }}" title="More Details"
+                                              class="trick-link col-8">{{ trick.t_title | slice(0, 14) }}...</a>
+                                           <a href="{{ path('edit_trick', {'slug': trick.t_slug}) }}" class="trick-link col-2"><i
+                                                       class="fas fa-pencil-alt"></i></a>
+                                           <a onclick="confirmTrickDelete('{{ trick.t_id }}')" class="trick-link col-2 trash"><i
+                                                       class="fa fa-trash"></i></a>
+                                       {% endif %}
+                                   </div>
+                               </div>
+                           </div>
+                       {% endfor %}
+                   </div>
+                   <div class="row">
+                       <div class="col-12 text-center">
+                           {% if tricks %}
+                               <button id="moreTricks" class="btn btn-primary">Voir plus de tricks</button>
+                           {% endif %}
+                       </div>
+                   </div>
+               </div>
+           </section><!-- End Tricks Section -->
+       </main><!-- End #main -->
+       <a href="#tricks" class="back-to-top"><i class="icofont-simple-up"></i></a>
+       {% if app.user %}
+           {% for trick in tricks %}
+               <div class="portfolio-modal modal fade" id="delete_trick_modal{{ trick.t_id }}" tabindex="-1" role="dialog"
+                    aria-hidden="true">
+                   <div class="modal-dialog">
+                       <div class="modal-content">
+                           <div class="close-modal" data-dismiss="modal">
+                               <div class="lr">
+                                   <div class="rl"></div>
+                               </div>
+                           </div>
+                           <div class="container">
+                               <div class="row">
+                                   <div class="col-lg-8 mx-auto">
+                                       <div class="modal-body">
+                                           <p>Souhaitez-vous vraiment supprimer le trick ayant le titre : {{ trick.t_title }}
+                                               ?</p>
+                                           <form action="{{ path('delete_trick', {'id': trick.t_id}) }}" method="post">
+                                               <input type="hidden" id="inputId" name="deleteTrick[id]"
+                                                      value="{{ trick.t_id }}">
+                                               <div class="buttons">
+                                                   <button type="submit" class="btn btn-outline-danger" value="delete"
+                                                           onclick="">Supprimer
+                                                   </button>
+                                                   <button class="btn btn-outline-primary" data-dismiss="modal"
+                                                           type="button"><i class="fa fa-times"></i>Annuler
+                                                   </button>
+                                               </div>
+                                           </form>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           {% endfor %}
+       {% endif %}
+   </div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    <script charset="utf-8">
+        luxy.init();
+    </script>
     <script>
         var counter = 0;
 
