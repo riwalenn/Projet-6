@@ -16,7 +16,6 @@ class TrickEntityTest extends KernelTestCase
         return (new Trick())
             ->setUser(new User())
             ->setTitle("regular sad 180° back flip perpendiculaire")
-            ->setImage("snowtricks-4.jpeg")
             ->setDescription("Lorem Ipsum is simply dummy text of the printing...")
             ->setPosition("regular")
             ->setGrabs("sad")

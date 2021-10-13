@@ -48,7 +48,7 @@ class TrikFixtures extends Fixture
                 $rotation = array_rand(array_flip($arrayFakeTerms[2]));
                 $flip = array_rand(array_flip($arrayFakeTerms[3]));
                 $slide = array_rand(array_flip($arrayFakeTerms[4]));
-                $content = '<p>' . join($faker->paragraphs(2), '</p><p>') . '</p>';
+                $content = $faker->paragraphs(2, true);
                 $title = $position. ' ' . $grabs . ' à ' . $rotation . '° ' . $flip . ' ' . $slide;
                 $slug = $position.'-'.$grabs.'-'.$rotation.'-'.$flip.'-'.$slide;
 
