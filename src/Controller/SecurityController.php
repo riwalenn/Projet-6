@@ -176,7 +176,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/connexion", name="security_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils)
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -190,5 +190,8 @@ class SecurityController extends AbstractController
     /**
      * @Route("/deconnexion", name="security_logout")
      */
-    public function logout() {}
+    public function logout() {
+        // controller can be blank: it will never be called!
+        throw new \Exception('Don\'t forget to activate logout in security.yaml');
+    }
 }

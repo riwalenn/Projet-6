@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -16,32 +18,32 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     message="L'email {{ value }} est déjà utilisée !"
  * )
  */
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $username;
+    private ?string $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire {{ limit }} caractères minimum.")
      */
-    private $password;
+    private ?string $password;
 
     /**
      * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de passe !")
@@ -51,53 +53,47 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="integer", length=255)
      */
-    private $image;
+    private ?int $image;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true, nullable=true)
      */
-    private $token;
+    private ?string $token;
 
     /**
      * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="User")
      */
-    private $users;
+    private ArrayCollection $users;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $created_at;
+    private DateTime $created_at;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_active;
+    private ?bool $is_active;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="User")
      */
-    private $comments;
+    private Comment $comment;
 
     /**
      * @ORM\OneToMany(targetEntity=TrickHistory::class, mappedBy="user")
      */
-    private $trickHistories;
+    private TrickHistory $trickHistories;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="array")
      */
-    private $roles = [];
-    const ROLES = [
-        'Utilisateur' => 'ROLE_USER',
-        'Administrateur' => 'ROLE_ADMIN',
-    ];
+    private array $roles = [];
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
-        $this->comments = new ArrayCollection();
-        $this->trickHistories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -228,18 +224,17 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Comment[]
+     * @return Comment
      */
-    public function getComments(): Collection
+    public function getComments(): Comment
     {
         return $this->comments;
     }
 
     public function addComment(Comment $comment): self
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setUser($this);
+        if (!$this->comment->contains($comment)) {
+            $this->comment[] = $comment;
         }
 
         return $this;
@@ -247,8 +242,8 @@ class User implements UserInterface
 
     public function removeComment(Comment $comment): self
     {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
+        if ($this->comment->contains($comment)) {
+            $this->comment->removeElement($comment);
             // set the owning side to null (unless already changed)
             if ($comment->getUser() === $this) {
                 $comment->setUser(null);
@@ -259,9 +254,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|TrickHistory[]
+     * @return TrickHistory
      */
-    public function getTrickHistories(): Collection
+    public function getTrickHistories(): TrickHistory
     {
         return $this->trickHistories;
     }
@@ -291,18 +286,22 @@ class User implements UserInterface
 
     public function getSalt()
     {
+        return null;
     }
 
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
         $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
         return $this;
     }
 
