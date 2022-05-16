@@ -6,8 +6,8 @@ EN - Projet n°6 created for OpenClassrooms and Backend path.
 
 ## Built With
 
-* [PHP 7.4.9]
-* [Symfony 5.1.11], [Symfony 5.2.3 - release]
+* [PHP 8.1]
+* [Symfony 6.0.8]
 * [Bootstrap 4.5.2]
 * [Squadfree](https://bootstrapmade.com/demo/Squadfree/) - template
 
@@ -17,10 +17,10 @@ You need a web development environment like WampServer (for Windows), MAMP (for 
 - Clone the project code : "git clone https://github.com/riwalenn/snowtricks.git"
 - Go to the console and write "composer install" where you want to have the project
 - Open the .env file and change the database connection values on line 32 like "DATABASE_URL=mysql://root:@127.0.0.1:3306/oc_projets_n6?serverVersion=5.7.19" for me.
-- Return to the console and write "php bin/console doctrine:database:create"
-- "php bin/console doctrine:migrations:migrate"
-- To have some initial dataset : "php bin/console doctrine:fixtures:load"
-- Run the application with "php -S localhost:8000 -t public"
+- Return to the console and write "symfony console doctrine:database:create"
+- "symfony console doctrine:migrations:migrate"
+- To have some initial dataset : "symfony console doctrine:fixtures:load"
+- Run the application with "symfony server:start"
 - If you want an admin account go to your database then write this sql request : "INSERT INTO `user` (`id`, `username`, `email`, `password`, `image`, `token`, `created_at`, `is_active`, `roles`) VALUES (99, 'Admin', 'admin@gmail.com', '$2y$13$eEY38DakHa/VwoHNx/xlHu.PlViXkvnGEH0lLXtc2QmxFDhBBC6li', '5', NULL, NULL, 1, '[\"ROLE_ADMIN\"]')"
 - Then go to the login page (Connexion) :
     - admin@gmail.com (as email)
